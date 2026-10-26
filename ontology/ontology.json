@@ -1,0 +1,432 @@
+{
+  "name": "FlotationKnowledgeTree",
+  "entity_types": [
+    {
+      "name": "RawOre",
+      "description": "ore, minerals and feed characteristics (grade, particle size)"
+    },
+    {
+      "name": "ProcessStage",
+      "description": "flotation stage: fast roughing, roughing, scavenging, cleaning"
+    },
+    {
+      "name": "Equipment",
+      "description": "cells, agitators, pumps, scrapers, blowers, sensors"
+    },
+    {
+      "name": "Parameter",
+      "description": "process/operating parameters and froth indicators (pH, pulp concentration, aeration rate, froth depth, foam colour)"
+    },
+    {
+      "name": "Reagent",
+      "description": "collectors, frothers, activators, depressants, regulators"
+    },
+    {
+      "name": "Product",
+      "description": "concentrate, tailing and product quality/output indicators (grade, recovery, efficiency)"
+    }
+  ],
+  "relation_types": [
+    {
+      "name": "affects",
+      "description": "A influences B without a stated direction"
+    },
+    {
+      "name": "increases",
+      "description": "A raises / improves B"
+    },
+    {
+      "name": "decreases",
+      "description": "A lowers / reduces B"
+    },
+    {
+      "name": "keeps",
+      "description": "A holds B constant / stable"
+    },
+    {
+      "name": "causes",
+      "description": "A leads to / results in B"
+    },
+    {
+      "name": "uses",
+      "description": "A uses / is dosed with / is added to B"
+    },
+    {
+      "name": "produces",
+      "description": "A yields / generates B"
+    },
+    {
+      "name": "follows",
+      "description": "A comes after / flows into B in the process"
+    },
+    {
+      "name": "has_property",
+      "description": "A has attribute / state / location B"
+    }
+  ],
+  "relation_constraints": {
+    "uses": {
+      "subject_types": ["ProcessStage", "Equipment"],
+      "object_types": ["Reagent", "Equipment", "Parameter"]
+    },
+    "produces": {
+      "subject_types": ["ProcessStage", "Equipment"],
+      "object_types": ["Product", "RawOre"]
+    },
+    "follows": {
+      "subject_types": ["ProcessStage"],
+      "object_types": ["ProcessStage"]
+    }
+  },
+  "graph_schema": {
+    "node_required_properties": ["id", "name", "kind", "type"],
+    "relationship_required_properties": ["source", "target", "type"],
+    "provenance_properties": [
+      "source_file", "page_number", "row_number", "duplicate_page_numbers", "duplicate_row_numbers",
+      "section", "evidence", "unit_id"
+    ],
+    "node_property_types": {
+      "id": "string",
+      "name": "string",
+      "kind": "string",
+      "type": "string",
+      "level": "string",
+      "url": "string"
+    },
+    "relationship_property_types": {
+      "source": "string",
+      "target": "string",
+      "type": "string",
+      "kind": "string",
+      "text": "string",
+      "doc": "string",
+      "modality": "string",
+      "source_file": "string",
+      "page_number": "integer",
+      "row_number": "integer",
+      "duplicate_page_numbers": "integer_list",
+      "duplicate_row_numbers": "integer_list",
+      "section": "string",
+      "unit_id": "string",
+      "evidence": "string_list",
+      "source_evidence": "string",
+      "provenance": "string_list"
+    }
+  },
+  "type_to_node": {
+    "RawOre": "RawOre",
+    "ProcessStage": "FrothFlotation",
+    "Equipment": "FrothFlotation",
+    "Parameter": "FrothFlotation",
+    "Reagent": "FrothFlotation",
+    "Product": "Concentrate"
+  },
+  "core_stages": [
+    "FastRoughing",
+    "Roughing",
+    "Scavenging",
+    "Cleaning"
+  ],
+  "standard_path": [
+    "RawOre",
+    "FastRoughing",
+    "Roughing",
+    "Scavenging",
+    "Cleaning",
+    "Concentrate"
+  ],
+  "attributes": {
+    "root": [
+      "MineralComposition",
+      "ParticleSizeDistribution"
+    ],
+    "stage": [
+      "ProcessStageType",
+      "EquipmentType",
+      "ProcessParameters"
+    ],
+    "leaf": [
+      "ProductQuality",
+      "ProductionOutput"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "FrothFlotation",
+      "label": "Froth Flotation",
+      "level": "root",
+      "cls": "FlotationProcess",
+      "aliases": [
+        "froth flotation",
+        "flotation process",
+        "flotation plant",
+        "flotation circuit",
+        "flotation"
+      ],
+      "attributes": [
+        "ProcessOverview"
+      ]
+    },
+    {
+      "id": "RawOre",
+      "label": "Raw Ore",
+      "level": "root",
+      "cls": "RawOreCategory",
+      "aliases": [
+        "raw ore",
+        "ore feed",
+        "feed ore",
+        "lead-zinc ore",
+        "galena",
+        "sphalerite",
+        "pyrite",
+        "ore",
+        "feed grade",
+        "particle size",
+        "grinding fineness",
+        "mineral composition"
+      ],
+      "attributes": [
+        "MineralComposition",
+        "ParticleSizeDistribution"
+      ]
+    },
+    {
+      "id": "FastRoughing",
+      "label": "Fast Roughing",
+      "level": "stage",
+      "cls": "FastRoughingCategory",
+      "aliases": [
+        "fast roughing",
+        "flash flotation",
+        "quick roughing"
+      ],
+      "attributes": [
+        "ProcessStageType",
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "Roughing",
+      "label": "Roughing",
+      "level": "stage",
+      "cls": "RoughingCategory",
+      "aliases": [
+        "roughing",
+        "rougher"
+      ],
+      "attributes": [
+        "ProcessStageType",
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "Scavenging",
+      "label": "Scavenging",
+      "level": "stage",
+      "cls": "ScavengingCategory",
+      "aliases": [
+        "scavenging",
+        "scavenger"
+      ],
+      "attributes": [
+        "ProcessStageType",
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "Cleaning",
+      "label": "Cleaning",
+      "level": "stage",
+      "cls": "CleaningCategory",
+      "aliases": [
+        "cleaning",
+        "cleaner",
+        "cleaner flotation"
+      ],
+      "attributes": [
+        "ProcessStageType",
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "Concentrate",
+      "label": "Concentrate",
+      "level": "leaf",
+      "cls": "ConcentrateCategory",
+      "aliases": [
+        "concentrate",
+        "concentrate grade",
+        "recovery",
+        "recovery rate",
+        "froth product"
+      ],
+      "attributes": [
+        "ProductQuality",
+        "ProductionOutput"
+      ]
+    },
+    {
+      "id": "Tailing",
+      "label": "Tailing",
+      "level": "leaf",
+      "cls": "TailingCategory",
+      "aliases": [
+        "tailing",
+        "tailings",
+        "tailing grade",
+        "underflow"
+      ],
+      "attributes": [
+        "ProductQuality",
+        "ProductionOutput"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "FrothFlotation",
+      "target": "RawOre",
+      "type": "HAS_INPUT_DOWN"
+    },
+    {
+      "source": "RawOre",
+      "target": "FrothFlotation",
+      "type": "HAS_INPUT_UP"
+    },
+    {
+      "source": "FrothFlotation",
+      "target": "FastRoughing",
+      "type": "HAS_STAGE_DOWN"
+    },
+    {
+      "source": "FastRoughing",
+      "target": "FrothFlotation",
+      "type": "HAS_STAGE_UP"
+    },
+    {
+      "source": "FrothFlotation",
+      "target": "Roughing",
+      "type": "HAS_STAGE_DOWN"
+    },
+    {
+      "source": "Roughing",
+      "target": "FrothFlotation",
+      "type": "HAS_STAGE_UP"
+    },
+    {
+      "source": "FrothFlotation",
+      "target": "Scavenging",
+      "type": "HAS_STAGE_DOWN"
+    },
+    {
+      "source": "Scavenging",
+      "target": "FrothFlotation",
+      "type": "HAS_STAGE_UP"
+    },
+    {
+      "source": "FrothFlotation",
+      "target": "Cleaning",
+      "type": "HAS_STAGE_DOWN"
+    },
+    {
+      "source": "Cleaning",
+      "target": "FrothFlotation",
+      "type": "HAS_STAGE_UP"
+    },
+    {
+      "source": "RawOre",
+      "target": "FastRoughing",
+      "type": "HAS_NEXT_DOWN"
+    },
+    {
+      "source": "FastRoughing",
+      "target": "RawOre",
+      "type": "HAS_NEXT_UP"
+    },
+    {
+      "source": "FastRoughing",
+      "target": "Roughing",
+      "type": "HAS_NEXT_DOWN"
+    },
+    {
+      "source": "Roughing",
+      "target": "FastRoughing",
+      "type": "HAS_NEXT_UP"
+    },
+    {
+      "source": "Roughing",
+      "target": "Scavenging",
+      "type": "HAS_NEXT_DOWN"
+    },
+    {
+      "source": "Scavenging",
+      "target": "Roughing",
+      "type": "HAS_NEXT_UP"
+    },
+    {
+      "source": "Scavenging",
+      "target": "Cleaning",
+      "type": "HAS_NEXT_DOWN"
+    },
+    {
+      "source": "Cleaning",
+      "target": "Scavenging",
+      "type": "HAS_NEXT_UP"
+    },
+    {
+      "source": "Cleaning",
+      "target": "Concentrate",
+      "type": "HAS_OUTPUT_DOWN"
+    },
+    {
+      "source": "Concentrate",
+      "target": "Cleaning",
+      "type": "HAS_OUTPUT_UP"
+    },
+    {
+      "source": "Roughing",
+      "target": "Tailing",
+      "type": "HAS_OUTPUT_DOWN"
+    },
+    {
+      "source": "Tailing",
+      "target": "Roughing",
+      "type": "HAS_OUTPUT_UP"
+    },
+    {
+      "source": "Scavenging",
+      "target": "Tailing",
+      "type": "HAS_OUTPUT_DOWN"
+    },
+    {
+      "source": "Tailing",
+      "target": "Scavenging",
+      "type": "HAS_OUTPUT_UP"
+    },
+    {
+      "source": "FrothFlotation",
+      "target": "Concentrate",
+      "type": "HAS_OUTPUT_DOWN"
+    },
+    {
+      "source": "Concentrate",
+      "target": "FrothFlotation",
+      "type": "HAS_OUTPUT_UP"
+    },
+    {
+      "source": "FrothFlotation",
+      "target": "Tailing",
+      "type": "HAS_OUTPUT_DOWN"
+    },
+    {
+      "source": "Tailing",
+      "target": "FrothFlotation",
+      "type": "HAS_OUTPUT_UP"
+    }
+  ]
+}

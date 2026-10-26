@@ -1,0 +1,370 @@
+[
+ {
+  "unit_id": "u00000",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "Images from Flotation Laboratory",
+  "image_url": null,
+  "context": "- • From all images of adequate quality,\n- In the database, images are sorted by numbers from 1 to 2250.\n- Flotation froth image classication using convolutional neural networks.",
+  "initial": [
+   {
+    "subject": "images",
+    "subject_type": "RawOre",
+    "relation": "from",
+    "object": "Flotation Laboratory",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "images",
+    "subject_type": "RawOre",
+    "relation": "from",
+    "object": "Flotation Laboratory",
+    "object_type": "RawOre"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00034",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "This technique is the most frequently used for the treatment of copper sulde minerals.",
+  "image_url": null,
+  "context": "- A review of the fundamental studies of the copper activation mechanisms for selective otation of the sulde minerals,\n- Abstract: Froth otation is a widely used method for the concentration of sulde minerals.\n- This is dened as the presence of particles on the surface of the bubbles.",
+  "initial": [
+   {
+    "subject": "froth flotation",
+    "subject_type": "Process",
+    "relation": "is used for",
+    "object": "copper sulde minerals",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "froth flotation",
+    "subject_type": "Process",
+    "relation": "is used for",
+    "object": "copper sulde minerals",
+    "object_type": "Product"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00069",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "and in studies of bubble morphology and algorithms for estimating bubble size and shape,",
+  "image_url": null,
+  "context": "- Effect of Frothers on Foamability, Foam Stability, and Bubble Size.\n- Figure A2. Characterization and comparison of bubble sizes.\n- given the differences both in size and in mode of operation.",
+  "initial": [
+   {
+    "subject": "bubble morphology",
+    "subject_type": "Parameter",
+    "relation": "has_property",
+    "object": "bubble size and shape",
+    "object_type": "Parameter"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "bubble morphology",
+    "subject_type": "Parameter",
+    "relation": "has_property",
+    "object": "bubble size and shape",
+    "object_type": "Parameter"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00104",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "On the other hand,",
+  "image_url": null,
+  "context": "- The second sheet contains information on the visual characteristics of the bubbles,\n- It may appear on the sides of the froth or between the bubbles.\n- Cause = Scaling on the sensor; Action = Clean the flow meter.",
+  "initial": [
+   {
+    "subject": "scaling",
+    "subject_type": "Cause",
+    "relation": "causes",
+    "object": "sensor",
+    "object_type": "Equipment"
+   },
+   {
+    "subject": "clean the flow meter",
+    "subject_type": "Action",
+    "relation": "Action",
+    "object": "flow meter",
+    "object_type": "Equipment"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "scaling",
+    "subject_type": "Cause",
+    "relation": "causes",
+    "object": "sensor",
+    "object_type": "Equipment"
+   },
+   {
+    "subject": "clean the flow meter",
+    "subject_type": "Action",
+    "relation": "Action",
+    "object": "flow meter",
+    "object_type": "Equipment"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00139",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "To generalize the denition of froth quality to different situations,",
+  "image_url": null,
+  "context": "- In these experiments, the aim is to predict the froth quality of the different images analyzed,\n- the froth quality is a function of different visual characteristics perceived in the froth image,\n- the previous research aimed to classify the froth quality according to the type of frothing agent,",
+  "initial": [
+   {
+    "subject": "froth quality",
+    "subject_type": "Product",
+    "relation": "is_a",
+    "object": "visual characteristics",
+    "object_type": "Parameter"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "froth quality",
+    "subject_type": "Product",
+    "relation": "is_a",
+    "object": "visual characteristics",
+    "object_type": "Parameter"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00173",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,",
+  "image_url": null,
+  "context": "- which is a normalization of the ow by the area of the cell,\n- The latter is related to the interpretation of the operation of the otation cell relative to the appearance observed in the froth.\n- a layer of froth was formed on the top of the cell,",
+  "initial": [
+   {
+    "subject": "volume of the cell",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "mass of 1.800 g of mineral",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "volume of the cell",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "mass of 1.800 g of mineral",
+    "object_type": "RawOre"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00208",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "The predominant colors were yellow and orange. – Sample 4: Conrmedonly by a specic clay,",
+  "image_url": null,
+  "context": "- The predominant colors were gray and yellow. – Sample 2:\n- The specic composition was unknown. The predominant color was black. – Sample 3:\n- sample daa were de-clusered using he procedure explained by Clayon and Journel, 998,",
+  "initial": [
+   {
+    "subject": "predominant colors",
+    "subject_type": "Product",
+    "relation": "are",
+    "object": "yellow and orange",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "predominant colors",
+    "subject_type": "Product",
+    "relation": "are",
+    "object": "yellow and orange",
+    "object_type": "RawOre"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00243",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "which may reduce the recovery of the mineral of interest.",
+  "image_url": null,
+  "context": "- To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,\n- Conicts of Interest: The authors declare no conict of interest.\n- which is a normalization of the ow by the area of the cell,",
+  "initial": [
+   {
+    "subject": "recovery",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "mineral of interest",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "recovery",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "mineral of interest",
+    "object_type": "Product"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00278",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "due to the appreciable differences behind these labels.",
+  "image_url": null,
+  "context": "- The latter is related to the interpretation of the operation of the otation cell relative to the appearance observed in the froth.\n- which caused the camera to lose the focus. • The ash incorporated in the camera was the lightning source.\n- It is possible to directly observe these characteristics in the ota- tion tank to deduce the behavior of the mineral inside,",
+  "initial": [
+   {
+    "subject": "labels",
+    "subject_type": "Parameter",
+    "relation": "causes",
+    "object": "behaviors",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "labels",
+    "subject_type": "Parameter",
+    "relation": "causes",
+    "object": "behaviors",
+    "object_type": "Product"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00312",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "a method based on compact variogram characterization [ 7 ,",
+  "image_url": null,
+  "context": "- With the compact variogram method,\n- a comparison method based on the calculation of a compact variographic map combined with K-nearest neighbors classier [ 21 ],\n- and a method based on the use of convolutional neural networks [ 22 ].",
+  "initial": [
+   {
+    "subject": "method",
+    "subject_type": "Reagent",
+    "relation": "uses",
+    "object": "compact variogram characterization",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "method",
+    "subject_type": "Reagent",
+    "relation": "uses",
+    "object": "compact variogram characterization",
+    "object_type": "Reagent"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00347",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "[ CrossRef ] 4.",
+  "image_url": null,
+  "context": "- 4.\n- = 4; = 4; = 4.\n- Figure 4:",
+  "initial": [
+   {
+    "subject": "4",
+    "subject_type": "Number",
+    "relation": "equals",
+    "object": "4",
+    "object_type": "Number"
+   },
+   {
+    "subject": "4",
+    "subject_type": "Number",
+    "relation": "equals",
+    "object": "4",
+    "object_type": "Number"
+   },
+   {
+    "subject": "4",
+    "subject_type": "Number",
+    "relation": "equals",
+    "object": "4",
+    "object_type": "Number"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "4",
+    "subject_type": "Number",
+    "relation": "equals",
+    "object": "4",
+    "object_type": "Number"
+   },
+   {
+    "subject": "4",
+    "subject_type": "Number",
+    "relation": "equals",
+    "object": "4",
+    "object_type": "Number"
+   },
+   {
+    "subject": "4",
+    "subject_type": "Number",
+    "relation": "equals",
+    "object": "4",
+    "object_type": "Number"
+   }
+  ]
+ },
+ {
+  "unit_id": "u00382",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "modality": "text",
+  "text": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.",
+  "image_url": null,
+  "context": "- n terms of copper and gold recovery\n- that were processed, the dosage of frother and collector, the air ow, the type of water,\n- and poor performance in terms of copper and gold recovery.",
+  "initial": [
+   {
+    "subject": "frother",
+    "subject_type": "Reagent",
+    "relation": "uses",
+    "object": "depressant",
+    "object_type": "Reagent"
+   },
+   {
+    "subject": "scavenger circuit",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "frother",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "scavenger circuit",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "frother",
+    "object_type": "Reagent"
+   },
+   {
+    "subject": "scavenger circuit",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "depressant",
+    "object_type": "Reagent"
+   }
+  ]
+ }
+]

@@ -1,0 +1,24 @@
+# core (needed for every run)
+numpy>=1.26
+networkx>=3.2
+flask>=3.0
+requests>=2.31
+pymupdf>=1.24          # PDF fallback parser (used when MinerU is not installed)
+reportlab>=4.0         # only for data/generate_sample_data.py
+pillow>=10.0           # only for data/generate_sample_data.py
+
+# vector store  (falls back to an exact NumPy store if missing)
+chromadb>=0.5
+
+# embeddings  (paper: moka-ai/m3e-base). Pulls in torch (~2 GB). Skip it and set EMBEDDING_BACKEND=hash for an offline run.
+sentence-transformers>=3.0
+
+# graph database (falls back to outputs/kg_local.json if Neo4j is unreachable)
+neo4j>=5.20
+
+# OPTIONAL - real MinerU parsing (heavy; best installed in its own environment):
+#   pip install -U "mineru[all]"
+
+# OPTIONAL - built-in local LLM (LLM_BACKEND=local): free, runs inside the project (torch comes with sentence-transformers)
+transformers>=4.40
+accelerate>=0.30

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flotation Knowledge Graph</title>
+<style>
+  :root { --bg:#f6f7f9; --panel:#ffffff; --ink:#1d2330; --muted:#667085; --line:#d9dde5; --accent:#2f6fed; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12151b; --panel:#1b2029; --ink:#e7eaf0; --muted:#98a2b3; --line:#2c3340; --accent:#6c9bff; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--bg); color:var(--ink); }
+  header { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; padding:10px 16px; background:var(--panel); border-bottom:1px solid var(--line); }
+  header h1 { font-size:15px; margin:0; font-weight:650; }
+  #legend { display:flex; flex-wrap:wrap; gap:6px 12px; flex:1; }
+  .chip { display:inline-flex; align-items:center; gap:6px; cursor:pointer; user-select:none; font-size:12px; color:var(--muted); }
+  .chip i { width:11px; height:11px; border-radius:50%; display:inline-block; }
+  .chip.off { opacity:.35; text-decoration:line-through; }
+  input[type=search] { padding:6px 10px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); width:200px; }
+  button { padding:6px 10px; border:1px solid var(--line); border-radius:8px; background:var(--panel); color:var(--ink); cursor:pointer; }
+  main { position:relative; height:calc(100vh - 56px); }
+  svg { width:100%; height:100%; display:block; }
+  #side { position:absolute; top:12px; right:12px; width:300px; max-height:calc(100% - 24px); overflow:auto; background:var(--panel);
+          border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:13px; }
+  #side h2 { font-size:13px; margin:0 0 6px; }
+  #side img { max-width:100%; border-radius:8px; margin-top:6px; }
+  #side .k { color:var(--muted); }
+  #metrics { margin-top:10px; border-top:1px solid var(--line); padding-top:8px; }
+  #metrics td { padding:1px 8px 1px 0; }
+  .link { stroke:var(--muted); stroke-opacity:.45; fill:none; }
+  .link.onto { stroke-dasharray:4 3; }
+  .link.hl { stroke:var(--accent); stroke-opacity:1; stroke-width:2px; }
+  .elabel { font-size:8px; fill:var(--muted); pointer-events:none; }
+  .nlabel { font-size:10px; fill:var(--ink); pointer-events:none; paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
+  .dim { opacity:.12; }
+  #msg { position:absolute; left:50%; top:40%; transform:translateX(-50%); color:var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Flotation Knowledge Graph</h1>
+  <div id="legend"></div>
+  <input id="q" type="search" placeholder="Search node…">
+  <button id="lbl">Edge labels</button>
+  <button id="reset">Reset view</button>
+</header>
+<main>
+  <svg id="svg"></svg>
+  <div id="msg">Loading graph…</div>
+  <aside id="side"><h2>Details</h2><div id="info" class="k">Click a node or edge. Drag to move, scroll to zoom.</div><div id="metrics"></div></aside>
+</main>
+<script src="d3.min.js"></script>
+<script>window.d3 || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"><\/script>');</script>
+<script>
+const PALETTE = ["#2f6fed","#e8590c","#2b9348","#9c36b5","#d6336c","#0c8599","#c9a227","#5c7080","#7048e8","#8d6e63"];
+const API = location.protocol === "file:" ? "http://127.0.0.1:5000" : "";
+let showEdgeLabels = false;
+
+fetch(API + "/api/graph").then(r => r.json()).then(g => {
+  if (g.error) { document.getElementById("msg").textContent = g.error; return; }
+  document.getElementById("msg").remove();
+  g.nodes.forEach(n => { if (n.url && n.url.startsWith("/")) n.url = API + n.url; });   // relative image URLs -> API host
+  draw(g);
+}).catch(() => document.getElementById("msg").textContent = "Cannot reach the API. Run: python main.py serve");
+
+fetch(API + "/api/metrics?brief=1").then(r => r.ok ? r.json() : null).then(m => {
+  if (!m) return;
+  const s = m.structural, e = m.semantic;
+  const rows = [["S1 structural", s.S1], ["S2 semantic", e.S2], ["S final", m.S_final]]
+    .map(([k, v]) => `<tr><td class="k">${k}</td><td><b>${v.toFixed(4)}</b></td></tr>`).join("");
+  document.getElementById("metrics").innerHTML = `<h2>Quality scores</h2><table>${rows}</table>`;
+});
+
+function draw(g) {
+  const svg = d3.select("#svg"), W = svg.node().clientWidth, H = svg.node().clientHeight;
+  g.nodes.forEach(n => n.group = n.kind === "Ontology" ? "Ontology · " + n.level : n.type);   // 6 entity types + ontology levels + Image
+  const types = [...new Set(g.nodes.map(n => n.group))].sort();
+  const color = d3.scaleOrdinal(types, PALETTE);
+  const hidden = new Set();
+  const root = svg.append("g");
+  svg.call(d3.zoom().scaleExtent([0.05, 8]).on("zoom", ev => root.attr("transform", ev.transform)));
+  svg.append("defs").append("marker").attr("id", "arr").attr("viewBox", "0 -5 10 10").attr("refX", 18).attr("refY", 0)
+     .attr("markerWidth", 6).attr("markerHeight", 6).attr("orient", "auto").append("path").attr("d", "M0,-4L10,0L0,4").attr("fill", "#8a94a6");
+
+  const byId = new Map(g.nodes.map(n => [n.id, n]));
+  const sim = d3.forceSimulation(g.nodes)
+    .force("link", d3.forceLink(g.links).id(d => d.id).distance(l => l.type === "HAS_ENTITIES" ? 55 : 70).strength(.5))
+    .force("charge", d3.forceManyBody().strength(-130))
+    .force("center", d3.forceCenter(W / 2, H / 2))
+    .force("collide", d3.forceCollide(14));
+
+  const link = root.append("g").selectAll("line").data(g.links).join("line")
+    .attr("class", d => "link" + (d.type.startsWith("HAS_") && /_(UP|DOWN)$/.test(d.type) ? " onto" : ""))
+    .attr("marker-end", "url(#arr)")
+    .on("click", (ev, d) => showEdge(d));
+  const elabel = root.append("g").selectAll("text").data(g.links).join("text").attr("class", "elabel").text(d => d.type)
+    .style("display", "none");
+
+  const node = root.append("g").selectAll("g").data(g.nodes).join("g").style("cursor", "pointer")
+    .call(d3.drag().on("start", (ev, d) => { if (!ev.active) sim.alphaTarget(.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on("drag", (ev, d) => { d.fx = ev.x; d.fy = ev.y; })
+      .on("end", (ev, d) => { if (!ev.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }))
+    .on("click", (ev, d) => { showNode(d); highlight(d); ev.stopPropagation(); });
+  node.each(function (d) {
+    const el = d3.select(this);
+    if (d.kind === "Image" && d.url) {
+      el.append("rect").attr("x", -17).attr("y", -17).attr("width", 34).attr("height", 34).attr("rx", 5).attr("fill", color(d.group)).attr("opacity", .25);
+      el.append("image").attr("href", d.url).attr("x", -16).attr("y", -16).attr("width", 32).attr("height", 32)
+        .attr("preserveAspectRatio", "xMidYMid slice");      // image nodes rendered as thumbnails
+    } else {
+      const r = d.kind === "Ontology" ? 13 : 5 + Math.min(Math.sqrt(d.degree), 8);
+      el.append("circle").attr("r", r).attr("fill", color(d.group)).attr("stroke", d.kind === "Ontology" ? "#111" : "#fff").attr("stroke-width", d.kind === "Ontology" ? 2 : 1);
+    }
+  });
+  const nlabel = node.append("text").attr("class", "nlabel").attr("dy", -12).attr("text-anchor", "middle")
+    .text(d => d.kind === "Image" ? "" : (d.name.length > 22 ? d.name.slice(0, 21) + "…" : d.name))
+    .style("display", d => (d.kind === "Ontology" || d.degree >= 4) ? null : "none");
+
+  sim.on("tick", () => {
+    link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+    elabel.attr("x", d => (d.source.x + d.target.x) / 2).attr("y", d => (d.source.y + d.target.y) / 2);
+    node.attr("transform", d => `translate(${d.x},${d.y})`);
+  });
+  svg.on("click", () => { link.classed("hl", false); node.classed("dim", false); });
+
+  const legend = d3.select("#legend").selectAll("span").data(types).join("span").attr("class", "chip")
+    .html(t => `<i style="background:${color(t)}"></i>${t}`)
+    .on("click", function (ev, t) {
+      hidden.has(t) ? hidden.delete(t) : hidden.add(t); d3.select(this).classed("off", hidden.has(t));
+      node.style("display", d => hidden.has(d.group) ? "none" : null);
+      link.style("display", l => hidden.has(l.source.group) || hidden.has(l.target.group) ? "none" : null);
+    });
+
+  function highlight(d) {
+    const nb = new Set([d.id]);
+    g.links.forEach(l => { if (l.source.id === d.id) nb.add(l.target.id); if (l.target.id === d.id) nb.add(l.source.id); });
+    node.classed("dim", n => !nb.has(n.id));
+    link.classed("hl", l => l.source.id === d.id || l.target.id === d.id);
+    nlabel.style("display", n => nb.has(n.id) && n.kind !== "Image" ? null : ((n.kind === "Ontology" || n.degree >= 4) ? null : "none"));
+  }
+  function showNode(d) {
+    const nbrs = g.links.filter(l => l.source.id === d.id || l.target.id === d.id).slice(0, 12)
+      .map(l => `<li>${l.source.id === d.id ? "→" : "←"} <span class="k">${l.type}</span> ${(l.source.id === d.id ? l.target : l.source).name}</li>`).join("");
+    document.getElementById("info").innerHTML =
+      `<b>${d.name}</b><div class="k">${d.kind} · ${d.type} · degree ${d.degree}</div>` +
+      (d.url ? `<img src="${d.url}" alt="${d.name}">` : "") + `<ul style="padding-left:16px;margin:6px 0">${nbrs}</ul>`;
+  }
+  function showEdge(d) {
+    document.getElementById("info").innerHTML =
+      `<b>${d.source.name} <span class="k">—${d.type}→</span> ${d.target.name}</b>` +
+      (d.text ? `<p class="k">Source: ${d.text}</p>` : "") + (d.doc ? `<div class="k">doc: ${d.doc}</div>` : "");
+  }
+  document.getElementById("q").addEventListener("input", e => {
+    const v = e.target.value.toLowerCase();
+    node.classed("dim", d => v && !d.name.toLowerCase().includes(v));
+    nlabel.style("display", d => (v && d.name.toLowerCase().includes(v)) || d.kind === "Ontology" || d.degree >= 4 ? null : "none");
+  });
+  document.getElementById("lbl").onclick = () => { showEdgeLabels = !showEdgeLabels; elabel.style("display", showEdgeLabels ? null : "none"); };
+  document.getElementById("reset").onclick = () => { svg.transition().call(d3.zoom().transform, d3.zoomIdentity); link.classed("hl", false); node.classed("dim", false); };
+}
+</script>
+</body>
+</html>

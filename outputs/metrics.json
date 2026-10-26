@@ -1,0 +1,96 @@
+{
+  "extraction": {
+    "held_out_samples": 5,
+    "held_out_total": 95,
+    "LLM_FewShot_baseline": {
+      "precision": 1.0,
+      "recall": 0.9333333333333333,
+      "f1": 0.96,
+      "c_sis": 1.0,
+      "n_valid": 9,
+      "n_pred": 9,
+      "n_exp": 10
+    },
+    "Proposed_pipeline": {
+      "precision": 0.8,
+      "recall": 0.7333333333333333,
+      "f1": 0.76,
+      "c_sis": 1.0,
+      "n_valid": 6,
+      "n_pred": 8,
+      "n_exp": 10
+    }
+  },
+  "evaluation_scope": "sampled 5 of 95 held-out examples",
+  "structural": {
+    "n_nodes": 21,
+    "n_edges": 41,
+    "I_s": 0.0,
+    "C_s": 0.25,
+    "B_s": 1.0,
+    "Z_s": 0.6515485291297824,
+    "P_s": 1.0,
+    "R_s": 0.32478255570839554,
+    "S1": 0.7264714071548871,
+    "detail": {
+      "n_isolated": 0,
+      "covered_stages": 1,
+      "n_down": 14,
+      "n_up": 14,
+      "mean_stage_degree": 6.4,
+      "mu": 3.9047619047619047,
+      "delta": 3.986940131225615,
+      "L_max": 5,
+      "L_optimal": 5,
+      "n_process_loops": 88,
+      "D": 2.1463414634146343
+    }
+  },
+  "semantic": {
+    "n_records": 12,
+    "n_sampled": 2,
+    "input_triples": 16,
+    "validated_triples": 7,
+    "rejected_triples": 9,
+    "validation_rate": 0.4375,
+    "mean_score": 0.375,
+    "std": 0.1767766952966369,
+    "sigma_s": 0.1,
+    "S2_raw": 0.3926776695296637,
+    "S2": 0.3926776695296637,
+    "frac_ge_0_8": 0.0,
+    "n_low_quality": 1,
+    "judge": "ollama",
+    "samples": [
+      {
+        "text": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,",
+        "triples": [
+          {
+            "subject": "volume of the cell",
+            "subject_type": "Parameter",
+            "relation": "keeps",
+            "object": "mass of 1.800 g of mineral",
+            "object_type": "RawOre"
+          }
+        ],
+        "n_count": 1,
+        "unit_id": "u00173",
+        "n_input_triples": 1,
+        "n_rejected_triples": 0,
+        "score": 0.5,
+        "reason": "The triples do not express the sentence faithfully and completely. The sentence mentions 'To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,' but the triples only mention 'a mass of 1.800 g of mineral' and 'keeps' without specifying the relation between the volume of the cell and the mass of the mineral."
+      },
+      {
+        "text": "Images from Flotation Laboratory",
+        "triples": [],
+        "n_count": 0,
+        "unit_id": "u00000",
+        "n_input_triples": 1,
+        "n_rejected_triples": 1,
+        "score": 0.25,
+        "reason": "The sentence is not related to the triples provided."
+      }
+    ]
+  },
+  "S_final": 0.526195164579753
+}

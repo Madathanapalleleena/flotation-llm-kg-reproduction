@@ -1,0 +1,12 @@
+[
+  {
+    "iteration": 0,
+    "version": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "c_sis": 1.0,
+    "n_rules": 0,
+    "n_examples": 1
+  }
+]

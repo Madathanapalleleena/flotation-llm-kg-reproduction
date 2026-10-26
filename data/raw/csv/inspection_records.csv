@@ -1,0 +1,151 @@
+Time,Process,Equipment,Operating status,Problem description
+2025/2/3 8:00,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 8:10,Roughing,F-01,Motor noise is relatively loud,Check motor bearings
+2025/2/3 8:20,Scavenging,S-03,Normal operation,No abnormalities
+2025/2/3 8:30,Cleaning,C-02,Normal operation,No abnormalities
+2025/2/3 8:40,Tailing,P-01,Aeration rate low,Adjust air blower valve
+2025/2/3 8:50,Fast roughing,FR-01,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 9:00,Roughing,F-01,Normal operation,No abnormalities
+2025/2/3 9:10,Scavenging,S-02,Motor noise is relatively loud,Check motor bearings
+2025/2/3 9:20,Cleaning,C-01,Normal operation,No abnormalities
+2025/2/3 9:30,Tailing,P-02,Normal operation,No abnormalities
+2025/2/3 9:40,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 9:50,Roughing,F-01,Normal operation,No abnormalities
+2025/2/3 10:00,Scavenging,S-03,Aeration rate low,Adjust air blower valve
+2025/2/3 10:10,Cleaning,C-01,Motor noise is relatively loud,Check motor bearings
+2025/2/3 10:20,Tailing,P-01,Normal operation,No abnormalities
+2025/2/3 10:30,Fast roughing,FR-01,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 10:40,Roughing,F-04,Normal operation,No abnormalities
+2025/2/3 10:50,Scavenging,S-03,Normal operation,No abnormalities
+2025/2/3 11:00,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/3 11:10,Tailing,P-01,Normal operation,No abnormalities
+2025/2/3 11:20,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 11:30,Roughing,F-01,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/3 11:40,Scavenging,S-03,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 11:50,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/3 12:00,Tailing,P-01,Normal operation,No abnormalities
+2025/2/3 12:10,Fast roughing,FR-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 12:20,Roughing,F-04,Normal operation,No abnormalities
+2025/2/3 12:30,Scavenging,S-02,Aeration rate low,Adjust air blower valve
+2025/2/3 12:40,Cleaning,C-02,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/3 12:50,Tailing,P-01,Normal operation,No abnormalities
+2025/2/3 13:00,Fast roughing,FR-01,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/3 13:10,Roughing,F-03,Normal operation,No abnormalities
+2025/2/3 13:20,Scavenging,S-02,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 13:30,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/3 13:40,Tailing,P-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 13:50,Fast roughing,FR-01,Aeration rate low,Adjust air blower valve
+2025/2/3 14:00,Roughing,F-04,Normal operation,No abnormalities
+2025/2/3 14:10,Scavenging,S-02,Normal operation,No abnormalities
+2025/2/3 14:20,Cleaning,C-02,Normal operation,No abnormalities
+2025/2/3 14:30,Tailing,P-01,Motor noise is relatively loud,Check motor bearings
+2025/2/3 14:40,Fast roughing,FR-01,Pulp level is high,Reduce slurry pump speed
+2025/2/3 14:50,Roughing,F-03,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 15:00,Scavenging,S-03,Normal operation,No abnormalities
+2025/2/3 15:10,Cleaning,C-03,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/3 15:20,Tailing,P-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 15:30,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 15:40,Roughing,F-04,Normal operation,No abnormalities
+2025/2/3 15:50,Scavenging,S-03,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/3 16:00,Cleaning,C-01,Normal operation,No abnormalities
+2025/2/3 16:10,Tailing,P-02,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/3 16:20,Fast roughing,FR-02,Foam color is dark,Reduce collector dosage
+2025/2/3 16:30,Roughing,F-04,Normal operation,No abnormalities
+2025/2/3 16:40,Scavenging,S-02,Pulp level is high,Reduce slurry pump speed
+2025/2/3 16:50,Cleaning,C-02,Normal operation,No abnormalities
+2025/2/3 17:00,Tailing,P-01,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/3 17:10,Fast roughing,FR-01,Aeration rate low,Adjust air blower valve
+2025/2/3 17:20,Roughing,F-01,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 17:30,Scavenging,S-02,Normal operation,No abnormalities
+2025/2/3 17:40,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/3 17:50,Tailing,P-02,Normal operation,No abnormalities
+2025/2/3 18:00,Fast roughing,FR-02,Motor noise is relatively loud,Check motor bearings
+2025/2/3 18:10,Roughing,F-02,Normal operation,No abnormalities
+2025/2/3 18:20,Scavenging,S-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 18:30,Cleaning,C-02,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 18:40,Tailing,P-02,Normal operation,No abnormalities
+2025/2/3 18:50,Fast roughing,FR-02,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 19:00,Roughing,F-04,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/3 19:10,Scavenging,S-03,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/3 19:20,Cleaning,C-01,Motor noise is relatively loud,Check motor bearings
+2025/2/3 19:30,Tailing,P-01,Normal operation,No abnormalities
+2025/2/3 19:40,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 19:50,Roughing,F-02,Normal operation,No abnormalities
+2025/2/3 20:00,Scavenging,S-02,Normal operation,No abnormalities
+2025/2/3 20:10,Cleaning,C-01,Aeration rate low,Adjust air blower valve
+2025/2/3 20:20,Tailing,P-02,Normal operation,No abnormalities
+2025/2/3 20:30,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 20:40,Roughing,F-03,Motor noise is relatively loud,Check motor bearings
+2025/2/3 20:50,Scavenging,S-03,Aeration rate low,Adjust air blower valve
+2025/2/3 21:00,Cleaning,C-01,Normal operation,No abnormalities
+2025/2/3 21:10,Tailing,P-01,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/3 21:20,Fast roughing,FR-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 21:30,Roughing,F-04,Motor noise is relatively loud,Check motor bearings
+2025/2/3 21:40,Scavenging,S-01,Motor noise is relatively loud,Check motor bearings
+2025/2/3 21:50,Cleaning,C-03,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/3 22:00,Tailing,P-01,Motor noise is relatively loud,Check motor bearings
+2025/2/3 22:10,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 22:20,Roughing,F-04,Normal operation,No abnormalities
+2025/2/3 22:30,Scavenging,S-01,Normal operation,No abnormalities
+2025/2/3 22:40,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/3 22:50,Tailing,P-01,Normal operation,No abnormalities
+2025/2/3 23:00,Fast roughing,FR-01,Normal operation,No abnormalities
+2025/2/3 23:10,Roughing,F-01,Froth layer too thin,Increase frother dosage slightly
+2025/2/3 23:20,Scavenging,S-03,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/3 23:30,Cleaning,C-01,Normal operation,No abnormalities
+2025/2/3 23:40,Tailing,P-02,Normal operation,No abnormalities
+2025/2/3 23:50,Fast roughing,FR-02,Normal operation,No abnormalities
+2025/2/4 0:00,Roughing,F-03,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/4 0:10,Scavenging,S-01,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 0:20,Cleaning,C-02,Normal operation,No abnormalities
+2025/2/4 0:30,Tailing,P-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 0:40,Fast roughing,FR-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 0:50,Roughing,F-02,Normal operation,No abnormalities
+2025/2/4 1:00,Scavenging,S-03,Normal operation,No abnormalities
+2025/2/4 1:10,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/4 1:20,Tailing,P-02,Normal operation,No abnormalities
+2025/2/4 1:30,Fast roughing,FR-01,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/4 1:40,Roughing,F-01,Froth layer too thin,Increase frother dosage slightly
+2025/2/4 1:50,Scavenging,S-03,Normal operation,No abnormalities
+2025/2/4 2:00,Cleaning,C-01,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/4 2:10,Tailing,P-01,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/4 2:20,Fast roughing,FR-02,Froth layer too thin,Increase frother dosage slightly
+2025/2/4 2:30,Roughing,F-01,Foam color is dark,Reduce collector dosage
+2025/2/4 2:40,Scavenging,S-02,Impeller vibration detected,Inspect impeller and shaft coupling
+2025/2/4 2:50,Cleaning,C-02,Froth layer too thin,Increase frother dosage slightly
+2025/2/4 3:00,Tailing,P-02,Normal operation,No abnormalities
+2025/2/4 3:10,Fast roughing,FR-02,Normal operation,No abnormalities
+2025/2/4 3:20,Roughing,F-02,Foam color is dark,Reduce collector dosage
+2025/2/4 3:30,Scavenging,S-01,Aeration rate low,Adjust air blower valve
+2025/2/4 3:40,Cleaning,C-02,Normal operation,No abnormalities
+2025/2/4 3:50,Tailing,P-01,Normal operation,No abnormalities
+2025/2/4 4:00,Fast roughing,FR-02,Froth layer too thin,Increase frother dosage slightly
+2025/2/4 4:10,Roughing,F-01,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/4 4:20,Scavenging,S-02,Normal operation,No abnormalities
+2025/2/4 4:30,Cleaning,C-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 4:40,Tailing,P-02,Normal operation,No abnormalities
+2025/2/4 4:50,Fast roughing,FR-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 5:00,Roughing,F-01,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/4 5:10,Scavenging,S-01,Normal operation,No abnormalities
+2025/2/4 5:20,Cleaning,C-02,Normal operation,No abnormalities
+2025/2/4 5:30,Tailing,P-02,Normal operation,No abnormalities
+2025/2/4 5:40,Fast roughing,FR-02,Normal operation,No abnormalities
+2025/2/4 5:50,Roughing,F-01,Aeration rate low,Adjust air blower valve
+2025/2/4 6:00,Scavenging,S-03,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 6:10,Cleaning,C-03,Normal operation,Liquid level exceeds set value by 0.05m
+2025/2/4 6:20,Tailing,P-01,Normal operation,No abnormalities
+2025/2/4 6:30,Fast roughing,FR-01,Motor noise is relatively loud,Check motor bearings
+2025/2/4 6:40,Roughing,F-02,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 6:50,Scavenging,S-03,Motor noise is relatively loud,Check motor bearings
+2025/2/4 7:00,Cleaning,C-01,Normal operation,No abnormalities
+2025/2/4 7:10,Tailing,P-02,Motor noise is relatively loud,Check motor bearings
+2025/2/4 7:20,Fast roughing,FR-01,Motor noise is relatively loud,Check motor bearings
+2025/2/4 7:30,Roughing,F-02,Normal operation,No abnormalities
+2025/2/4 7:40,Scavenging,S-01,Normal operation,No abnormalities
+2025/2/4 7:50,Cleaning,C-03,Normal operation,No abnormalities
+2025/2/4 8:00,Tailing,P-01,Insufficient flow rate,Pipeline may have slight blockage
+2025/2/4 8:10,Fast roughing,FR-02,Aeration rate low,Adjust air blower valve
+2025/2/4 8:20,Roughing,F-03,Pulp level is high,Reduce slurry pump speed
+2025/2/4 8:30,Scavenging,S-03,Normal operation,No abnormalities
+2025/2/4 8:40,Cleaning,C-01,Froth layer too thin,Increase frother dosage slightly
+2025/2/4 8:50,Tailing,P-01,Normal operation,No abnormalities
