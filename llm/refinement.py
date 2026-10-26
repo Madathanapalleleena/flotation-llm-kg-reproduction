@@ -45,13 +45,21 @@ class TwoStageExtractor:
         final = self.stage2.refine(text, ctx, initial)
         stage1_client = self.stage1.client
         stage2_client = self.stage2.client
+
+        def model_name(client):
+            for attribute in ("model_name", "name", "model"):
+                value = getattr(client, attribute, None)
+                if isinstance(value, str):
+                    return value
+            return type(client).__name__
+
         return dict(
             text=text,
             context=ctx,
             initial=initial,
             triples=final,
             stage1_backend=getattr(stage1_client, "kind", type(stage1_client).__name__),
-            stage1_model=getattr(stage1_client, "model", getattr(stage1_client, "name", "unknown")),
+            stage1_model=model_name(stage1_client),
             stage2_backend=getattr(stage2_client, "kind", type(stage2_client).__name__),
-            stage2_model=getattr(stage2_client, "model", getattr(stage2_client, "name", "unknown")),
+            stage2_model=model_name(stage2_client),
         )

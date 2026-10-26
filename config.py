@@ -72,12 +72,25 @@ LLM_BACKEND = os.getenv("LLM_BACKEND", "auto")
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 # Stage 1 = initial triples (paper: LoRA-tuned DeepSeek-R1-Distill-Llama-8B).
-# LoRA is removed in this build, so stage 1 uses a plain model.  Point it at a
-# local OpenAI-compatible server (e.g. Ollama deepseek-r1:8b) if you want a
-# small model here, otherwise it defaults to the same DeepSeek API model.
+# Set STAGE1_BACKEND=lora to use the trained local adapter. "auto" uses it if
+# present and otherwise leaves stage 1 on the configured chat backend.
+STAGE1_BACKEND = os.getenv("STAGE1_BACKEND", "auto").lower()
 STAGE1_MODEL = os.getenv("STAGE1_MODEL", "deepseek-chat")
 STAGE1_BASE_URL = os.getenv("STAGE1_BASE_URL", DEEPSEEK_BASE_URL)
 STAGE1_API_KEY = os.getenv("STAGE1_API_KEY", DEEPSEEK_API_KEY)
+# Paper's stage-1 base model and LoRA training settings.
+LORA_BASE_MODEL = os.getenv("LORA_BASE_MODEL", "deepseek-ai/DeepSeek-R1-Distill-Llama-8B")
+LORA_ADAPTER_DIR = Path(os.getenv("LORA_ADAPTER_DIR", str(ROOT / "outputs" / "lora_adapter")))
+LORA_TRAINING_FILE = Path(os.getenv("LORA_TRAINING_FILE", str(TRAIN_JSONL)))
+LORA_MAX_LENGTH = _i("LORA_MAX_LENGTH", 512)
+LORA_RANK = _i("LORA_RANK", 32)
+LORA_ALPHA = _i("LORA_ALPHA", 160)
+LORA_DROPOUT = _f("LORA_DROPOUT", 0.4)
+LORA_LEARNING_RATE = _f("LORA_LEARNING_RATE", 1e-4)
+LORA_WEIGHT_DECAY = _f("LORA_WEIGHT_DECAY", 0.01)
+LORA_WARMUP_STEPS = _i("LORA_WARMUP_STEPS", 100)
+LORA_EPOCHS = _i("LORA_EPOCHS", 15)
+LORA_GRAD_ACCUMULATION = _i("LORA_GRAD_ACCUMULATION", 8)
 # Stage 2 = refinement with the large-scale model [paper: DeepSeek].
 STAGE2_MODEL = os.getenv("STAGE2_MODEL", "deepseek-chat")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
@@ -116,7 +129,6 @@ HARD_MAX_LEN = 100        # [paper] |c| <= 100
 
 # --------------------------------------------- fuzzy similarity     (Eq. 11)
 M_FUZZY_SCALE = 2.0       # [paper] M = 1.0 + (W_term + B_context) * 2
-FUZZY_M_MAX = 1.0 + M_FUZZY_SCALE * (2.0 + NUM_BOOST)
 TOP_K = 3                 # [paper] Fig. 7(c) top-3
 CANDIDATE_FACTOR = 5      # [assumed] ANN candidates = TOP_K*factor, then fuzzy re-rank
 
@@ -135,7 +147,6 @@ OPT_CSIS_FLOOR = 0.8      # [paper] Csis < 0.8 -> consistency
 OPT_STOP_F1 = 0.90        # [paper]
 OPT_STOP_CSIS = 0.8       # [paper]
 OPT_MAX_ITERS = _i("OPT_MAX_ITERS", 3)   # [assumed] maximum feedback updates; loop evaluates versions 0..N
-OPT_MIN_ITERS = _i("OPT_MIN_ITERS", 1)   # [assumed] require at least one feedback update before convergence
 OPT_DEV_SIZE = _i("OPT_DEV_SIZE", 40)    # [assumed] how many annotated sentences drive optimisation
 OPT_USE_RAG = os.getenv("OPT_USE_RAG", "1") == "1"
 

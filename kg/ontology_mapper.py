@@ -32,7 +32,7 @@ class KGAssembler:
     def _load_backbone(self):
         for n in self.kt.nodes.values():
             self.nodes[f"onto:{n.id}"] = dict(id=f"onto:{n.id}", name=n.label, kind="Ontology", type=n.cls,
-                                              level=n.level)
+                                              level=n.level, attributes=n.attributes)
         for s, t, o in self.kt.edges:
             self._edge(f"onto:{s}", t, f"onto:{o}", kind="ontology")
 
@@ -102,6 +102,17 @@ class KGAssembler:
         rid = ent_id(rep["name"], rep["type"])
         b = self.map_to_ontology(rep, triples, unit["text"])                 # M(v*)
         self._edge(b, "HAS_ENTITIES", rid, kind="onto_link", provenance=[provenance])  # Eq. (20)
+        mapped_entities = set()
+        for triple in triples:
+            for role in ("subject", "object"):
+                name, entity_type = triple[role], triple[f"{role}_type"]
+                entity_id = ent_id(name, entity_type)
+                if entity_id in mapped_entities:
+                    continue
+                mapped_entities.add(entity_id)
+                concept_id = self.kt.map_entity(name, entity_type)
+                self._edge(f"onto:{concept_id}", "HAS_ENTITIES", entity_id, kind="ontology_entity_link",
+                           provenance=[provenance])
         self.stats["mapped"] += 1
         if unit["modality"] == "caption" and unit.get("image_url"):          # Eq. (21)
             u = unit["image_url"]

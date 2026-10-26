@@ -106,4 +106,4 @@ def storage_objective(sims, index_size_kb: float, n: int, lam: float = config.LA
     """Eq. (12).  `sims` = sim_fuzzy(v_i, q_i) for each representative query vector."""
     sims = np.asarray(sims, dtype=float)
     n = max(n, 1)
-    return float(np.mean((1.0 - sims) ** 2) + lam * index_size_kb / n)
+    return float(np.sum((1.0 - sims) ** 2) / n + lam * index_size_kb / n)

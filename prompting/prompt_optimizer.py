@@ -5,8 +5,8 @@ Update rules (verbatim from the paper):
     F1   < 0.6        -> decompose complex sentences / supplement missing entities & relations
     C_sis < 0.8       -> strengthen grammatical coherence & directional consistency
     R_ec < P_re       -> expand entity / relationship coverage
-Each iteration compares the candidate with the best-so-far on F1 and keeps the better.
-Stops when F1 >= 0.90 and C_sis >= 0.8, or at the maximum iteration count.
+Each iteration replaces the best-so-far prompt only when F1 improves.
+Stops when the current evaluation reaches F1 >= 0.90 and C_sis >= 0.8, or at the maximum iteration count.
 """
 import json
 import time
@@ -93,8 +93,8 @@ def optimize(rows=None, retriever=None, client=None, max_iters=config.OPT_MAX_IT
     dev, _ = split_dev_test(rows)
     if not dev:
         raise ValueError("Prompt optimization requires at least one development example.")
-    if max_iters < config.OPT_MIN_ITERS:
-        raise ValueError(f"max_iters ({max_iters}) must be at least OPT_MIN_ITERS ({config.OPT_MIN_ITERS}).")
+    if max_iters < 0:
+        raise ValueError("max_iters must be non-negative.")
     cur = build_base_prompt()
     best, best_res, history = None, None, []
     run_id = time.strftime("%Y%m%d_%H%M%S")
@@ -115,11 +115,9 @@ def optimize(rows=None, retriever=None, client=None, max_iters=config.OPT_MAX_IT
             h = history[-1]
             print(f"  iter {it}: P={h['precision']:.3f} R={h['recall']:.3f} F1={h['f1']:.3f} Csis={h['c_sis']:.3f} "
                   f"(rules={h['n_rules']}, examples={h['n_examples']})")
-        if best is None or (res["f1"], res["c_sis"], res["recall"]) >= (
-                best_res["f1"], best_res["c_sis"], best_res["recall"]):  # prefer the latest tied candidate
+        if best is None or res["f1"] > best_res["f1"]:
             best, best_res = cur, res
-        stop = (it >= config.OPT_MIN_ITERS and best_res["f1"] >= config.OPT_STOP_F1
-                and best_res["c_sis"] >= config.OPT_STOP_CSIS)
+        stop = res["f1"] >= config.OPT_STOP_F1 and res["c_sis"] >= config.OPT_STOP_CSIS
         updated = None if stop else next_prompt(cur, res, dev)
         artifact = {
             "iteration": it,
@@ -150,6 +148,6 @@ def optimize(rows=None, retriever=None, client=None, max_iters=config.OPT_MAX_IT
     best.save(config.PROMPT_DIR / "optimized_prompt.json")
     (config.PROMPT_DIR / "history.json").write_text(json.dumps(
         dict(run_id=run_id, artifact_dir=str(run_dir.relative_to(config.PROMPT_DIR)),
-             min_updates=config.OPT_MIN_ITERS, max_updates=max_iters, selected_version=best.version,
+             max_updates=max_iters, selected_version=best.version,
              history=history), indent=2), encoding="utf-8")
     return best, history

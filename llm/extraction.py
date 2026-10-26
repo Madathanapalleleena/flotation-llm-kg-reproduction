@@ -253,6 +253,14 @@ class MockLLM:
 
 def get_client(stage: int = 1):
     backend = config.LLM_BACKEND
+    if stage == 1:
+        stage1_backend = config.STAGE1_BACKEND
+        adapter_exists = (config.LORA_ADAPTER_DIR / "adapter_config.json").is_file()
+        if stage1_backend == "lora" or (stage1_backend == "auto" and adapter_exists):
+            from llm.lora.model import LoRALocalLLM
+            return LoRALocalLLM()
+        if stage1_backend not in ("auto", "default"):
+            backend = stage1_backend
     if backend == "auto":
         backend = "deepseek" if (config.STAGE1_API_KEY or config.DEEPSEEK_API_KEY) else "mock"
     if backend == "mock":

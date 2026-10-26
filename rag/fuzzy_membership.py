@@ -72,7 +72,7 @@ def fuzzy_entropy(tokens, weighter) -> float:
     for w, c in counts.items():
         p = c / n
         base -= p * math.log2(p)
-        mu_sum += mu_h(w, p, weighter, flags.get(w, 0))
+        mu_sum += c * mu_h(w, p, weighter, flags.get(w, 0))
     return base * (1.0 + config.ENTROPY_MU_COEF * mu_sum / n)
 
 
@@ -85,7 +85,7 @@ def h_min_fuzzy(h: float, h_min: float = None) -> float:
 # --------------------------------------------------------------- Eq. (11)
 def m_fuzzy(query_text: str, chunk_text: str, weighter) -> float:
     """M_fuzzy(c_i, c_j) = 1.0 + (W_term + B_context) * 2
-    W_term    : average fuzzy membership (mu_h) of the shared domain terms
+    W_term    : average Eq. (8) fuzzy membership of shared domain terms
     B_context : |common terms| / |terms in c_i|
     c_i = query chunk, c_j = candidate chunk."""
     from rag.term_weighting import tokenize
@@ -94,12 +94,9 @@ def m_fuzzy(query_text: str, chunk_text: str, weighter) -> float:
         return 1.0
     si, sj = set(ti), set(tj)
     shared = si & sj
-    n = len(ti)
-    cnt = Counter(ti)
-    flags = numeric_flags(ti)
     dom_shared = [w for w in shared if w in weighter.terms]
     if dom_shared:
-        w_term = float(np.mean([mu_h(w, cnt[w] / n, weighter, flags.get(w, 0)) for w in dom_shared]))
+        w_term = float(np.mean([weighter.membership(w) for w in dom_shared]))
     else:
         w_term = 0.0
     b_context = len(shared) / max(len(si), 1)
@@ -107,8 +104,7 @@ def m_fuzzy(query_text: str, chunk_text: str, weighter) -> float:
 
 
 def sim_fuzzy(v_i, v_j, query_text: str, chunk_text: str, weighter) -> float:
-    """Normalized cosine * fuzzy multiplier; the maximum possible multiplier maps to 1."""
+    """Eq. (11): cosine similarity multiplied directly by the fuzzy score."""
     v_i, v_j = np.asarray(v_i, dtype=float), np.asarray(v_j, dtype=float)
     cos = float(v_i @ v_j / (np.linalg.norm(v_i) * np.linalg.norm(v_j) + 1e-12))
-    multiplier = min(m_fuzzy(query_text, chunk_text, weighter), config.FUZZY_M_MAX)
-    return max(-1.0, min(1.0, cos)) * multiplier / config.FUZZY_M_MAX
+    return cos * m_fuzzy(query_text, chunk_text, weighter)

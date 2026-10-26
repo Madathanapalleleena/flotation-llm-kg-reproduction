@@ -22,3 +22,6 @@ neo4j>=5.20
 # OPTIONAL - built-in local LLM (LLM_BACKEND=local): free, runs inside the project (torch comes with sentence-transformers)
 transformers>=4.40
 accelerate>=0.30
+
+# OPTIONAL - paper-configured LoRA training/inference (run `python main.py train-lora`):
+peft>=0.11

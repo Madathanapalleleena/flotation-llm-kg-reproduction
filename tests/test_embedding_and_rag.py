@@ -61,7 +61,7 @@ class EmbeddingAndRetrievalTests(unittest.TestCase):
         result = retriever.retrieve("aeration rate", top_k=1, fuzzy=True)
 
         self.assertEqual(result[0]["id"], "fuzzy-first")
-        self.assertLessEqual(result[0]["score"], 1.0)
+        self.assertGreater(result[0]["score"], 1.0)
 
     def test_entropy_chunker_merges_low_entropy_text_until_threshold(self):
         chunker = EntropyChunker(TermWeighter(["first sentence second sentence"] * 3))

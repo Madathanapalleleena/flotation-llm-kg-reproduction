@@ -3,7 +3,8 @@
 See **RUN.md** for step-by-step run instructions and the dataset guide.
 
 Re-implementation of *"LLM-Driven Multimodal Knowledge Graph Construction for Industrial Process With Prompt
-Optimization and Fuzzy RAG"* (Xie et al., IEEE Trans. Fuzzy Systems 34(4), 2026) — **without the LoRA stage**.
+Optimization and Fuzzy RAG"* (Xie et al., IEEE Trans. Fuzzy Systems 34(4), 2026), including optional paper-configured
+LoRA training for stage-one triple generation.
 
 ## Quick start
 
@@ -15,7 +16,7 @@ python3 -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts
 pip install -r requirements.txt
 
 # A) 2-minute offline smoke test (no API key, no model download, no Neo4j) -- uses SYNTHETIC data + a rule-based mock LLM
-EMBEDDING_BACKEND=hash LLM_BACKEND=mock USE_NEO4J=0 OPT_MIN_ITERS=0 python main.py all
+EMBEDDING_BACKEND=hash LLM_BACKEND=mock USE_NEO4J=0 python main.py all
 python main.py serve                                     # open http://127.0.0.1:5000  (any --port works; image thumbnails follow it)
 
 # B) The real thing
@@ -35,13 +36,24 @@ Step by step (same order as the paper's flow):
 | 5–7 normal RAG, fuzzy TF-IDF, entropy chunking | `python main.py build-rag` | `rag/term_weighting.py`, `fuzzy_membership.py`, `entropy_chunking.py`, `embeddings.py`, `vector_store.py`, `retriever.py` |
 | 8 fuzzy retrieval | `python main.py query "foam colour changes from dark to lead gray"` | `rag/retriever.py` |
 | 9–10 prompt + optimisation | `python main.py optimize-prompt` | `prompting/base_prompt.py`, `prompt_optimizer.py` |
-| 11–12 triples + LLM refinement | `python main.py extract` (`--max-units 20` for a cheap API test) | `llm/extraction.py`, `llm/refinement.py` |
+| 10 LoRA fine-tuning (optional, once per training-data/model change) | `python main.py train-lora` | `llm/lora/training.py`, `llm/lora/model.py` |
+| 11–12 LoRA initial triples + larger LLM refinement | `python main.py extract` (`--max-units 20` for a smoke test) | `llm/extraction.py`, `llm/refinement.py` |
 | 13–14 ontology mapping + Neo4j | `python main.py build-kg` | `kg/*.py` |
 | 15 D3 visualisation | `python main.py serve` | `backend/api.py`, `frontend/graph.html` |
 | 16–17 evaluation | `python main.py evaluate [--full-semantic]` | `evaluation/*.py` |
-| 18 LoRA | **removed** | `llm/lora/README.md` |
+| LoRA training | `python main.py train-lora` | `llm/lora/training.py` |
 
 Formula tests: `python -m unittest tests.test_formulas -v` (reproduces the paper's S₁ = 0.9774 and S_Final = 0.9195 from its component values).
+
+### Flotation Knowledge Tree
+
+`ontology/ontology.json` models the process root, the four core process stages and their next-stage sequence,
+feed/product concepts, and an explicit equipment branch. For example, the graph contains the ontology path
+`Froth Flotation → Roughing → Equipment → Flotation Cell`. Equipment concepts include flotation cells, agitators,
+froth scrapers, air blowers, slurry pumps, and level sensors. Ontology nodes carry their applicable attribute labels
+such as `MineralComposition`, `ParticleSizeDistribution`, `EquipmentType`, and `ProcessParameters`. Extracted
+equipment entities are linked to the most specific matching ontology concept; alias matching prefers specific
+concept names over generic substring matches.
 
 ## Datasets you must upload yourself
 
@@ -77,25 +89,61 @@ Paper corpus is Chinese. For Chinese text the tokenizer works per character, ent
 | – | H_min^fuzzy, merge rule (≤50 / ≤100 chars) | `rag/fuzzy_membership.py`, `rag/entropy_chunking.py` |
 | 11 | sim_fuzzy, M_fuzzy | `rag/fuzzy_membership.py`, `rag/retriever.py` |
 | 12 | storage objective L(D); HNSW M=8, ef=40, batch 100 | `rag/vector_store.py` |
-| 13–16 | LoRA | removed |
+| 13–16 | LoRA fine-tuning data format, response-only loss, and cosine schedule | `llm/lora/training.py` |
 | 17 | T_m = f_LLM(x, f_Fine(x, C_RAG)) | `llm/refinement.py` |
 | 18 | v* = argmax deg | `kg/representative_node.py` |
 | 19–21 | E = E_triples ∪ E_img ∪ E_onto | `kg/ontology_mapper.py` |
 | 22–28 | I_s, C_s, B_s, Z_s, P_s, R_s, S₁ | `evaluation/structural_metrics.py` |
 | 29–30 | dynamic sampling, S₂, S_Final | `evaluation/semantic_metrics.py` |
 
-## Things the paper does not specify (my choices — all in `config.py`, marked `[assumed]`)
+## Paper-specified equations and explicit assumptions
+
+The implemented equation forms now follow the paper where it gives an explicit formula. The paper leaves several
+algorithm details open, so the project records those as assumptions rather than claiming an exact reproduction:
 
 * Nine relation types and six entity types (the prompt in Fig. 6 gives the counts only). Mine: entities `RawOre, ProcessStage, Equipment, Parameter, Reagent, Product`; relations `affects, increases, decreases, keeps, causes, uses, produces, follows, has_property`. Edit `ontology/ontology.json`.
-* `H_min` (base entropy threshold), `σ_s` (Eq. 29, default 0.1; result is clipped to 1), `λ` (Eq. 12), the cut-off for the `terms` set (μ ≥ 0.5), max optimisation iterations.
-* Eq. 27: `T_mid` and `T_target` are undefined in the paper → midpoint of [T_min, T_max]; `N_process` = simple cycles of the ontology process sub-graph.
-* Eq. 23: a core stage counts as covered when extracted knowledge is attached to it. With a small KG expect C_s < 1.
-* "Triple label" in S_triplet = agreement of subject/object ontology types.
-* TF-IDF "document" = one sentence; W_term uses μ_h of shared terms; B_context = shared terms / terms in the query.
+* Eq. 7 describes a fuzzy triple-similarity score and threshold, but not the string-similarity function or assignment procedure. The project uses normalized `SequenceMatcher` scores and greedy one-to-one matching. `S_label` is the mean agreement of subject/object ontology types.
+* Eq. 8 gives the TF-IDF-to-Gaussian membership mapping, but not the TF-IDF variant, what constitutes a document, or the cut-off for `terms`. This project uses sentence documents, smoothed TF-IDF, and `μ ≥ 0.5`.
+* Eq. 9–10 define fuzzy entropy over token occurrences. A numerical context window of two tokens on either side is used because the paper does not define that window.
+* Eq. 11 defines `W_term` as average Eq. 8 membership for shared domain terms, and `B_context` as shared query terms divided by query terms. Fuzzy similarity is the cosine multiplied directly by `M_fuzzy`, without rescaling or clipping.
+* Eq. 12 defines the objective, but does not specify how representative queries are chosen. The project uses each indexed vector as a query against the completed index and evaluates all vectors. `λ` remains configurable because the paper gives no value.
+* `H_min` (base entropy threshold) and maximum prompt-optimization iterations are not specified by the paper.
+* Prompt updates follow the paper's F1/consistency/recall rules; the best prompt is replaced only when F1 improves, and stopping uses the current version's `F1 ≥ 0.90` and `C_sis ≥ 0.8` thresholds.
+* Eq. 27 leaves `T_mid` and `T_target` undefined. This project sets both to the midpoint of `[T_min, T_max]` and counts directed simple cycles in the ontology subgraph as process loops.
+* Eq. 23 does not operationalize stage coverage. This project counts a core stage as covered when extracted knowledge is attached to its ontology node or a matching stage entity exists.
+* Eq. 29 gives the mean-plus-weighted-sample-standard-deviation formula but not `σ_s`; the project assumes `0.1`. The equation is reported without a project-only cap at 1.
+* The semantic sampling description does not specify all rounding and interval-boundary details; the project uses deterministic seeding and the implementations documented in `evaluation/semantic_metrics.py`.
+
+The graph-integrity score is an additional project metric; it is not presented as one of the paper's equations. Treat scores as paper-formula-aligned, not exact experimental reproduction, wherever an assumption above applies.
+
+## Enable the two-model LoRA pipeline
+
+Install dependencies, provide expert-annotated JSONL training data, and train the paper's DeepSeek-R1-Distill-Llama-8B
+adapter on a CUDA GPU that supports bfloat16:
+
+```powershell
+pip install -r requirements.txt
+python main.py train-lora
+```
+
+Training uses the paper's response-only loss mask, sequence-length rule, rank 32 / alpha 160 / dropout 0.4 on
+`q_proj` and `v_proj`, AdamW, cosine scheduling, batch size 1, gradient accumulation 8, bf16, and 15 epochs.
+The default output is `outputs/lora_adapter`. Stage one selects the saved adapter automatically when present
+(`STAGE1_BACKEND=auto`); set `STAGE1_BACKEND=lora` to require it or `STAGE1_BACKEND=default` to use the configured
+chat backend. The adapter is not trained or checked into the repository.
+
+Stage two is configured independently and should be a larger refinement model. With Ollama, set
+`OLLAMA_STAGE2_MODEL` to a model larger than the stage-one base and pull it before extraction; alternatively set
+`LLM_BACKEND=deepseek` and configure the API key for the paper's hosted refinement model. The selected backend/model
+for each stage is recorded with extracted units. `python main.py all` does not train LoRA automatically: run
+`train-lora` after reviewing your training set, then run the pipeline.
+
+Do not use the bundled synthetic examples as evidence of fine-tuning quality. Evaluate the trained adapter against a
+held-out expert-annotated set; the training loss alone is not a quality metric.
 
 ## Honest limitations
 
-* **LoRA removed:** stage 1 is a plain chat model (default the same DeepSeek model as stage 2; point `STAGE1_*` at a local 8B model to get closer to the paper).
+* **LoRA training:** paper-configured adapter training is implemented, but the adapter must be trained locally using an expert-annotated dataset and a CUDA bf16 GPU. The project does not include or distribute pretrained adapter weights.
 * **Django → Flask** for the web layer (same JSON + D3 force layout, thumbnails for image nodes, legend filter, zoom, drag).
 * **Baselines UIE and Rule+LTP** from Table III need external models and are not included; `evaluate` compares the proposed pipeline against the LLM-FewShot baseline (P₀, no RAG).
 * **The offline MockLLM is not a language model.** It is a lexicon + regex extractor that reacts to the optimiser's rules so the loop can be tested. Scores produced with it (and with the synthetic data) are *not* comparable to the paper's (F1 0.85, S₁ 0.97, S₂ 0.88, S_Final 0.92). Real numbers need real data + a real LLM.
@@ -108,6 +156,6 @@ Paper corpus is Chinese. For Chinese text the tokenizer works per character, ent
 | Verified here (offline) | Not verifiable here -- try on your machine |
 |---|---|
 | `python main.py all` end to end with `EMBEDDING_BACKEND=hash LLM_BACKEND=mock USE_NEO4J=0` | Real DeepSeek calls (no API key / network in the sandbox) |
-| 51 unit tests incl. paper formulas, embeddings, fuzzy retrieval, prompt feedback, parsing provenance, and graph integrity | Live M3E model download/inference (requires Hugging Face model access) |
+| 60 unit tests incl. LoRA data masking/routing, paper formulas, embeddings, fuzzy retrieval, parsing provenance, and graph integrity | Live LoRA training/inference and M3E model download/inference (requires a compatible GPU/model access) |
 | Chroma HNSW created with M = 8, ef_construction = 40, batches of 100 | Live Neo4j write/read (Cypher reviewed, not executed against a server) |
 | Flask API + D3 page rendered in headless Chromium: ontology backbone, typed nodes, 3 image thumbnails | MinerU parsing (PyMuPDF fallback is what ran) |

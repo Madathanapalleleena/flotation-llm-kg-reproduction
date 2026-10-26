@@ -3,6 +3,8 @@ import unittest
 
 from kg.ontology_mapper import assemble
 from kg.representative_node import representative_node
+from ontology.knowledge_tree import KnowledgeTree
+from evaluation.graph_metrics import graph_consistency_assessment
 
 
 def T(s, st, r, o, ot):
@@ -30,6 +32,32 @@ class KGAssembly(unittest.TestCase):
         img = [e for e in g["edges"] if e["type"] == "HAS_IMG"][0]
         self.assertTrue(img["source"].startswith("ent:Parameter:pulp concentration"))
         self.assertEqual(st["mapped"], 1)
+
+    def test_ontology_has_literal_stage_equipment_type_path(self):
+        kt = KnowledgeTree()
+        edges = set(kt.edges)
+
+        self.assertIn(("Roughing", "HAS_EQUIPMENT_DOWN", "Equipment"), edges)
+        self.assertIn(("Equipment", "HAS_TYPE_DOWN", "FlotationCell"), edges)
+        self.assertEqual(kt.nodes["Equipment"].attributes, ["EquipmentType"])
+        self.assertIn("ProcessParameters", kt.nodes["FlotationCell"].attributes)
+
+    def test_equipment_triple_maps_entity_to_specific_ontology_concept(self):
+        unit = dict(
+            unit_id="equipment-unit",
+            doc_id="d",
+            modality="text",
+            text="Roughing uses a flotation cell.",
+            triples=[T("roughing", "ProcessStage", "uses", "flotation cell", "Equipment")],
+        )
+
+        graph, _ = assemble([unit])
+        edges = {(edge["source"], edge["type"], edge["target"]) for edge in graph["edges"]}
+
+        self.assertIn(("onto:Roughing", "HAS_EQUIPMENT_DOWN", "onto:Equipment"), edges)
+        self.assertIn(("onto:Equipment", "HAS_TYPE_DOWN", "onto:FlotationCell"), edges)
+        self.assertIn(("onto:FlotationCell", "HAS_ENTITIES", "ent:Equipment:flotation cell"), edges)
+        self.assertEqual(graph_consistency_assessment(graph)["n_issues"], 0)
 
 
 if __name__ == "__main__":

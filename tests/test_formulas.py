@@ -6,10 +6,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import config
-from rag.fuzzy_membership import fuzzy_entropy, gaussian_membership, h_min_fuzzy, m_fuzzy
+from rag.fuzzy_membership import fuzzy_entropy, gaussian_membership, h_min_fuzzy, m_fuzzy, sim_fuzzy
 from rag.term_weighting import TermWeighter, tokenize
 from evaluation.extraction_metrics import prf, triplet_similarity
 from evaluation.semantic_metrics import final_score, semantic_assessment
+from rag.vector_store import storage_objective
+from unittest.mock import patch
 
 
 class FakeJudge:
@@ -53,10 +55,32 @@ class Formulas(unittest.TestCase):
         mu = math.exp(-((0.25 - config.MUH_CENTER) ** 2) / (2 * config.MUH_SIGMA ** 2))
         self.assertAlmostEqual(h, shannon * (1 + config.ENTROPY_MU_COEF * 4 * mu / 4), places=6)
 
+    @patch("rag.fuzzy_membership.mu_h", return_value=0.5)
+    def test_eq9_counts_membership_for_each_token_occurrence(self, _):
+        class W:
+            terms = {"x", "y"}
+        base = -(2 / 3 * math.log2(2 / 3) + 1 / 3 * math.log2(1 / 3))
+        self.assertAlmostEqual(fuzzy_entropy(["x", "x", "y"], W()), base * 1.15)
+
     def test_eq11_bounds(self):
         w = TermWeighter(["pulp concentration affects recovery rate", "xanthate is a collector", "froth depth matters"] * 5)
         self.assertGreaterEqual(m_fuzzy("pulp concentration", "pulp concentration affects recovery rate", w), 1.0)
         self.assertEqual(m_fuzzy("zzz", "pulp", w), 1.0)
+
+    def test_eq11_applies_unscaled_cosine_and_eq8_membership(self):
+        class W:
+            terms = {"aeration"}
+            def membership(self, _):
+                return 0.75
+
+        multiplier = m_fuzzy("aeration rate", "aeration", W())
+        self.assertAlmostEqual(multiplier, 1.0 + (0.75 + 0.5) * 2.0)
+        self.assertAlmostEqual(sim_fuzzy([1.0, 0.0], [0.8, 0.6], "aeration rate", "aeration", W()),
+                               0.8 * multiplier)
+
+    def test_eq12_divides_both_objective_terms_by_total_vector_count(self):
+        result = storage_objective([0.0, 0.5], index_size_kb=10.0, n=4, lam=0.1)
+        self.assertAlmostEqual(result, (1.0 + 0.25) / 4 + (0.1 * 10.0) / 4)
 
     def test_eq24_balance(self):
         n_down = n_up = 14
@@ -67,6 +91,23 @@ class Formulas(unittest.TestCase):
         r = semantic_assessment(units, FakeJudge(0.9), full=True)
         self.assertAlmostEqual(r["S2_raw"], 0.9)                    # std = 0
         self.assertEqual(config.FIBONACCI, [1, 2, 3, 5, 8, 13])
+
+    def test_eq29_is_reported_without_a_non_paper_clamp(self):
+        class TwoScores:
+            kind = "fake"
+            def __init__(self):
+                self.scores = iter([1.0, 0.0])
+            def chat(self, messages, temperature=None):
+                return '{"score": %s, "reason": "x"}' % next(self.scores)
+
+        with patch("evaluation.semantic_metrics.config.SIGMA_S", 1.0):
+            result = semantic_assessment(
+                [dict(text="x", triples=[], unit_id=1), dict(text="y", triples=[], unit_id=2)],
+                TwoScores(),
+                full=True,
+            )
+        self.assertGreater(result["S2"], 1.0)
+        self.assertEqual(result["S2"], result["S2_raw"])
 
     def test_dynamic_sampling_rate(self):
         units = [dict(text="x", triples=[{"a": 1}] * (1 + i % 5), unit_id=i) for i in range(250)]

@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## 2. Quick check with the bundled sample data (2 minutes, offline)
 ```bash
-EMBEDDING_BACKEND=hash LLM_BACKEND=mock USE_NEO4J=0 OPT_MIN_ITERS=0 python main.py all
+EMBEDDING_BACKEND=hash LLM_BACKEND=mock USE_NEO4J=0 python main.py all
 python main.py serve            # open http://127.0.0.1:5000
 ```
 The sample data is synthetic and the mock LLM is a rule-based stand-in, so the printed scores only prove that the code runs.
@@ -76,28 +76,43 @@ sampled demo units. It replaces `optimized_prompt.json`, `outputs/triples.json`,
 not full-corpus results. Increase `--max-units` and `--eval-samples` for a longer presentation run; use the separate
 full-pipeline commands when you need full-corpus outputs.
 
+### Optional LoRA training and separate refinement model
+
+Use expert-annotated JSONL training data (the bundled set is synthetic and intended only for smoke tests). Install
+the optional `peft` dependency with `pip install -r requirements.txt`, then train on a CUDA bf16-capable GPU:
+
+```powershell
+python main.py train-lora
+```
+
+This trains the paper-configured DeepSeek-R1-Distill-Llama-8B stage-one adapter and saves it under
+`outputs/lora_adapter`. With the default `STAGE1_BACKEND=auto`, extraction uses that adapter once the saved adapter is
+present. `STAGE1_BACKEND=lora` requires the adapter; `STAGE1_BACKEND=default` bypasses it.
+
 ### Local Ollama model
 
-For a local Ollama server, set these in `.env`. Stage 1 generates initial triples; stage 2 receives those triples plus the original source and refines them. They are separate model calls and may use different models; the backend/model used for each unit is saved in `outputs/triples.json`. The example below uses one small model for both stages, which is convenient but less capable than a distinct larger refinement model.
+For a local Ollama server, set these in `.env`. Stage 1 generates initial triples; stage 2 receives those triples plus the original source and refines them. They are separate model calls and may use different models; the backend/model used for each unit is saved in `outputs/triples.json`. Choose a distinct larger model for stage two to follow the paper's two-model design. The small-model example is only
+for machines that cannot run a larger model locally.
 
 ```dotenv
 LLM_BACKEND=ollama
 OLLAMA_BASE_URL=http://localhost:11434
 STAGE1_MODEL=qwen2.5:1.5b
-OLLAMA_STAGE2_MODEL=qwen2.5:1.5b
+OLLAMA_STAGE2_MODEL=deepseek-r1:14b
 OLLAMA_NUM_PREDICT=256
 LLM_TIMEOUT=180
 OPT_DEV_SIZE=40
 OPT_MAX_ITERS=3
-OPT_MIN_ITERS=1
 OPT_USE_RAG=1
 ```
 
-Pull each configured model with `ollama pull <model>`. DeepSeek-R1 8B can be very slow on CPU; use a smaller model if
-generation times out. Prompt optimization evaluates the current prompt on the configured annotated development set,
+Pull each configured model with `ollama pull <model>`. The stage-two model requires substantially more memory; if
+unavailable, use the DeepSeek API backend with a configured key or deliberately select a smaller refinement model.
+Prompt optimization evaluates the current prompt on the configured annotated development set,
 uses missed/spurious triples and P/R/F1/consistency to update its rules/examples, and saves per-version scores in
-`prompting/prompts/history.json`. `OPT_MIN_ITERS=1` requires at least one feedback update; `OPT_MAX_ITERS=3` allows up
-to three updates (four prompt evaluations). Optimization quality depends on representative expert-annotated examples;
+`prompting/prompts/history.json`. `OPT_MAX_ITERS=3` allows up to three feedback updates (four prompt evaluations);
+optimization stops early when the current version reaches the paper's F1 and consistency thresholds. Optimization
+quality depends on representative expert-annotated examples;
 synthetic training data only tests the workflow. Each optimization run has a unique folder under
 `prompting/prompts/optimization_runs/`; every iteration saves the exact prompt, test inputs, gold and generated
 triples, per-example and aggregate scores, missed/spurious triples, and the next updated prompt.

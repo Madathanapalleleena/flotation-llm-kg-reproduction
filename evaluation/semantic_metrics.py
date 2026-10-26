@@ -111,7 +111,7 @@ def semantic_assessment(units, client=None, full=False, seed=7, verbose=False):
                 validated_triples=valid_triples, rejected_triples=rejected_triples,
                 validation_rate=valid_triples / max(input_triples, 1),
                 mean_score=s_bar, std=sd, sigma_s=config.SIGMA_S,
-                S2_raw=S2_raw, S2=min(1.0, S2_raw),
+                S2_raw=S2_raw, S2=S2_raw,
                 frac_ge_0_8=sum(x >= 0.8 for x in scores) / max(n, 1),
                 n_low_quality=sum(x < config.SEM_LOW_QUALITY for x in scores),
                 judge=getattr(client, "kind", "?"), samples=sample)

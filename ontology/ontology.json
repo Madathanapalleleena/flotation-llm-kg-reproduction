@@ -91,7 +91,9 @@
       "kind": "string",
       "type": "string",
       "level": "string",
-      "url": "string"
+      "url": "string",
+      "attributes": "string_list",
+      "attributes": "string_list"
     },
     "relationship_property_types": {
       "source": "string",
@@ -116,7 +118,7 @@
   "type_to_node": {
     "RawOre": "RawOre",
     "ProcessStage": "FrothFlotation",
-    "Equipment": "FrothFlotation",
+    "Equipment": "Equipment",
     "Parameter": "FrothFlotation",
     "Reagent": "FrothFlotation",
     "Product": "Concentrate"
@@ -254,6 +256,105 @@
       ]
     },
     {
+      "id": "Equipment",
+      "label": "Equipment",
+      "level": "equipment",
+      "cls": "EquipmentCategory",
+      "aliases": [
+        "equipment",
+        "flotation equipment"
+      ],
+      "attributes": [
+        "EquipmentType"
+      ]
+    },
+    {
+      "id": "FlotationCell",
+      "label": "Flotation Cell",
+      "level": "equipment_type",
+      "cls": "FlotationEquipment",
+      "aliases": [
+        "flotation cell",
+        "flotation cells",
+        "flotation machine",
+        "flotation machines"
+      ],
+      "attributes": [
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "Agitator",
+      "label": "Agitator",
+      "level": "equipment_type",
+      "cls": "FlotationEquipment",
+      "aliases": [
+        "agitator",
+        "impeller"
+      ],
+      "attributes": [
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "FrothScraper",
+      "label": "Froth Scraper",
+      "level": "equipment_type",
+      "cls": "FlotationEquipment",
+      "aliases": [
+        "froth scraper",
+        "scraper"
+      ],
+      "attributes": [
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "AirBlower",
+      "label": "Air Blower",
+      "level": "equipment_type",
+      "cls": "FlotationEquipment",
+      "aliases": [
+        "air blower",
+        "blower"
+      ],
+      "attributes": [
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "SlurryPump",
+      "label": "Slurry Pump",
+      "level": "equipment_type",
+      "cls": "FlotationEquipment",
+      "aliases": [
+        "slurry pump",
+        "pump"
+      ],
+      "attributes": [
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
+      "id": "LevelSensor",
+      "label": "Level Sensor",
+      "level": "equipment_type",
+      "cls": "FlotationEquipment",
+      "aliases": [
+        "level sensor",
+        "sensor"
+      ],
+      "attributes": [
+        "EquipmentType",
+        "ProcessParameters"
+      ]
+    },
+    {
       "id": "Concentrate",
       "label": "Concentrate",
       "level": "leaf",
@@ -337,6 +438,106 @@
       "source": "Cleaning",
       "target": "FrothFlotation",
       "type": "HAS_STAGE_UP"
+    },
+    {
+      "source": "FastRoughing",
+      "target": "Equipment",
+      "type": "HAS_EQUIPMENT_DOWN"
+    },
+    {
+      "source": "Roughing",
+      "target": "Equipment",
+      "type": "HAS_EQUIPMENT_DOWN"
+    },
+    {
+      "source": "Scavenging",
+      "target": "Equipment",
+      "type": "HAS_EQUIPMENT_DOWN"
+    },
+    {
+      "source": "Cleaning",
+      "target": "Equipment",
+      "type": "HAS_EQUIPMENT_DOWN"
+    },
+    {
+      "source": "Equipment",
+      "target": "FastRoughing",
+      "type": "HAS_EQUIPMENT_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "Roughing",
+      "type": "HAS_EQUIPMENT_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "Scavenging",
+      "type": "HAS_EQUIPMENT_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "Cleaning",
+      "type": "HAS_EQUIPMENT_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "FlotationCell",
+      "type": "HAS_TYPE_DOWN"
+    },
+    {
+      "source": "FlotationCell",
+      "target": "Equipment",
+      "type": "HAS_TYPE_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "Agitator",
+      "type": "HAS_TYPE_DOWN"
+    },
+    {
+      "source": "Agitator",
+      "target": "Equipment",
+      "type": "HAS_TYPE_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "FrothScraper",
+      "type": "HAS_TYPE_DOWN"
+    },
+    {
+      "source": "FrothScraper",
+      "target": "Equipment",
+      "type": "HAS_TYPE_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "AirBlower",
+      "type": "HAS_TYPE_DOWN"
+    },
+    {
+      "source": "AirBlower",
+      "target": "Equipment",
+      "type": "HAS_TYPE_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "SlurryPump",
+      "type": "HAS_TYPE_DOWN"
+    },
+    {
+      "source": "SlurryPump",
+      "target": "Equipment",
+      "type": "HAS_TYPE_UP"
+    },
+    {
+      "source": "Equipment",
+      "target": "LevelSensor",
+      "type": "HAS_TYPE_DOWN"
+    },
+    {
+      "source": "LevelSensor",
+      "target": "Equipment",
+      "type": "HAS_TYPE_UP"
     },
     {
       "source": "RawOre",

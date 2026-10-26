@@ -25,6 +25,9 @@ def graph_consistency_assessment(graph, kt=None):
             value = node.get(field)
             if value is not None and expected == "string" and not isinstance(value, str):
                 valid = False
+            elif value is not None and expected == "string_list" and (
+                    not isinstance(value, list) or any(not isinstance(item, str) for item in value)):
+                valid = False
         if kind == "Entity":
             valid = valid and node.get("type") in valid_entity_types
         elif kind == "Ontology":

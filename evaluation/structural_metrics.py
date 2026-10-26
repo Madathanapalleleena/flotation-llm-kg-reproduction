@@ -10,9 +10,8 @@ R_s  process loop rationality         = sigmoid( T_mid / (T_min + |D - T_target|
 S_1 = .25(1-I_s) + .25 C_s + .2 B_s + .15 Z_s + .1 P_s + .05 R_s                               (28)
 
 [assumed]  The paper does not define T_mid / T_target; they are set to the middle of [T_min, T_max].
-           N_process = number of directed simple cycles (up to 100 000) in the ontology process subgraph.
+           N_process = number of directed simple cycles in the ontology process subgraph.
 """
-import itertools
 import math
 
 import networkx as nx
@@ -84,7 +83,7 @@ def structural_assessment(graph, kt: KnowledgeTree = None):
     for u, v, d in G.edges(data=True):
         if d.get("kind") == "ontology":
             proc.add_edge(u, v)
-    n_process = sum(1 for _ in itertools.islice(nx.simple_cycles(proc), 100000))
+    n_process = sum(1 for _ in nx.simple_cycles(proc))
     D = n_process / max(n_edges, 1)
     t_min, t_max = config.R_TMIN_NUM / max(n_edges, 1), config.R_TMAX_NUM / max(n_edges, 1)
     t_mid = t_target = (t_min + t_max) / 2.0

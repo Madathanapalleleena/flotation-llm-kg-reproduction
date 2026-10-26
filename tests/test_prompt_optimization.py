@@ -22,7 +22,6 @@ class PromptOptimizationTests(unittest.TestCase):
         }
         with tempfile.TemporaryDirectory() as directory:
             with patch("prompting.prompt_optimizer.config.PROMPT_DIR", Path(directory)), \
-                    patch("prompting.prompt_optimizer.config.OPT_MIN_ITERS", 1), \
                     patch("prompting.prompt_optimizer.config.OPT_STOP_F1", 0.9), \
                     patch("prompting.prompt_optimizer.config.OPT_STOP_CSIS", 0.8), \
                     patch("prompting.prompt_optimizer.run_extraction",
@@ -40,6 +39,30 @@ class PromptOptimizationTests(unittest.TestCase):
             self.assertEqual(artifact["examples"][0]["generated"], [])
             self.assertEqual(artifact["updated_prompt"]["version"], 1)
             self.assertEqual([call.args[0].version for call in run.call_args_list], [0, 1])
+
+    def test_optimizer_stops_on_first_prompt_when_paper_thresholds_are_met(self):
+        row = {
+            "id": "sample-1",
+            "user": "Aeration rate increases froth depth.",
+            "gold": [{
+                "subject": "aeration rate",
+                "subject_type": "Parameter",
+                "relation": "increases",
+                "object": "froth depth",
+                "object_type": "Parameter",
+            }],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            with patch("prompting.prompt_optimizer.config.PROMPT_DIR", Path(directory)), \
+                    patch("prompting.prompt_optimizer.config.OPT_STOP_F1", 0.9), \
+                    patch("prompting.prompt_optimizer.config.OPT_STOP_CSIS", 0.8), \
+                    patch("prompting.prompt_optimizer.run_extraction",
+                          return_value={"sample-1": row["gold"]}) as run:
+                best, history = optimize(rows=[row], max_iters=3, verbose=False)
+
+        self.assertEqual(best.version, 0)
+        self.assertEqual(len(history), 1)
+        run.assert_called_once()
 
 
 if __name__ == "__main__":

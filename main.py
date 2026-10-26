@@ -5,6 +5,7 @@
   python main.py build-rag         Steps 5-7  normal index, then fuzzy TF-IDF + entropy chunking + M3E + Chroma
   python main.py query "..."       Step 8     fuzzy retrieval (normal vs fuzzy, top-3)
   python main.py optimize-prompt   Steps 9-10 adaptive prompt optimisation
+  python main.py train-lora        Step 10   fine-tune the paper's stage-1 LoRA adapter
   python main.py demo --source <file.pdf>  Fast single-document graph demo
   python main.py extract           Steps 11-12 two-stage triple generation (initial -> refinement)
   python main.py build-kg          Steps 13-14 ontology mapping + Neo4j (or local JSON) storage
@@ -69,6 +70,15 @@ def cmd_optimize(_):
     from prompting.prompt_optimizer import optimize
     best, hist = optimize(retriever=_retriever() if config.OPT_USE_RAG else None)
     print(f"best prompt = version {best.version}, saved to {config.PROMPT_DIR / 'optimized_prompt.json'}")
+
+
+def cmd_train_lora(_):
+    banner("10", "LoRA fine-tuning for stage-1 triple generation")
+    from llm.lora.training import train_lora
+    result = train_lora()
+    print(f"LoRA adapter saved to {config.LORA_ADAPTER_DIR}")
+    print(f"training loss={result['train_loss']}, examples={result['examples']}, "
+          f"base model={result['base_model']}")
 
 
 def _load_prompt():
@@ -427,6 +437,7 @@ def main():
     q.add_argument("text")
     q.set_defaults(fn=cmd_query)
     sub.add_parser("optimize-prompt").set_defaults(fn=cmd_optimize)
+    sub.add_parser("train-lora", help="train the paper-configured stage-1 LoRA adapter").set_defaults(fn=cmd_train_lora)
     e = sub.add_parser("extract")
     e.add_argument("--max-units", type=int, default=0, help="limit units (cheap smoke test with a real API)")
     e.set_defaults(fn=cmd_extract)

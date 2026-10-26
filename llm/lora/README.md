@@ -1,7 +1,16 @@
-LoRA fine-tuning (paper Sec. III-B-3, Eq. 13-16, Table I) has been **removed from this build** on request.
+LoRA fine-tuning for the first (candidate-generation) model is implemented in `training.py` and `model.py`.
+The training command is `python main.py train-lora`; inference automatically uses `outputs/lora_adapter` when
+`STAGE1_BACKEND=auto` and a trained adapter is present.
 
-Stage 1 of the two-stage generation therefore uses a plain chat model (`STAGE1_MODEL` in `config.py` / `.env`).
-When you want it back, this folder is where it goes: `train_lora.py` (JSONL -> tokenised with the [SYSTEM]/[USER]/[ASSISTANT]
-format of Eq. 14, response-only loss mask of Eq. 15, rank 32 / alpha 160 / dropout 0.4 on q_proj,v_proj, AdamW wd 0.01,
-lr 1e-4 cosine to 0 (Eq. 16), warmup 100, bs 1 x grad-accum 8, bf16, 15 epochs) and the adapter weights.
-`data/training/flotation_train.jsonl` already has the system/user/assistant layout that script would consume.
+The implementation follows paper Eq. 13–16 and Table I: system/user/assistant role markers, prompt-masked assistant
+loss, DeepSeek-R1-Distill-Llama-8B base model, LoRA rank 32 / alpha 160 / dropout 0.4 on `q_proj` and `v_proj`,
+AdamW weight decay 0.01, learning rate 1e-4 with cosine schedule, 100 warmup steps, per-device batch size 1,
+gradient accumulation 8, bf16, and 15 epochs. Exact source settings that the paper does not specify are kept in
+`config.py`.
+
+Training requires an expert-annotated JSONL dataset with non-empty `system`, `user`, and `assistant` string fields,
+plus a CUDA GPU supporting bf16. The project refuses to start paper-configured training if that hardware is absent.
+The bundled synthetic dataset is only for pipeline smoke tests and is not suitable for asserting model quality.
+
+Stage two is a separately configured, larger refinement LLM (`OLLAMA_STAGE2_MODEL` for Ollama or `STAGE2_MODEL` for
+the DeepSeek-compatible API). `outputs/lora_adapter` is generated locally and should not be committed.
