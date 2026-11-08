@@ -1,10 +1,7 @@
-# Multimodal Industrial Knowledge Graph (froth flotation)
+# Multimodal Industrial Knowledge Graph (Supply chain)
 
 See **RUN.md** for step-by-step run instructions and the dataset guide.
-
-Re-implementation of *"LLM-Driven Multimodal Knowledge Graph Construction for Industrial Process With Prompt
-Optimization and Fuzzy RAG"* (Xie et al., IEEE Trans. Fuzzy Systems 34(4), 2026), including optional paper-configured
-LoRA training for stage-one triple generation.
+Implementing Multimodel Industrial Knowledge Graph for handling Supply Chain issues. Avoiding risk mitigation and allowing easy accessing of the pathways.
 
 ## Quick start
 
