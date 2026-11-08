@@ -1,21 +1,28 @@
 """Steps 2-3 - multimodal parsing -> unified JSON.   Paper Sec. II-B, Eq. (1)-(3).
 
-PDF  -> MinerU (text fragments S_D, images I_D, captions C_I)         Eq. (3)
+PDF  -> MinerU text + PyMuPDF figures/tables (text fragments S_D, images I_D, captions C_I) Eq. (3)
 CSV  -> structured records R_si = (t_i, v_i1, ... v_im)                Eq. (1) -> verbalised sentences
 Both are merged into data/parsed/documents.json :  D_JSON = {(S_D, I_D, C_I)}
 
-MinerU is used when its CLI (`mineru`, or legacy `magic-pdf`) is on PATH.
-Otherwise a PyMuPDF fallback with the same output schema is used (text blocks, image blocks,
-"Fig./Figure" caption detection by geometry).
+MinerU is used when its CLI (`mineru`, or legacy `magic-pdf`) is on PATH. MinerU v4 is
+invoked through its JSON CLI and local flash tier; PyMuPDF supplies figures/tables not
+included in that text-only tier. Otherwise a PyMuPDF fallback with the same output schema
+is used (text blocks, image blocks, "Fig./Figure" caption detection by geometry).
 """
 import csv
+import html
 import json
 import math
 import re
 import shutil
 import subprocess
 import sys
+import unicodedata
+from io import BytesIO
 from pathlib import Path
+
+import numpy as np
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import config  # noqa: E402
@@ -25,6 +32,14 @@ CAP_RE = re.compile(r"^\s*(fig\.?|figure|table|图|表)\s*[\dIVX]+", re.I)
 _MIN_PROSE_CHARS = 30
 _MIN_ALPHA_RATIO = 0.55
 _BAD_TEXT_CHARS = re.compile(r"[\ufffd\u0000-\u0008\u000b\u000c\u000e-\u001f]")
+_PDF_LIGATURE_MAP = {
+    "\ue00e": "ti", "\ue013": "ti", "\ue015": "ti", "\ue019": "ffi", "\ue01a": "fl",
+    "\ue01b": "ff", "\ue01c": "ft", "\ue01d": "th", "\ue01e": "fi", "\ue01f": "Th",
+    "\ue029": "ff", "\ue02b": "fl", "\ue042": "fi", "\ue043": "fl", "\ue04c": "fi",
+    "\ue04d": "fl",
+}
+_PDF_SPECIAL_GLYPH_MAP = {"\ue001": "°", "\ue002": "•"}
+_PDF_LIGATURE_RE = re.compile(f"([{re.escape(''.join(_PDF_LIGATURE_MAP))}])\\s*")
 
 
 def image_url(filename: str) -> str:
@@ -34,7 +49,13 @@ def image_url(filename: str) -> str:
 def _clean(t: str) -> str:
     if t is None:
         return ""
-    text = str(t).replace("\ufeff", "").replace("\ufffd", " ")
+    text = html.unescape(re.sub(r"</?[A-Za-z][^>]*>", " ", str(t)))
+    text = text.replace("\ufeff", "").replace("\ufffd", " ")
+    text = _PDF_LIGATURE_RE.sub(lambda match: _PDF_LIGATURE_MAP[match.group(1)], text)
+    text = "".join(
+        _PDF_SPECIAL_GLYPH_MAP.get(char, " " if unicodedata.category(char) == "Co" else char)
+        for char in text
+    )
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -46,6 +67,10 @@ def _normalize_document(doc: dict, source: Path, doc_id: str, modality: str) -> 
         source_path = source.name
     normalized = []
     seen = {}
+    image_index = 0
+    image_groups = {}
+    caption_figure_ids = {}
+    figure_id_aliases = {}
     for original in doc.get("units", []):
         content = _clean(original.get("content", ""))
         if not content and not original.get("url"):
@@ -67,6 +92,7 @@ def _normalize_document(doc: dict, source: Path, doc_id: str, modality: str) -> 
             continue
         seen[key] = len(normalized)
         unit = dict(original)
+        unit.setdefault("unit_id", f"{doc_id}:unit-{len(normalized) + 1:05d}")
         evidence = unit.get("evidence", content)
         if isinstance(evidence, str):
             evidence = _clean(evidence)
@@ -74,10 +100,146 @@ def _normalize_document(doc: dict, source: Path, doc_id: str, modality: str) -> 
             evidence = {_clean(key): _clean(value) for key, value in evidence.items()}
         unit.update(content=content, source=source.name, source_path=source_path, doc_id=doc_id,
                     source_modality=modality, page_number=page_number, evidence=evidence)
+        if unit.get("url"):
+            image_index += 1
+            original_figure_id = unit.setdefault(
+                "figure_id",
+                f"{doc_id}:p{page_number or image_index}:figure-{image_index:03d}",
+            )
+            caption_key = (
+                page_number,
+                str(unit.get("modality", "Image")).casefold(),
+                content.casefold(),
+            )
+            figure_id = (
+                caption_figure_ids.setdefault(caption_key, original_figure_id)
+                if content else original_figure_id
+            )
+            figure_id_aliases[original_figure_id] = figure_id
+            panel_index = len(image_groups.get(figure_id, {}).get("images", [])) + 1
+            unit["figure_id"] = figure_id
+            unit["image_id"] = f"{figure_id}:panel-{panel_index:02d}"
+            unit["caption_id"] = f"{figure_id}:caption"
+            unit["panel_index"] = panel_index
+            unit["panel_count"] = 1
+            unit.setdefault("related_text_ids", [])
+            group = image_groups.setdefault(
+                figure_id,
+                {
+                    "caption_id": unit["caption_id"],
+                    "caption": content,
+                    "position": original.get("position"),
+                    "page_number": page_number,
+                    "section": unit.get("section", ""),
+                    "related_text_ids": [],
+                    "images": [],
+                },
+            )
+            if content and not group["caption"]:
+                group["caption"] = content
+            group["related_text_ids"].extend(unit["related_text_ids"])
+            group["images"].append(unit)
+            for panel_unit in group["images"]:
+                panel_unit["panel_count"] = len(group["images"])
+            unit["content"] = ""
         if "section" in unit:
             unit["section"] = _clean(unit.get("section"))
         normalized.append(unit)
+
+    for figure_id, group in image_groups.items():
+        image_ids = [unit["image_id"] for unit in group["images"]]
+        image_urls = [unit["url"] for unit in group["images"]]
+        normalized.append({
+            "unit_id": group["caption_id"],
+            "content": group["caption"],
+            "modality": "Caption",
+            "position": group["position"],
+            "page_number": group["page_number"],
+            "section": group["section"],
+            "source": source.name,
+            "source_path": source_path,
+            "doc_id": doc_id,
+            "source_modality": modality,
+            "evidence": group["caption"],
+            "figure_id": figure_id,
+            "caption_id": group["caption_id"],
+            "image_ids": image_ids,
+            "image_urls": image_urls,
+            "image_url": image_urls[0] if image_urls else None,
+            "related_text_ids": sorted(set(group["related_text_ids"])),
+            "related_figure_ids": [figure_id],
+        })
+
     doc["units"] = normalized
+
+    valid_text_ids = {
+        unit["unit_id"]
+        for unit in normalized
+        if unit.get("modality", "").casefold() == "text"
+    }
+    for image_index, unit in enumerate(normalized):
+        if not unit.get("url"):
+            continue
+        group = image_groups[unit["figure_id"]]
+        group["related_text_ids"] = [
+            text_id for text_id in group["related_text_ids"] if text_id in valid_text_ids
+        ]
+        if not group["related_text_ids"]:
+            nearby_text = sorted(
+                (
+                    (abs(text_index - image_index), text_unit["unit_id"])
+                    for text_index, text_unit in enumerate(normalized)
+                    if text_unit["unit_id"] in valid_text_ids
+                    and text_unit.get("page_number") == unit.get("page_number")
+                ),
+                key=lambda candidate: candidate[0],
+            )
+            group["related_text_ids"].extend(text_id for _, text_id in nearby_text[:2])
+        unit["related_text_ids"] = sorted(set(group["related_text_ids"]))
+        for related_id in unit["related_text_ids"]:
+            related = next((entry for entry in normalized if entry["unit_id"] == related_id), None)
+            if related is not None:
+                figures = {
+                    figure_id_aliases.get(related_figure_id, related_figure_id)
+                    for related_figure_id in related.get("related_figure_ids", [])
+                }
+                figures.add(unit["figure_id"])
+                related["related_figure_ids"] = sorted(figures)
+    for figure_id, group in image_groups.items():
+        caption_unit = next(unit for unit in normalized if unit["unit_id"] == group["caption_id"])
+        caption_unit["related_text_ids"] = sorted(set(group["related_text_ids"]))
+
+    units_by_id = {unit["unit_id"]: unit for unit in normalized}
+    captions_by_id = {
+        unit["unit_id"]: unit["content"]
+        for unit in normalized
+        if unit.get("modality", "").casefold() == "caption"
+    }
+    doc["image_records"] = [
+        {
+            "image_id": unit["image_id"],
+            "figure_id": unit["figure_id"],
+            "caption_id": unit["caption_id"],
+            "panel_index": unit["panel_index"],
+            "panel_count": unit["panel_count"],
+            "url": unit["url"],
+            "caption": captions_by_id.get(unit["caption_id"], ""),
+            "source": unit["source"],
+            "source_path": unit["source_path"],
+            "page_number": unit["page_number"],
+            "related_text_ids": unit["related_text_ids"],
+            "related_text": [
+                {
+                    "unit_id": related_id,
+                    "text": units_by_id[related_id]["content"],
+                }
+                for related_id in unit["related_text_ids"]
+                if related_id in units_by_id
+            ],
+        }
+        for unit in normalized
+        if unit.get("url")
+    ]
     doc["metadata"] = {
         "doc_id": doc_id,
         "source": source.name,
@@ -97,6 +259,16 @@ def _pdf_text_rejection(text: str) -> str:
     text = _clean(text)
     if len(text) < _MIN_PROSE_CHARS:
         return "short fragment"
+    if re.fullmatch(r"(?:www\.)?[a-z0-9.-]+\.[a-z]{2,}(?:/[\w./-]*)?", text, re.I):
+        return "page URL"
+    words = re.findall(r"[A-Za-z]+", text)
+    if (
+        len(words) >= 6
+        and sum(word[0].isupper() for word in words) / len(words) >= 0.8
+        and re.search(r"(?:,|&)\s*[A-Z]", text)
+        and not re.search(r"[.!?;:]", text)
+    ):
+        return "author byline"
     if _BAD_TEXT_CHARS.search(text):
         return "replacement/control characters"
     letters = sum(char.isalpha() for char in text)
@@ -166,12 +338,218 @@ def mineru_available() -> str:
     return shutil.which("mineru") or shutil.which("magic-pdf") or ""
 
 
+def _run_mineru_command(cmd, timeout):
+    try:
+        return subprocess.run(
+            cmd,
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(f"MinerU command timed out after {timeout} seconds.") from exc
+    except OSError as exc:
+        raise RuntimeError(f"Could not run MinerU command: {exc}") from exc
+
+
+def _is_mineru_v4(exe: str) -> bool:
+    result = _run_mineru_command([exe, "--version"], timeout=30)
+    version = result.stdout + "\n" + result.stderr
+    match = re.search(r"MinerU version:\s*(\d+)", version, re.I)
+    return bool(match and int(match.group(1)) >= 4)
+
+
+def _mineru_v4_parse_payload(exe: str, pdf: Path):
+    command = [
+        exe, "parse", str(pdf), "--tier", "flash", "--pages", "all",
+        "--json", "--wait", "1800",
+    ]
+
+    def parse_response():
+        result = _run_mineru_command(command, timeout=1830)
+        try:
+            payload = json.loads(result.stdout)
+        except json.JSONDecodeError as exc:
+            detail = (result.stderr or result.stdout).strip()
+            raise RuntimeError(
+                f"MinerU v4 returned invalid JSON: {detail[-500:] or 'no diagnostic output'}"
+            ) from exc
+
+        error = payload.get("error")
+        if error:
+            code = error.get("code", "unknown_error")
+            message = error.get("message", "MinerU reported an unspecified error.")
+            if code == "server_not_running":
+                start = _run_mineru_command([exe, "server", "start"], timeout=180)
+                if start.returncode != 0:
+                    detail = (start.stderr or start.stdout).strip()
+                    raise RuntimeError(
+                        f"Could not start the local MinerU server: {detail[-500:] or start.returncode}"
+                    )
+                result = _run_mineru_command(command, timeout=1830)
+                try:
+                    payload = json.loads(result.stdout)
+                except json.JSONDecodeError as exc:
+                    detail = (result.stderr or result.stdout).strip()
+                    raise RuntimeError(
+                        f"MinerU v4 returned invalid JSON after server startup: "
+                        f"{detail[-500:] or 'no diagnostic output'}"
+                    ) from exc
+                error = payload.get("error")
+                if not error:
+                    return payload
+                code = error.get("code", "unknown_error")
+                message = error.get("message", "MinerU reported an unspecified error.")
+            raise RuntimeError(f"MinerU v4 parse failed ({code}): {message}")
+
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout).strip()
+            raise RuntimeError(f"MinerU v4 exited with code {result.returncode}: {detail[-500:]}")
+        return payload
+
+    return parse_response()
+
+
+def _markdown_table_rows(lines):
+    rows = []
+    for line in lines:
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if cells and all(re.fullmatch(r":?-{3,}:?", cell.replace(" ", "")) for cell in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def _parse_mineru_v4_markdown(markdown: str, doc_id: str):
+    """Adapt MinerU v4's flash-tier Markdown response to the project's parser schema."""
+    S, units, records, formulas, sections = [], [], [], [], []
+    page_index = 0
+    filtered_text = 0
+    lines = markdown.replace("\r\n", "\n").replace("\r", "\n").splitlines()
+    i = 0
+
+    def add_text(text, modality="Text"):
+        nonlocal filtered_text
+        text = _clean(text)
+        if not text:
+            return
+        reason = _pdf_text_rejection(text) if modality == "Text" else ""
+        if reason:
+            filtered_text += 1
+            return
+        if modality == "Text":
+            S.append(text)
+        elif modality == "Formula":
+            formulas.append(text)
+        units.append(dict(content=text, modality=modality, position=page_index))
+
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line:
+            i += 1
+            continue
+
+        page_marker = re.match(r"<!--\s*page\s+(\d+)\s+of\s+\d+\s*-->", line, re.I)
+        if page_marker:
+            page_index = max(0, int(page_marker.group(1)) - 1)
+            i += 1
+            continue
+
+        heading = re.match(r"^#{1,6}\s+(.+?)\s*#*\s*$", line)
+        if heading:
+            title = _clean(heading.group(1))
+            sections.append(dict(title=title, page=page_index))
+            i += 1
+            continue
+
+        if line.startswith("|"):
+            table_lines = []
+            while i < len(lines) and lines[i].strip().startswith("|"):
+                table_lines.append(lines[i].strip())
+                i += 1
+            rows = _markdown_table_rows(table_lines)
+            table_records = _row_sentences("Table", rows)
+            for record in table_records:
+                records.append(record["content"])
+                units.append(dict(record, modality="TableRow", position=page_index))
+            continue
+
+        if line.startswith("$$") or line.startswith(r"\["):
+            formula_lines = [line]
+            closing = "$$" if line.startswith("$$") else r"\]"
+            if not line.endswith(closing) or len(line) == len(closing):
+                i += 1
+                while i < len(lines):
+                    formula_lines.append(lines[i].strip())
+                    if closing in lines[i]:
+                        break
+                    i += 1
+            add_text(" ".join(formula_lines), "Formula")
+            i += 1
+            continue
+
+        paragraph = [line]
+        i += 1
+        while i < len(lines):
+            next_line = lines[i].strip()
+            if (not next_line or next_line.startswith("|")
+                    or re.match(r"<!--\s*page\s+\d+\s+of\s+\d+\s*-->", next_line, re.I)
+                    or re.match(r"^#{1,6}\s+", next_line)):
+                break
+            paragraph.append(next_line)
+            i += 1
+        text = " ".join(paragraph)
+        text = re.sub(r"!\[([^\]]*)\]\([^)]+\)", r"\1", text)
+        text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+        text = re.sub(r"[*`~]", "", text)
+        text = _clean(text)
+        byline_break = re.match(r"^(.{30,}?)\s+\\\s+(.+)$", text)
+        if byline_break and _pdf_text_rejection(byline_break.group(1)) == "author byline":
+            text = byline_break.group(2)
+        add_text(text)
+
+    return dict(S_D=S, I_D=[], C_I=[], units=units, records=records, formulas=formulas, sections=sections,
+                parser="mineru-v4-flash", mineru_tier="flash", filtered_text_fragments=filtered_text)
+
+
 def parse_pdf_mineru(pdf: Path, doc_id: str):
     exe = mineru_available()
     out = config.MINERU_OUT_DIR / doc_id
     out.mkdir(parents=True, exist_ok=True)
+    if _is_mineru_v4(exe):
+        payload = _mineru_v4_parse_payload(exe, pdf)
+        content = payload.get("content")
+        markdown = content.get("content") if isinstance(content, dict) else None
+        if not isinstance(markdown, str):
+            raise RuntimeError("MinerU v4 completed without returning Markdown content.")
+        (out / "mineru_v4_response.json").write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        parsed = _parse_mineru_v4_markdown(markdown, doc_id)
+        visual_data = parse_pdf_pymupdf(pdf, doc_id)
+        parsed["I_D"] = visual_data["I_D"]
+        parsed["C_I"] = visual_data["C_I"]
+        parsed["records"] = visual_data.get("records", [])
+        parsed["formulas"] = list(dict.fromkeys(
+            parsed["formulas"] + visual_data.get("formulas", [])
+        ))
+        if not parsed["sections"]:
+            parsed["sections"] = visual_data.get("sections", [])
+        parsed["units"].extend(
+            unit for unit in visual_data.get("units", []) if unit.get("modality") != "Text"
+        )
+        parsed["filtered_text_fragments"] += visual_data.get("filtered_text_fragments", 0)
+        parsed["parser"] = "mineru-v4-flash+pymupdf-assets"
+        return parsed
+
     cmd = [exe, "-p", str(pdf), "-o", str(out)]
-    subprocess.run(cmd, check=True, capture_output=True, timeout=1800)
+    result = subprocess.run(cmd, check=False, capture_output=True, timeout=1800)
+    if result.returncode:
+        detail = (result.stderr or result.stdout or b"").decode("utf-8", errors="replace").strip()
+        raise RuntimeError(f"Legacy MinerU CLI exited with code {result.returncode}: {detail[-500:]}")
     cl = next(iter(out.rglob("*_content_list.json")), None)
     if cl is None:
         raise RuntimeError("MinerU produced no content_list.json")
@@ -185,6 +563,27 @@ def parse_pdf_mineru(pdf: Path, doc_id: str):
     )
     filtered_text = 0
     PARSED_IMG_DIR.mkdir(parents=True, exist_ok=True)
+    figure_counts = {}
+
+    def add_mineru_figure(src, caption, page_index, modality, split_panels):
+        figure_counts[page_index] = figure_counts.get(page_index, 0) + 1
+        figure_id = f"{doc_id}:p{page_index + 1}:figure-{figure_counts[page_index]:03d}"
+        data = src.read_bytes()
+        panels = _image_panels(data) if split_panels else [(data, False)]
+        for panel_index, (panel_data, was_split) in enumerate(panels, 1):
+            suffix = "png" if was_split else src.suffix.lstrip(".")
+            fname = f"{doc_id}_{len(I):02d}.{suffix}"
+            (PARSED_IMG_DIR / fname).write_bytes(panel_data)
+            url = image_url(fname)
+            image_id = f"{figure_id}:panel-{panel_index:02d}"
+            I.append(url)
+            C.append(caption)
+            units.append(dict(
+                content=caption, modality=modality, position=page_index, url=url,
+                image_id=image_id, figure_id=figure_id, caption_id=f"{figure_id}:caption",
+                panel_index=panel_index, panel_count=len(panels), related_text_ids=[],
+            ))
+
     for it in items:
         typ = it.get("type")
         if typ == "text" and it.get("text", "").strip():
@@ -211,12 +610,7 @@ def parse_pdf_mineru(pdf: Path, doc_id: str):
             if it.get("img_path"):
                 src = cl.parent / it["img_path"]
                 if src.exists() and (cap or not config.IMAGE_REQUIRE_CAPTION):
-                    fname = f"{doc_id}_{len(I):02d}{src.suffix}"
-                    shutil.copy(src, PARSED_IMG_DIR / fname)
-                    I.append(image_url(fname))
-                    C.append(cap)
-                    units.append(dict(content=cap, modality="Table", position=it.get("page_idx", 0),
-                                      url=I[-1], table_caption=cap))
+                    add_mineru_figure(src, cap, it.get("page_idx", 0), "Table", split_panels=False)
                     table_image_added = True
             if cap and not table_image_added and not table_records:
                 units.append(dict(content=cap, modality="Table", position=it.get("page_idx", 0),
@@ -225,15 +619,11 @@ def parse_pdf_mineru(pdf: Path, doc_id: str):
             src = cl.parent / it["img_path"]
             if not src.exists():
                 continue
-            fname = f"{doc_id}_{len(I):02d}{src.suffix}"
-            shutil.copy(src, PARSED_IMG_DIR / fname)
             caps = it.get("img_caption") or it.get("image_caption") or []
             caps = caps if isinstance(caps, list) else [caps]
             cap = _clean(" ".join(str(item) for item in caps if item)) if caps else ""
-            I.append(image_url(fname))
-            C.append(cap)
-            units.append(dict(content=cap, modality="Table" if typ == "table" else "Image",
-                              position=it.get("page_idx", 0), url=I[-1]))
+            if cap or not config.IMAGE_REQUIRE_CAPTION:
+                add_mineru_figure(src, cap, it.get("page_idx", 0), "Image", split_panels=True)
     return dict(S_D=S, I_D=I, C_I=C, units=units, records=records, formulas=[], parser="mineru",
                 filtered_text_fragments=filtered_text)
 
@@ -263,6 +653,72 @@ def _row_sentences(cap: str, rows):
         for index, r in enumerate(rows[1:], 1)
         if any(r)
     ]
+
+
+def _ocr_page_text(page):
+    """OCR a scanned page when Tesseract is installed; otherwise report it as unavailable."""
+    if not shutil.which("tesseract"):
+        return None
+    textpage = page.get_textpage_ocr(language="eng", dpi=200, full=True)
+    return _clean(page.get_text("text", textpage=textpage))
+
+
+def _image_panels(image_data: bytes):
+    """Split a composite figure only at clear, full-length white gutters."""
+    try:
+        image = Image.open(BytesIO(image_data)).convert("RGB")
+    except (OSError, ValueError) as exc:
+        print(f"[parser] Could not inspect embedded image for panels ({type(exc).__name__}); keeping it whole.")
+        return [(image_data, False)]
+
+    pixels = np.asarray(image)
+    white = np.all(pixels >= 245, axis=2)
+    cuts = {}
+    for axis, projection in (
+        ("x", white.mean(axis=0)),
+        ("y", white.mean(axis=1)),
+    ):
+        min_gap = max(3, round(len(projection) * 0.002))
+        max_gap = max(min_gap, round(len(projection) * 0.05))
+        min_panel = round(len(projection) * 0.15)
+        gaps = []
+        start = None
+        for index, is_white in enumerate(projection >= 0.98):
+            if is_white and start is None:
+                start = index
+            elif not is_white and start is not None:
+                if min_gap <= index - start <= max_gap:
+                    gaps.append((start, index))
+                start = None
+        if start is not None and min_gap <= len(projection) - start <= max_gap:
+            gaps.append((start, len(projection)))
+
+        segments = []
+        cursor = 0
+        for start, end in gaps:
+            if start - cursor >= min_panel and len(projection) - end >= min_panel:
+                segments.append((cursor, start))
+                cursor = end
+        segments.append((cursor, len(projection)))
+        if len(segments) > 1:
+            cuts[axis] = segments
+        else:
+            cuts[axis] = [(0, len(projection))]
+
+    regions = [
+        (left, top, right, bottom)
+        for top, bottom in cuts["y"]
+        for left, right in cuts["x"]
+    ]
+    if len(regions) <= 1:
+        return [(image_data, False)]
+
+    panels = []
+    for region in regions:
+        output = BytesIO()
+        image.crop(region).save(output, format="PNG")
+        panels.append((output.getvalue(), True))
+    return panels
 
 
 def parse_pdf_pymupdf(pdf: Path, doc_id: str):
@@ -298,10 +754,13 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
     cur_section = ""
     seen_img = set()                                        # repeated logos / page headers are kept once
     filtered_text = 0
+    ocr_pages = []
+    ocr_unavailable_pages = []
 
     for pno, page in enumerate(doc):
         blocks = page.get_text("dict")["blocks"]
         texts = []                                          # (bbox, text, size, bold)
+        text_ids = []
         for b in blocks:
             if b["type"] != 0:
                 continue
@@ -310,7 +769,92 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
             if t:
                 bold = all((sp["flags"] & 16) or "bold" in sp["font"].lower() for sp in spans)
                 texts.append((b["bbox"], t, max(sp["size"] for sp in spans), bold))
+                text_ids.append(f"{doc_id}:p{pno + 1}:text-{len(text_ids) + 1:03d}")
+        if not texts:
+            ocr_text = _ocr_page_text(page)
+            if ocr_text is None:
+                ocr_unavailable_pages.append(pno + 1)
+            elif ocr_text:
+                reason = _pdf_text_rejection(ocr_text)
+                if reason:
+                    filtered_text += 1
+                else:
+                    S.append(ocr_text)
+                    units.append(dict(content=ocr_text, modality="Text", position=pno,
+                                      section=cur_section, extraction_method="tesseract_ocr"))
+                    ocr_pages.append(pno + 1)
         used = set()
+        related_figures_by_text_id = {}
+        page_figure_index = 0
+
+        def add_figure(
+            image_data, image_rect, caption, modality="Image", section="", image_ext="png",
+            split_panels=True,
+        ):
+            nonlocal page_figure_index
+            page_figure_index += 1
+            figure_id = f"{doc_id}:p{pno + 1}:figure-{page_figure_index:03d}"
+            caption_index = next(
+                (
+                    index for index, (text_box, text, *_rest) in enumerate(texts)
+                    if text == caption and text_box[1] >= image_rect.y1 - 5
+                ),
+                None,
+            )
+            related_candidates = []
+            for index, (text_box, text, *_rest) in enumerate(texts):
+                if index == caption_index or len(text) < 30:
+                    continue
+                if CAP_RE.match(text):
+                    continue
+                box = pymupdf.Rect(text_box)
+                rect = pymupdf.Rect(image_rect)
+                overlap = max(0, min(box.x1, rect.x1) - max(box.x0, rect.x0))
+                overlap_ratio = overlap / max(1, min(box.width, rect.width))
+                if overlap_ratio < 0.35:
+                    continue
+                if box.y1 <= rect.y0:
+                    gap, direction = rect.y0 - box.y1, "above"
+                elif box.y0 >= rect.y1:
+                    gap, direction = box.y0 - rect.y1, "below"
+                else:
+                    gap, direction = 0, "overlap"
+                if gap <= 90:
+                    related_candidates.append((gap, direction, index))
+            related_text_ids = []
+            for direction in ("overlap", "above", "below"):
+                directional = sorted(
+                    (candidate for candidate in related_candidates if candidate[1] == direction),
+                    key=lambda candidate: candidate[0],
+                )
+                for _, _, index in directional[:1]:
+                    text_id = text_ids[index]
+                    related_text_ids.append(text_id)
+                    related_figures_by_text_id.setdefault(text_id, set()).add(figure_id)
+
+            panel_bytes = _image_panels(image_data) if split_panels else [(image_data, False)]
+            panel_count = len(panel_bytes)
+            for panel_index, (panel, was_split) in enumerate(panel_bytes, 1):
+                suffix = "png" if was_split else image_ext
+                fname = f"{doc_id}_{len(I):02d}.{suffix}"
+                (PARSED_IMG_DIR / fname).write_bytes(panel)
+                url = image_url(fname)
+                image_id = f"{figure_id}:panel-{panel_index:02d}"
+                I.append(url)
+                C.append(caption)
+                units.append(dict(
+                    content=caption,
+                    modality=modality,
+                    position=pno,
+                    url=url,
+                    section=section,
+                    image_id=image_id,
+                    figure_id=figure_id,
+                    caption_id=f"{figure_id}:caption",
+                    panel_index=panel_index,
+                    panel_count=panel_count,
+                    related_text_ids=related_text_ids,
+                ))
 
         # ---- tables  -> image (paper treats tables as images) + row sentences
         table_boxes = []
@@ -336,11 +880,9 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
             if ci is not None:
                 used.add(ci)
             if cap or not config.IMAGE_REQUIRE_CAPTION:      # uncaptioned table images cannot join the graph
-                fname = f"{doc_id}_{len(I):02d}.png"
-                page.get_pixmap(clip=(bb + (-4, -4, 4, 4)) & page.rect, dpi=150).save(str(PARSED_IMG_DIR / fname))
-                I.append(image_url(fname))
-                C.append(cap)
-                units.append(dict(content=cap, modality="Table", position=pno, url=I[-1], section=cur_section))
+                pixmap = page.get_pixmap(clip=(bb + (-4, -4, 4, 4)) & page.rect, dpi=150)
+                add_figure(pixmap.tobytes("png"), bb, cap, modality="Table", section=cur_section,
+                           split_panels=False)
             table_records = _row_sentences(cap or "Table", rows)
             records += [record["content"] for record in table_records]
             units.extend(dict(record, modality="TableRow", position=pno, section=cur_section,
@@ -354,11 +896,15 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
         for b in sorted([b for b in blocks if b["type"] == 1], key=lambda b: b["bbox"][1]):
             if min(b.get("width", 0), b.get("height", 0)) < config.MIN_IMAGE_PX:
                 continue                                                      # icon / logo / decoration
-            key = hash(b["image"])
+            key = (pno, hash(b["image"]), tuple(round(value, 1) for value in b["bbox"]))
             if key in seen_img:
                 continue
             seen_img.add(key)
-            below = [(i, x) for i, x in enumerate(texts) if x[0][1] >= b["bbox"][3] - 5 and i not in used]
+            below = [
+                (i, x) for i, x in enumerate(texts)
+                if x[0][1] >= b["bbox"][3] - 5
+                and x[0][1] - b["bbox"][3] <= 90
+            ]
             below.sort(key=lambda x: x[1][0][1])
             cap = ""
             pick = next((x for x in below[:2] if FIG_CAP_RE.match(x[1][1])), None)
@@ -367,11 +913,9 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
                 used.add(pick[0])
             if not cap and config.IMAGE_REQUIRE_CAPTION:
                 continue
-            fname = f"{doc_id}_{len(I):02d}.{b.get('ext', 'png')}"
-            (PARSED_IMG_DIR / fname).write_bytes(b["image"])
-            I.append(image_url(fname))
-            C.append(cap)
-            units.append(dict(content=cap, modality="Image", position=pno, url=I[-1], section=cur_section))
+
+            add_figure(b["image"], pymupdf.Rect(b["bbox"]), cap, section=cur_section,
+                       image_ext=b.get("ext", "png"))
 
         # ---- vector figures (charts drawn with paths); table grid lines are excluded
         drawings = [d["rect"] for d in page.get_drawings() if (d["rect"].width > 2 or d["rect"].height > 2)
@@ -388,13 +932,24 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
                     x0, y0, x1, y1 = min(x0, r.x0), min(y0, r.y0), max(x1, r.x1), max(y1, r.y1)
             if (y1 - y0) < 60 or (x1 - x0) < 100:
                 continue
-            cl = pymupdf.Rect(x0 - 30, y0 - 22, x1 + 10, bb[1] - 2) & page.rect     # include axis titles / tick labels
-            fname = f"{doc_id}_{len(I):02d}.png"
-            page.get_pixmap(clip=cl, dpi=150).save(str(PARSED_IMG_DIR / fname))
-            I.append(image_url(fname))
-            C.append(t)
+            figure_rect = pymupdf.Rect(x0, y0, x1, y1)
+            nearby_text = pymupdf.Rect(
+                figure_rect.x0 - 20, figure_rect.y0 - 20,
+                figure_rect.x1 + 20, figure_rect.y1 + 20,
+            )
+            for text_index, (text_box, text, *_rest) in enumerate(texts):
+                if text_index == i or len(text) > 80 or FIG_CAP_RE.match(text):
+                    continue
+                label_rect = pymupdf.Rect(text_box)
+                if nearby_text.intersects(label_rect):
+                    figure_rect |= label_rect
+            cl = pymupdf.Rect(
+                figure_rect.x0 - 4, figure_rect.y0 - 4,
+                figure_rect.x1 + 4, min(bb[1] - 2, figure_rect.y1 + 4),
+            ) & page.rect
+            pixmap = page.get_pixmap(clip=cl, dpi=150)
+            add_figure(pixmap.tobytes("png"), cl, t, section=cur_section, split_panels=False)
             used.add(i)
-            units.append(dict(content=t, modality="Image", position=pno, url=I[-1], section=cur_section))
             for j, (b2, t2, *_r) in enumerate(texts):         # axis labels / ticks inside the figure are not prose
                 if j not in used and len(t2) < 60 and cl.contains(pymupdf.Rect(b2)):
                     used.add(j)
@@ -422,18 +977,25 @@ def parse_pdf_pymupdf(pdf: Path, doc_id: str):
                 continue
             if EQ_RE.search(t) and len(t) < 160:
                 formulas.append(t)
-                units.append(dict(content=t, modality="Formula", position=pno, section=cur_section))
+                units.append(dict(content=t, modality="Formula", position=pno, section=cur_section,
+                                  unit_id=text_ids[i],
+                                  related_figure_ids=sorted(related_figures_by_text_id.get(text_ids[i], set()))))
             else:
                 reason = _pdf_text_rejection(t)
                 if reason:
                     filtered_text += 1
                     continue
-                units.append(dict(content=t, modality="Text", position=pno, section=cur_section))
+                units.append(dict(content=t, modality="Text", position=pno, section=cur_section,
+                                  unit_id=text_ids[i],
+                                  related_figure_ids=sorted(related_figures_by_text_id.get(text_ids[i], set()))))
             S.append(t)
     for sec in sections:
         sec.pop("size", None), sec.pop("y1", None)
-    return dict(S_D=S, I_D=I, C_I=C, units=units, records=records, formulas=formulas, sections=sections,
-                parser="pymupdf-fallback", filtered_text_fragments=filtered_text)
+    result = dict(S_D=S, I_D=I, C_I=C, units=units, records=records, formulas=formulas, sections=sections,
+                  parser="pymupdf-fallback", filtered_text_fragments=filtered_text,
+                  ocr_pages=ocr_pages, ocr_unavailable_pages=ocr_unavailable_pages)
+    doc.close()
+    return result
 
 
 # -------------------------------------------------------------------- HTML
@@ -519,7 +1081,9 @@ def parse_pdf(pdf: Path, doc_id: str):
         try:
             return parse_pdf_mineru(pdf, doc_id)
         except Exception as e:  # noqa: BLE001
-            print(f"[parser] MinerU failed on {pdf.name} ({type(e).__name__}: {str(e)[:100]}); using PyMuPDF fallback")
+            detail = " ".join(str(e).split())
+            print(f"[parser] MinerU failed on {pdf.name} ({type(e).__name__}: {detail[:400]}); "
+                  "using PyMuPDF fallback")
     return parse_pdf_pymupdf(pdf, doc_id)
 
 
@@ -598,21 +1162,89 @@ def run():
             if caption:
                 loose.append((image_url(img.name), caption))
     if loose:
+        loose_units = []
+        loose_image_records = []
+        for index, (url, caption) in enumerate(loose, 1):
+            figure_id = f"standalone_images:figure-{index:03d}"
+            image_id = f"{figure_id}:panel-01"
+            source_name = url.rsplit("/", 1)[-1]
+            unit = dict(
+                content=caption,
+                modality="Image",
+                position=index - 1,
+                url=url,
+                evidence=caption,
+                unit_id=image_id,
+                image_id=image_id,
+                figure_id=figure_id,
+                caption_id=f"{figure_id}:caption",
+                panel_index=1,
+                panel_count=1,
+                related_text_ids=[],
+                source=source_name,
+                source_path=f"data/raw/images/{source_name}",
+                doc_id="standalone_images",
+                source_modality="image",
+                page_number=None,
+            )
+            caption_unit = dict(
+                content=caption,
+                modality="Caption",
+                position=index - 1,
+                evidence=caption,
+                unit_id=unit["caption_id"],
+                figure_id=figure_id,
+                caption_id=unit["caption_id"],
+                image_ids=[image_id],
+                image_urls=[url],
+                image_url=url,
+                related_text_ids=[],
+                related_figure_ids=[figure_id],
+                source=source_name,
+                source_path=unit["source_path"],
+                doc_id="standalone_images",
+                source_modality="image",
+                page_number=None,
+            )
+            loose_units.extend((unit, caption_unit))
+            loose_image_records.append({
+                "image_id": image_id,
+                "figure_id": figure_id,
+                "caption_id": unit["caption_id"],
+                "panel_index": 1,
+                "panel_count": 1,
+                "url": url,
+                "caption": caption,
+                "source": source_name,
+                "source_path": unit["source_path"],
+                "page_number": None,
+                "related_text_ids": [],
+                "related_text": [],
+            })
         docs.append(dict(doc_id="standalone_images", source="data/raw/images", modality="image",
                          S_D=[], I_D=[u for u, _ in loose], C_I=[c for _, c in loose],
-                         units=[dict(content=c, modality="Image", position=i, url=u, evidence=c,
-                                     source=img.name, source_path=f"data/raw/images/{img.name}",
-                                     doc_id="standalone_images", source_modality="image", page_number=None)
-                                for i, (u, c) in enumerate(loose)],
-                         parser="sidecar"))
+                         units=loose_units, image_records=loose_image_records, parser="sidecar"))
     config.PARSED_JSON.parent.mkdir(parents=True, exist_ok=True)
     config.PARSED_JSON.write_text(json.dumps(docs, ensure_ascii=False, indent=1), encoding="utf-8")
     n_txt = sum(len(d["S_D"]) for d in docs)
+    n_units = sum(len(d.get("units", [])) for d in docs)
     n_img = sum(len(d["I_D"]) for d in docs)
     n_rec = sum(len(d.get("records", [])) for d in docs)
     n_filtered = sum(d.get("filtered_text_fragments", 0) for d in docs)
+    ocr_unavailable = [
+        (d["source"], page)
+        for d in docs
+        for page in d.get("ocr_unavailable_pages", [])
+    ]
     print(f"parsed {len(docs)} documents -> {config.PARSED_JSON}  "
-          f"(text fragments={n_txt}, filtered text={n_filtered}, images={n_img}, records={n_rec})")
+          f"(parser units={n_units}, text fragments={n_txt}, filtered text={n_filtered}, "
+          f"image panels={n_img}, records={n_rec})")
+    if ocr_unavailable:
+        examples = ", ".join(f"{source} (page {page})" for source, page in ocr_unavailable[:5])
+        remaining = len(ocr_unavailable) - 5
+        suffix = f", plus {remaining} more" if remaining > 0 else ""
+        print(f"[parser] OCR unavailable for {len(ocr_unavailable)} scan-only page(s): "
+              f"{examples}{suffix}. Install Tesseract OCR and rerun `python main.py parse`.")
     return docs
 
 

@@ -1,0 +1,809 @@
+{
+ "nodes": [
+  {
+   "level": "root",
+   "kind": "Ontology",
+   "name": "Froth Flotation",
+   "attributes": [
+    "ProcessOverview"
+   ],
+   "id": "default:onto:FrothFlotation",
+   "source_id": "onto:FrothFlotation",
+   "type": "FlotationProcess",
+   "kg_scope": "default"
+  },
+  {
+   "level": "root",
+   "kind": "Ontology",
+   "name": "Raw Ore",
+   "attributes": [
+    "MineralComposition",
+    "ParticleSizeDistribution"
+   ],
+   "id": "default:onto:RawOre",
+   "source_id": "onto:RawOre",
+   "type": "RawOreCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Fast Roughing",
+   "attributes": [
+    "ProcessStageType",
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:FastRoughing",
+   "source_id": "onto:FastRoughing",
+   "type": "FastRoughingCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Roughing",
+   "attributes": [
+    "ProcessStageType",
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:Roughing",
+   "source_id": "onto:Roughing",
+   "type": "RoughingCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Scavenging",
+   "attributes": [
+    "ProcessStageType",
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:Scavenging",
+   "source_id": "onto:Scavenging",
+   "type": "ScavengingCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Cleaning",
+   "attributes": [
+    "ProcessStageType",
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:Cleaning",
+   "source_id": "onto:Cleaning",
+   "type": "CleaningCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment",
+   "kind": "Ontology",
+   "name": "Equipment",
+   "attributes": [
+    "EquipmentType"
+   ],
+   "id": "default:onto:Equipment",
+   "source_id": "onto:Equipment",
+   "type": "EquipmentCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment_type",
+   "kind": "Ontology",
+   "name": "Flotation Cell",
+   "attributes": [
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:FlotationCell",
+   "source_id": "onto:FlotationCell",
+   "type": "FlotationEquipment",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment_type",
+   "kind": "Ontology",
+   "name": "Agitator",
+   "attributes": [
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:Agitator",
+   "source_id": "onto:Agitator",
+   "type": "FlotationEquipment",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment_type",
+   "kind": "Ontology",
+   "name": "Froth Scraper",
+   "attributes": [
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:FrothScraper",
+   "source_id": "onto:FrothScraper",
+   "type": "FlotationEquipment",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment_type",
+   "kind": "Ontology",
+   "name": "Air Blower",
+   "attributes": [
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:AirBlower",
+   "source_id": "onto:AirBlower",
+   "type": "FlotationEquipment",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment_type",
+   "kind": "Ontology",
+   "name": "Slurry Pump",
+   "attributes": [
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:SlurryPump",
+   "source_id": "onto:SlurryPump",
+   "type": "FlotationEquipment",
+   "kg_scope": "default"
+  },
+  {
+   "level": "equipment_type",
+   "kind": "Ontology",
+   "name": "Level Sensor",
+   "attributes": [
+    "EquipmentType",
+    "ProcessParameters"
+   ],
+   "id": "default:onto:LevelSensor",
+   "source_id": "onto:LevelSensor",
+   "type": "FlotationEquipment",
+   "kg_scope": "default"
+  },
+  {
+   "level": "leaf",
+   "kind": "Ontology",
+   "name": "Concentrate",
+   "attributes": [
+    "ProductQuality",
+    "ProductionOutput"
+   ],
+   "id": "default:onto:Concentrate",
+   "source_id": "onto:Concentrate",
+   "type": "ConcentrateCategory",
+   "kg_scope": "default"
+  },
+  {
+   "level": "leaf",
+   "kind": "Ontology",
+   "name": "Tailing",
+   "attributes": [
+    "ProductQuality",
+    "ProductionOutput"
+   ],
+   "id": "default:onto:Tailing",
+   "source_id": "onto:Tailing",
+   "type": "TailingCategory",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "bubble morphology",
+   "id": "default:ent:Parameter:bubble morphology",
+   "source_id": "ent:Parameter:bubble morphology",
+   "type": "Parameter",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "bubble size and shape",
+   "id": "default:ent:Parameter:bubble size and shape",
+   "source_id": "ent:Parameter:bubble size and shape",
+   "type": "Parameter",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "volume of the cell",
+   "id": "default:ent:Parameter:volume of the cell",
+   "source_id": "ent:Parameter:volume of the cell",
+   "type": "Parameter",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "labels",
+   "id": "default:ent:Parameter:labels",
+   "source_id": "ent:Parameter:labels",
+   "type": "Parameter",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "mass of 1.800 g of mineral",
+   "id": "default:ent:RawOre:mass of 1.800 g of mineral",
+   "source_id": "ent:RawOre:mass of 1.800 g of mineral",
+   "type": "RawOre",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "recovery",
+   "id": "default:ent:Product:recovery",
+   "source_id": "ent:Product:recovery",
+   "type": "Product",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "mineral of interest",
+   "id": "default:ent:Product:mineral of interest",
+   "source_id": "ent:Product:mineral of interest",
+   "type": "Product",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "behaviors",
+   "id": "default:ent:Product:behaviors",
+   "source_id": "ent:Product:behaviors",
+   "type": "Product",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "scavenger circuit",
+   "id": "default:ent:ProcessStage:scavenger circuit",
+   "source_id": "ent:ProcessStage:scavenger circuit",
+   "type": "ProcessStage",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "frother",
+   "id": "default:ent:Reagent:frother",
+   "source_id": "ent:Reagent:frother",
+   "type": "Reagent",
+   "kg_scope": "default"
+  },
+  {
+   "kind": "Entity",
+   "name": "depressant",
+   "id": "default:ent:Reagent:depressant",
+   "source_id": "ent:Reagent:depressant",
+   "type": "Reagent",
+   "kg_scope": "default"
+  }
+ ],
+ "edges": [
+  {
+   "source": "default:onto:RawOre",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_INPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FastRoughing",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Roughing",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Scavenging",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Cleaning",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Concentrate",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Tailing",
+   "target": "default:onto:FrothFlotation",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:RawOre",
+   "type": "HAS_INPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FastRoughing",
+   "target": "default:onto:RawOre",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:FastRoughing",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:RawOre",
+   "target": "default:onto:FastRoughing",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Roughing",
+   "target": "default:onto:FastRoughing",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:FastRoughing",
+   "type": "HAS_EQUIPMENT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:Roughing",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FastRoughing",
+   "target": "default:onto:Roughing",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Scavenging",
+   "target": "default:onto:Roughing",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Tailing",
+   "target": "default:onto:Roughing",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:Roughing",
+   "type": "HAS_EQUIPMENT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:Scavenging",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Roughing",
+   "target": "default:onto:Scavenging",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Cleaning",
+   "target": "default:onto:Scavenging",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Tailing",
+   "target": "default:onto:Scavenging",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:Scavenging",
+   "type": "HAS_EQUIPMENT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:Cleaning",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Scavenging",
+   "target": "default:onto:Cleaning",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Concentrate",
+   "target": "default:onto:Cleaning",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:Cleaning",
+   "type": "HAS_EQUIPMENT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FastRoughing",
+   "target": "default:onto:Equipment",
+   "type": "HAS_EQUIPMENT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Roughing",
+   "target": "default:onto:Equipment",
+   "type": "HAS_EQUIPMENT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Scavenging",
+   "target": "default:onto:Equipment",
+   "type": "HAS_EQUIPMENT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Cleaning",
+   "target": "default:onto:Equipment",
+   "type": "HAS_EQUIPMENT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FlotationCell",
+   "target": "default:onto:Equipment",
+   "type": "HAS_TYPE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Agitator",
+   "target": "default:onto:Equipment",
+   "type": "HAS_TYPE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothScraper",
+   "target": "default:onto:Equipment",
+   "type": "HAS_TYPE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:AirBlower",
+   "target": "default:onto:Equipment",
+   "type": "HAS_TYPE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:SlurryPump",
+   "target": "default:onto:Equipment",
+   "type": "HAS_TYPE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:LevelSensor",
+   "target": "default:onto:Equipment",
+   "type": "HAS_TYPE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:FlotationCell",
+   "type": "HAS_TYPE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:Agitator",
+   "type": "HAS_TYPE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:FrothScraper",
+   "type": "HAS_TYPE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:AirBlower",
+   "type": "HAS_TYPE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:SlurryPump",
+   "type": "HAS_TYPE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Equipment",
+   "target": "default:onto:LevelSensor",
+   "type": "HAS_TYPE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:Concentrate",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Cleaning",
+   "target": "default:onto:Concentrate",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:onto:Tailing",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Roughing",
+   "target": "default:onto:Tailing",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:Scavenging",
+   "target": "default:onto:Tailing",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:ent:Parameter:bubble morphology",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"and in studies of bubble morphology and algorithms for estimating bubble size and shape,\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00069\"}"
+   ],
+   "evidence": [],
+   "kind": "onto_link"
+  },
+  {
+   "source": "default:ent:Parameter:bubble morphology",
+   "target": "default:ent:Parameter:bubble size and shape",
+   "type": "HAS_PROPERTY",
+   "duplicate_row_numbers": [],
+   "modality": "text",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"and in studies of bubble morphology and algorithms for estimating bubble size and shape,\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00069\"}"
+   ],
+   "duplicate_page_numbers": [],
+   "evidence": [
+    "and in studies of bubble morphology and algorithms for estimating bubble size and shape,"
+   ],
+   "kind": "triple",
+   "source_evidence": "and in studies of bubble morphology and algorithms for estimating bubble size and shape,",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "section": "",
+   "text": "and in studies of bubble morphology and algorithms for estimating bubble size and shape,",
+   "unit_id": "u00069",
+   "source_file": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:ent:Parameter:bubble size and shape",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"and in studies of bubble morphology and algorithms for estimating bubble size and shape,\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00069\"}"
+   ],
+   "kind": "ontology_entity_link"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:ent:Parameter:volume of the cell",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00173\"}"
+   ],
+   "evidence": [],
+   "kind": "onto_link"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:ent:Parameter:labels",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"due to the appreciable differences behind these labels.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00278\"}"
+   ],
+   "evidence": [],
+   "kind": "onto_link"
+  },
+  {
+   "source": "default:onto:RawOre",
+   "target": "default:ent:RawOre:mass of 1.800 g of mineral",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00173\"}"
+   ],
+   "kind": "ontology_entity_link"
+  },
+  {
+   "source": "default:ent:Parameter:volume of the cell",
+   "target": "default:ent:RawOre:mass of 1.800 g of mineral",
+   "type": "KEEPS",
+   "duplicate_row_numbers": [],
+   "modality": "text",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00173\"}"
+   ],
+   "duplicate_page_numbers": [],
+   "evidence": [
+    "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,"
+   ],
+   "kind": "triple",
+   "source_evidence": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "section": "",
+   "text": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,",
+   "unit_id": "u00173",
+   "source_file": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069"
+  },
+  {
+   "source": "default:onto:Concentrate",
+   "target": "default:ent:Product:recovery",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"which may reduce the recovery of the mineral of interest.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00243\"}"
+   ],
+   "evidence": [],
+   "kind": "onto_link"
+  },
+  {
+   "source": "default:onto:Concentrate",
+   "target": "default:ent:Product:mineral of interest",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"which may reduce the recovery of the mineral of interest.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00243\"}"
+   ],
+   "kind": "ontology_entity_link"
+  },
+  {
+   "source": "default:ent:Product:recovery",
+   "target": "default:ent:Product:mineral of interest",
+   "type": "DECREASES",
+   "duplicate_row_numbers": [],
+   "modality": "text",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"which may reduce the recovery of the mineral of interest.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00243\"}"
+   ],
+   "duplicate_page_numbers": [],
+   "evidence": [
+    "which may reduce the recovery of the mineral of interest."
+   ],
+   "kind": "triple",
+   "source_evidence": "which may reduce the recovery of the mineral of interest.",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "section": "",
+   "text": "which may reduce the recovery of the mineral of interest.",
+   "unit_id": "u00243",
+   "source_file": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069"
+  },
+  {
+   "source": "default:onto:Concentrate",
+   "target": "default:ent:Product:behaviors",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"due to the appreciable differences behind these labels.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00278\"}"
+   ],
+   "kind": "ontology_entity_link"
+  },
+  {
+   "source": "default:ent:Parameter:labels",
+   "target": "default:ent:Product:behaviors",
+   "type": "CAUSES",
+   "duplicate_row_numbers": [],
+   "modality": "text",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"due to the appreciable differences behind these labels.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00278\"}"
+   ],
+   "duplicate_page_numbers": [],
+   "evidence": [
+    "due to the appreciable differences behind these labels."
+   ],
+   "kind": "triple",
+   "source_evidence": "due to the appreciable differences behind these labels.",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "section": "",
+   "text": "due to the appreciable differences behind these labels.",
+   "unit_id": "u00278",
+   "source_file": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069"
+  },
+  {
+   "source": "default:onto:Scavenging",
+   "target": "default:ent:ProcessStage:scavenger circuit",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00382\"}"
+   ],
+   "evidence": [],
+   "kind": "onto_link"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:ent:Reagent:frother",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00382\"}"
+   ],
+   "kind": "ontology_entity_link"
+  },
+  {
+   "source": "default:ent:ProcessStage:scavenger circuit",
+   "target": "default:ent:Reagent:frother",
+   "type": "USES",
+   "duplicate_row_numbers": [],
+   "modality": "text",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00382\"}"
+   ],
+   "duplicate_page_numbers": [],
+   "evidence": [
+    "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia."
+   ],
+   "kind": "triple",
+   "source_evidence": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "section": "",
+   "text": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.",
+   "unit_id": "u00382",
+   "source_file": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069"
+  },
+  {
+   "source": "default:onto:FrothFlotation",
+   "target": "default:ent:Reagent:depressant",
+   "type": "HAS_ENTITIES",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00382\"}"
+   ],
+   "kind": "ontology_entity_link"
+  },
+  {
+   "source": "default:ent:ProcessStage:scavenger circuit",
+   "target": "default:ent:Reagent:depressant",
+   "type": "USES",
+   "duplicate_row_numbers": [],
+   "modality": "text",
+   "provenance": [
+    "{\"caption_id\": null, \"duplicate_page_numbers\": [], \"duplicate_row_numbers\": [], \"evidence\": \"frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.\", \"figure_id\": null, \"image_id\": null, \"image_ids\": [], \"image_urls\": [], \"page_number\": null, \"panel_count\": null, \"panel_index\": null, \"related_text_ids\": [], \"row_number\": null, \"section\": null, \"source\": null, \"source_path\": null, \"unit_id\": \"u00382\"}"
+   ],
+   "duplicate_page_numbers": [],
+   "evidence": [
+    "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia."
+   ],
+   "kind": "triple",
+   "source_evidence": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "section": "",
+   "text": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.",
+   "unit_id": "u00382",
+   "source_file": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069"
+  }
+ ]
+}

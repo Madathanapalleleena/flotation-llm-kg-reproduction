@@ -95,6 +95,8 @@ LORA_GRAD_ACCUMULATION = _i("LORA_GRAD_ACCUMULATION", 8)
 STAGE2_MODEL = os.getenv("STAGE2_MODEL", "deepseek-chat")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
 OLLAMA_STAGE2_MODEL = os.getenv("OLLAMA_STAGE2_MODEL", STAGE2_MODEL)
+# A compact model is usually more reliable for strict numeric/JSON judging than reasoning models.
+OLLAMA_JUDGE_MODEL = os.getenv("OLLAMA_JUDGE_MODEL", STAGE1_MODEL)
 OLLAMA_NUM_PREDICT = _i("OLLAMA_NUM_PREDICT", 256)
 LLM_TEMPERATURE = _f("LLM_TEMPERATURE", 0.0)
 LLM_TIMEOUT = _i("LLM_TIMEOUT", 120)

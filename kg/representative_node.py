@@ -21,6 +21,6 @@ def representative_node(triples):
     return dict(key=best, name=types[best], type=best[1], degree=deg[best])
 
 
-def img_edges(rep, image_url):
-    """Eq. (21): link the representative node of a caption subgraph to its image u."""
-    return [(rep, "HAS_IMG", image_url)] if rep and image_url else []
+def img_edges(source_id, image_url):
+    """Eq. (21): link a caption's graph node to its image u."""
+    return [(source_id, "HAS_IMG", image_url)] if source_id and image_url else []

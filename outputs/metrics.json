@@ -1,96 +1,558 @@
 {
   "extraction": {
-    "held_out_samples": 5,
-    "held_out_total": 95,
+    "held_out_samples": 20,
+    "held_out_total": 60,
+    "test_ids": [
+      40,
+      43,
+      46,
+      49,
+      52,
+      55,
+      58,
+      61,
+      64,
+      67,
+      70,
+      73,
+      76,
+      79,
+      82,
+      85,
+      88,
+      91,
+      94,
+      97
+    ],
     "LLM_FewShot_baseline": {
-      "precision": 1.0,
-      "recall": 0.9333333333333333,
-      "f1": 0.96,
+      "precision": 0.875,
+      "recall": 0.825,
+      "f1": 0.8416666666666666,
       "c_sis": 1.0,
-      "n_valid": 9,
-      "n_pred": 9,
-      "n_exp": 10
+      "micro_precision": 0.8333333333333334,
+      "micro_recall": 0.7894736842105263,
+      "micro_f1": 0.8108108108108109,
+      "n_valid": 30,
+      "n_pred": 36,
+      "n_exp": 38,
+      "n_conflict": 0,
+      "per_sample": {
+        "40": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "43": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "46": {
+          "P": 0.5,
+          "R": 0.5,
+          "F1": 0.5,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "49": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "52": {
+          "P": 0.5,
+          "R": 0.5,
+          "F1": 0.5,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "55": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "58": {
+          "P": 1.0,
+          "R": 0.5,
+          "F1": 0.6666666666666666,
+          "n_pred": 1,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "61": {
+          "P": 0.6666666666666666,
+          "R": 0.6666666666666666,
+          "F1": 0.6666666666666666,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 2
+        },
+        "64": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "67": {
+          "P": 0.5,
+          "R": 0.5,
+          "F1": 0.5,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "70": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 3
+        },
+        "73": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "76": {
+          "P": 0.6666666666666666,
+          "R": 0.6666666666666666,
+          "F1": 0.6666666666666666,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 2
+        },
+        "79": {
+          "P": 0.6666666666666666,
+          "R": 0.6666666666666666,
+          "F1": 0.6666666666666666,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 2
+        },
+        "82": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "85": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "88": {
+          "P": 1.0,
+          "R": 0.5,
+          "F1": 0.6666666666666666,
+          "n_pred": 1,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "91": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "94": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "97": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        }
+      }
     },
     "Proposed_pipeline": {
-      "precision": 0.8,
-      "recall": 0.7333333333333333,
-      "f1": 0.76,
+      "precision": 0.9083333333333334,
+      "recall": 0.825,
+      "f1": 0.8533333333333333,
       "c_sis": 1.0,
-      "n_valid": 6,
-      "n_pred": 8,
-      "n_exp": 10
+      "micro_precision": 0.8823529411764706,
+      "micro_recall": 0.7894736842105263,
+      "micro_f1": 0.8333333333333333,
+      "n_valid": 30,
+      "n_pred": 34,
+      "n_exp": 38,
+      "n_conflict": 0,
+      "per_sample": {
+        "40": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "43": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "46": {
+          "P": 0.5,
+          "R": 0.5,
+          "F1": 0.5,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "49": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "52": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "55": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "58": {
+          "P": 1.0,
+          "R": 0.5,
+          "F1": 0.6666666666666666,
+          "n_pred": 1,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "61": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 3
+        },
+        "64": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "67": {
+          "P": 1.0,
+          "R": 0.5,
+          "F1": 0.6666666666666666,
+          "n_pred": 1,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "70": {
+          "P": 0.5,
+          "R": 0.3333333333333333,
+          "F1": 0.4,
+          "n_pred": 2,
+          "n_exp": 3,
+          "n_valid": 1
+        },
+        "73": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "76": {
+          "P": 0.6666666666666666,
+          "R": 0.6666666666666666,
+          "F1": 0.6666666666666666,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 2
+        },
+        "79": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 3,
+          "n_exp": 3,
+          "n_valid": 3
+        },
+        "82": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        },
+        "85": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "88": {
+          "P": 1.0,
+          "R": 0.5,
+          "F1": 0.6666666666666666,
+          "n_pred": 1,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "91": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 2
+        },
+        "94": {
+          "P": 0.5,
+          "R": 0.5,
+          "F1": 0.5,
+          "n_pred": 2,
+          "n_exp": 2,
+          "n_valid": 1
+        },
+        "97": {
+          "P": 1.0,
+          "R": 1.0,
+          "F1": 1.0,
+          "n_pred": 1,
+          "n_exp": 1,
+          "n_valid": 1
+        }
+      }
     }
   },
-  "evaluation_scope": "sampled 5 of 95 held-out examples",
+  "evaluation_protocol": {
+    "training_data": "data\\training\\flotation_train.jsonl",
+    "development_examples": 40,
+    "held_out_test_ids": [
+      40,
+      43,
+      46,
+      49,
+      52,
+      55,
+      58,
+      61,
+      64,
+      67,
+      70,
+      73,
+      76,
+      79,
+      82,
+      85,
+      88,
+      91,
+      94,
+      97
+    ],
+    "semantic_sampling_seed": 7,
+    "semantic_full": false,
+    "quality_graph_scope": "assembled from Proposed_pipeline predictions on the held-out sample"
+  },
+  "evaluation_scope": "sampled 20 of 60 held-out examples",
   "structural": {
-    "n_nodes": 21,
-    "n_edges": 41,
+    "n_nodes": 58,
+    "n_edges": 133,
     "I_s": 0.0,
-    "C_s": 0.25,
+    "C_s": 1.0,
     "B_s": 1.0,
-    "Z_s": 0.6515485291297824,
+    "Z_s": 0.5586119751488093,
     "P_s": 1.0,
-    "R_s": 0.32478255570839554,
-    "S1": 0.7264714071548871,
+    "R_s": 0.4208419605470897,
+    "S1": 0.9048338942996758,
     "detail": {
       "n_isolated": 0,
-      "covered_stages": 1,
-      "n_down": 14,
-      "n_up": 14,
-      "mean_stage_degree": 6.4,
-      "mu": 3.9047619047619047,
-      "delta": 3.986940131225615,
+      "covered_stages": 4,
+      "n_down": 24,
+      "n_up": 24,
+      "mean_stage_degree": 5.75,
+      "mu": 4.586206896551724,
+      "delta": 4.941151906599347,
       "L_max": 5,
       "L_optimal": 5,
-      "n_process_loops": 88,
-      "D": 2.1463414634146343
+      "n_process_loops": 0,
+      "D": 0.0
     }
   },
+  "graph_consistency": {
+    "n_nodes": 58,
+    "n_relationships": 133,
+    "duplicate_node_ids": 0,
+    "invalid_nodes": 0,
+    "dangling_relationships": 0,
+    "unknown_relationship_types": 0,
+    "invalid_relationships": 0,
+    "duplicate_relationships": 0,
+    "contradictory_triples": 0,
+    "n_issues": 0,
+    "consistency": 1.0
+  },
   "semantic": {
-    "n_records": 12,
-    "n_sampled": 2,
-    "input_triples": 16,
-    "validated_triples": 7,
-    "rejected_triples": 9,
-    "validation_rate": 0.4375,
-    "mean_score": 0.375,
-    "std": 0.1767766952966369,
+    "n_records": 20,
+    "n_sampled": 4,
+    "input_triples": 34,
+    "validated_triples": 34,
+    "rejected_triples": 0,
+    "validation_rate": 1.0,
+    "mean_score": 0.9125,
+    "std": 0.024999999999999967,
     "sigma_s": 0.1,
-    "S2_raw": 0.3926776695296637,
-    "S2": 0.3926776695296637,
-    "frac_ge_0_8": 0.0,
-    "n_low_quality": 1,
+    "S2_raw": 0.9149999999999999,
+    "S2": 0.9149999999999999,
+    "frac_ge_0_8": 1.0,
+    "n_low_quality": 0,
     "judge": "ollama",
+    "input_scope": "Proposed_pipeline predictions on the held-out sample",
     "samples": [
       {
-        "text": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,",
+        "text": "The flotation cell keeps the pulp level stable, and the feed flow rate affects the foam size.",
         "triples": [
           {
-            "subject": "volume of the cell",
-            "subject_type": "Parameter",
+            "subject": "flotation cell",
+            "subject_type": "Equipment",
             "relation": "keeps",
-            "object": "mass of 1.800 g of mineral",
-            "object_type": "RawOre"
+            "object": "pulp level",
+            "object_type": "Parameter"
+          },
+          {
+            "subject": "feed flow rate",
+            "subject_type": "Parameter",
+            "relation": "affects",
+            "object": "foam size",
+            "object_type": "Parameter"
+          }
+        ],
+        "n_count": 2,
+        "unit_id": 52,
+        "n_input_triples": 2,
+        "n_rejected_triples": 0,
+        "score": 0.9,
+        "reason": "The triples accurately capture the key points of the sentence, including the flotation cell's role in maintaining the pulp level and the feed flow rate's impact on foam size."
+      },
+      {
+        "text": "The roughing stage follows the fast roughing stage, and the roughing stage produces a stable recovery rate, and the fast roughing stage uses pine oil.",
+        "triples": [
+          {
+            "subject": "roughing stage",
+            "subject_type": "ProcessStage",
+            "relation": "follows",
+            "object": "fast roughing stage",
+            "object_type": "ProcessStage"
+          },
+          {
+            "subject": "roughing stage",
+            "subject_type": "ProcessStage",
+            "relation": "produces",
+            "object": "stable recovery rate",
+            "object_type": "Product"
+          },
+          {
+            "subject": "fast roughing stage",
+            "subject_type": "ProcessStage",
+            "relation": "uses",
+            "object": "pine oil",
+            "object_type": "Reagent"
+          }
+        ],
+        "n_count": 3,
+        "unit_id": 61,
+        "n_input_triples": 3,
+        "n_rejected_triples": 0,
+        "score": 0.95,
+        "reason": "The triples faithfully express the sentence, capturing the sequence of stages and their relationships, but miss the specific details about the recovery rate and the oil used in the roughing stage."
+      },
+      {
+        "text": "The sphalerite has a wide grinding fineness.",
+        "triples": [
+          {
+            "subject": "sphalerite",
+            "subject_type": "RawOre",
+            "relation": "has_property",
+            "object": "grinding fineness",
+            "object_type": "Parameter"
           }
         ],
         "n_count": 1,
-        "unit_id": "u00173",
+        "unit_id": 97,
         "n_input_triples": 1,
         "n_rejected_triples": 0,
-        "score": 0.5,
-        "reason": "The triples do not express the sentence faithfully and completely. The sentence mentions 'To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,' but the triples only mention 'a mass of 1.800 g of mineral' and 'keeps' without specifying the relation between the volume of the cell and the mass of the mineral."
+        "score": 0.9,
+        "reason": "The sentence is not faithful and complete as it does not mention the specific value of the grinding fineness."
       },
       {
-        "text": "Images from Flotation Laboratory",
-        "triples": [],
-        "n_count": 0,
-        "unit_id": "u00000",
+        "text": "Increasing the impeller speed increases the froth stability.",
+        "triples": [
+          {
+            "subject": "impeller speed",
+            "subject_type": "Parameter",
+            "relation": "increases",
+            "object": "froth stability",
+            "object_type": "Parameter"
+          }
+        ],
+        "n_count": 1,
+        "unit_id": 40,
         "n_input_triples": 1,
-        "n_rejected_triples": 1,
-        "score": 0.25,
-        "reason": "The sentence is not related to the triples provided."
+        "n_rejected_triples": 0,
+        "score": 0.9,
+        "reason": "The sentence and triples accurately reflect the relationship between increasing impeller speed and improving froth stability."
       }
     ]
   },
-  "S_final": 0.526195164579753
+  "S_final": 0.9109335577198703
 }

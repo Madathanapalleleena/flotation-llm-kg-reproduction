@@ -7,7 +7,9 @@ _REL_SYN = {
     "increase": "increases", "raises": "increases", "raise": "increases", "improves": "increases", "improve": "increases",
     "enhances": "increases", "decrease": "decreases", "reduces": "decreases", "reduce": "decreases", "lowers": "decreases",
     "keep": "keeps", "maintains": "keeps", "maintain": "keeps", "affect": "affects", "influences": "affects",
-    "cause": "causes", "leads_to": "causes", "results_in": "causes", "use": "uses", "adds": "uses",
+    "cause": "causes", "leads_to": "causes", "results_in": "causes",
+    "use": "uses", "used": "uses", "using": "uses", "employ": "uses", "employed": "uses",
+    "apply": "uses", "applies": "uses", "applied": "uses", "adds": "uses",
     "produce": "produces", "yields": "produces", "follow": "follows", "has": "has_property", "have": "has_property",
 }
 CONTRA = [{"increases", "decreases"}, {"keeps", "increases"}, {"keeps", "decreases"}]

@@ -94,11 +94,15 @@ def build_index(mode: str = "fuzzy", documents=None, verbose=True):
                  embedder=emb.name, store=store.kind, index_kb=round(store.index_size_kb(), 1),
                  top_terms=[(w, round(m, 3)) for w, m in weighter.top_terms(8)],
                  build_seconds=round(time.time() - t0, 2))
-    if mode == "fuzzy" and chunks:      # Eq. (12), using every indexed vector as a representative query
+    if mode == "fuzzy" and chunks:      # Eq. (12), using each chunk vector as a representative query
         sims = []
         for c, v in zip(chunks, vecs):
-            hits = store.query(v, 1)
-            sims.append(sim_fuzzy(v, hits[0]["emb"], c["text"], hits[0]["text"], weighter) if hits else 0.0)
+            hits = store.query(v, min(2, store.count()))
+            neighbor = next((hit for hit in hits if hit["id"] != c["id"]), None)
+            sims.append(
+                sim_fuzzy(v, neighbor["emb"], c["text"], neighbor["text"], weighter)
+                if neighbor else 0.0
+            )
         stats["L_D"] = round(storage_objective(sims, store.index_size_kb(), len(chunks)), 5)
         stats["objective_queries"] = len(sims)
     if verbose:

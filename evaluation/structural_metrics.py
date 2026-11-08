@@ -80,8 +80,10 @@ def structural_assessment(graph, kt: KnowledgeTree = None):
 
     # (27) process loop rationality
     proc = nx.DiGraph()
+    # Reverse ontology links describe hierarchy, not process-flow loops.
+    process_flow = {"HAS_INPUT_DOWN", "HAS_NEXT_DOWN", "HAS_OUTPUT_DOWN"}
     for u, v, d in G.edges(data=True):
-        if d.get("kind") == "ontology":
+        if d.get("kind") == "ontology" and d.get("type") in process_flow:
             proc.add_edge(u, v)
     n_process = sum(1 for _ in nx.simple_cycles(proc))
     D = n_process / max(n_edges, 1)

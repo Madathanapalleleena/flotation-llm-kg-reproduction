@@ -31,12 +31,24 @@ def llm_score(client, text, triples):
     """score = f_LLM(prompt(text, T_m; theta))"""
     user = f"Sentence: {text}\nTriples: {json.dumps({'triples': triples}, ensure_ascii=False)}"
     raw = client.chat([{"role": "system", "content": SEM_SYSTEM}, {"role": "user", "content": user}])
-    m = re.search(r"\{.*\}", raw, re.S)
-    try:
-        obj = json.loads(m.group(0))
-        return float(min(1.0, max(0.0, obj["score"]))), str(obj.get("reason", ""))
-    except Exception:  # noqa: BLE001
-        return 0.0, "unparseable judge output"
+    raw = re.sub(r"<think>.*?</think>", "", raw or "", flags=re.S).strip()
+    decoder = json.JSONDecoder()
+    obj = None
+    for index, char in enumerate(raw):
+        if char == "{":
+            try:
+                candidate, _ = decoder.raw_decode(raw[index:])
+            except json.JSONDecodeError:
+                continue
+            if isinstance(candidate, dict) and "score" in candidate:
+                obj = candidate
+                break
+    if obj is None:
+        raise ValueError(f"Semantic judge returned no JSON score object: {raw[:300]!r}")
+    score = obj["score"]
+    if isinstance(score, bool) or not isinstance(score, (int, float)) or not math.isfinite(score):
+        raise ValueError(f"Semantic judge returned an invalid score value: {score!r}")
+    return float(min(1.0, max(0.0, score))), str(obj.get("reason", ""))
 
 
 def dynamic_sample(records, seed=7):
@@ -79,7 +91,12 @@ def _fib_pick(group, k, rnd, F):
 
 def semantic_assessment(units, client=None, full=False, seed=7, verbose=False):
     """Judge only schema-valid triples; report validation counts alongside the semantic score."""
-    client = client or get_client(2)
+    if client is None:
+        if config.LLM_BACKEND == "ollama":
+            from llm.extraction import OllamaLLM
+            client = OllamaLLM(config.OLLAMA_JUDGE_MODEL)
+        else:
+            client = get_client(2)
     validator = TripleValidator()
     records = []
     input_triples = valid_triples = rejected_triples = 0

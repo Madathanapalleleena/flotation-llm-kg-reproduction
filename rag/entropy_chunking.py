@@ -4,7 +4,7 @@ Sentence boundaries are the initial separators.  Segments are merged
 recursively using the dynamic fuzzy-entropy threshold:
 
     c_i* = c_i'                          if H(c_i') >= H_min^fuzzy  and |c_i'| <= 50
-         = c_i' + sum_j c'_{i+j}         if H(c_i') <  H_min^fuzzy  and H(merged) >= H_min^fuzzy and |merged| <= 100
+         = c_i' + sum_j c'_{i+j}         otherwise, while |merged| <= 100
 """
 import re
 
@@ -25,6 +25,12 @@ def split_sentences(text: str):
             continue
         buf = ""
         for cl in _CLAUSE_SPLIT.split(p):
+            while len(cl) > config.HARD_MAX_LEN:
+                boundary = cl.rfind(" ", 0, config.HARD_MAX_LEN + 1)
+                if boundary <= 0:
+                    boundary = config.HARD_MAX_LEN
+                out.append(cl[:boundary].strip())
+                cl = cl[boundary:].strip()
             if buf and len(buf) + len(cl) + 1 > config.HARD_MAX_LEN:
                 out.append(buf.strip())
                 buf = cl
@@ -54,24 +60,22 @@ class EntropyChunker:
             cur = segs[i]
             h = self.H(cur)
             hf = h_min_fuzzy(h, self.h_min)
-            if h >= hf and len(cur) <= config.SOFT_MAX_LEN:      # case 1: keep
+            if h >= hf and len(cur) <= config.SOFT_MAX_LEN:
                 out.append(cur)
                 i += 1
                 continue
-            if h < hf:                                           # case 2: merge forward
-                merged, j, done = cur, i + 1, False
-                while j < len(segs) and len(self._join(merged, segs[j])) <= config.HARD_MAX_LEN:
-                    merged = self._join(merged, segs[j])
-                    j += 1
-                    if self.H(merged) >= h_min_fuzzy(self.H(merged), self.h_min):
-                        done = True
-                        break
-                if done or j > i + 1:
-                    out.append(merged)
-                    i = j
-                    continue
-            out.append(cur)                                      # neither rule applies: keep as is
-            i += 1
+            merged, j = cur, i
+            while j + 1 < len(segs):
+                candidate = self._join(merged, segs[j + 1])
+                if len(candidate) > config.HARD_MAX_LEN:
+                    break
+                merged = candidate
+                j += 1
+                merged_h = self.H(merged)
+                if merged_h >= h_min_fuzzy(merged_h, self.h_min):
+                    break
+            out.append(merged)
+            i = j + 1
         return out
 
 

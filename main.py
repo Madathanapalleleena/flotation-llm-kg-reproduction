@@ -1,6 +1,8 @@
 """LLM-driven multimodal KG construction for the flotation process -- end-to-end driver.
 
-  python main.py init-data         Step 1     create the SYNTHETIC sample dataset (skip if you uploaded real data)
+  python main.py init-data         Step 1     create the SYNTHETIC sample dataset (skip if you uploaded real data  )
+  if parsed.get("unit_id") is not None:
+      item["source_unit_id"] = parsed["unit_id"]
   python main.py parse             Steps 2-3  MinerU parser -> data/parsed/documents.json
   python main.py build-rag         Steps 5-7  normal index, then fuzzy TF-IDF + entropy chunking + M3E + Chroma
   python main.py query "..."       Step 8     fuzzy retrieval (normal vs fuzzy, top-3)
@@ -15,6 +17,8 @@
 """
 import argparse
 import json
+import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -116,8 +120,10 @@ def build_units(documents=None):
             page_number=parsed.get("page_number"),
             row_number=parsed.get("row_number"),
             section=parsed.get("section", ""),
-            image_url=image_url or parsed.get("url"),
+            image_url=image_url or parsed.get("url") or parsed.get("image_url"),
         )
+        if parsed.get("unit_id") is not None:
+            item["source_unit_id"] = parsed["unit_id"]
         if isinstance(item["evidence"], (dict, list)):
             item["evidence"] = json.dumps(item["evidence"], ensure_ascii=False, sort_keys=True)
         source_evidence = parsed.get("source_evidence")
@@ -125,6 +131,23 @@ def build_units(documents=None):
             source_evidence = json.dumps(source_evidence, ensure_ascii=False, sort_keys=True)
         if source_evidence:
             item["source_evidence"] = source_evidence
+        if parsed.get("extraction_method"):
+            item["extraction_method"] = parsed["extraction_method"]
+        if parsed.get("caption_id"):
+            item["caption"] = text
+        for field in (
+            "image_id",
+            "figure_id",
+            "caption_id",
+            "image_ids",
+            "image_urls",
+            "panel_index",
+            "panel_count",
+            "related_text_ids",
+            "related_figure_ids",
+        ):
+            if parsed.get(field) is not None:
+                item[field] = parsed[field]
         for location_field in ("duplicate_page_numbers", "duplicate_row_numbers"):
             if parsed.get(location_field):
                 item[location_field] = parsed[location_field]
@@ -173,7 +196,7 @@ def build_units(documents=None):
 
 
 def select_demo_units(source, max_units=12, documents=None):
-    """Select a bounded, evenly sampled unit set from one parsed document."""
+    """Select a bounded, evenly sampled, modality-balanced set from one parsed document."""
     if max_units < 1:
         raise ValueError("--max-units must be at least 1")
     docs = documents if documents is not None else json.loads(config.PARSED_JSON.read_text(encoding="utf-8"))
@@ -186,10 +209,57 @@ def select_demo_units(source, max_units=12, documents=None):
     units = build_units(matches)
     if not units:
         raise ValueError(f"Parsed document {source!r} contains no extractable text, captions, or records.")
-    if len(units) > max_units:
-        step = len(units) / max_units
-        units = [units[int(i * step)] for i in range(max_units)]
-    return units
+    if len(units) <= max_units:
+        return units
+
+    text_terms = (
+        "flotation", "froth", "ore", "pulp", "mineral", "collector", "reagent", "aeration", "air flow",
+        "recovery", "concentrate", "tailing", "roughing", "cleaning", "scavenging", "bubble", "dosage",
+        "impeller", "particle", "grade", "ph ",
+    )
+    relation_cue = re.compile(
+        r"\b(?:increas\w*|decreas\w*|reduc\w*|affect\w*|influenc\w*|caus\w*|"
+        r"lead\w*\s+to|result\w*\s+in|us(?:e|es|ed|ing)|appl\w*|produc\w*|"
+        r"yield\w*|follow\w*|maintain\w*)\b",
+        re.IGNORECASE,
+    )
+    indexed = list(enumerate(units))
+    text_units = [
+        item for item in indexed
+        if item[1]["modality"] == "text"
+        and len(item[1]["text"].split()) >= 8
+        and relation_cue.search(item[1]["text"])
+        and any(term in item[1]["text"].casefold() for term in text_terms)
+    ]
+    if not text_units:
+        text_units = [item for item in indexed if item[1]["modality"] == "text"]
+    caption_units = [item for item in indexed if item[1]["modality"] == "caption"]
+    record_units = [item for item in indexed if item[1]["modality"] == "record"]
+
+    if max_units < 4:
+        return [unit for _, unit in _even_sample(indexed, max_units)]
+
+    caption_quota = min(len(caption_units), max(1, max_units // 5))
+    record_quota = min(len(record_units), max_units // 10)
+    text_quota = min(len(text_units), max_units - caption_quota - record_quota)
+    remaining = max_units - caption_quota - record_quota - text_quota
+    if remaining:
+        extra_records = min(remaining, len(record_units) - record_quota)
+        record_quota += extra_records
+        remaining -= extra_records
+    if remaining:
+        extra_captions = min(remaining, len(caption_units) - caption_quota)
+        caption_quota += extra_captions
+        remaining -= extra_captions
+    if remaining:
+        text_quota += min(remaining, len(text_units) - text_quota)
+
+    selected = (
+        _even_sample(text_units, text_quota)
+        + _even_sample(record_units, record_quota)
+        + _even_sample(caption_units, caption_quota)
+    )
+    return [unit for _, unit in sorted(selected, key=lambda item: item[0])]
 
 
 def _even_sample(items, max_items):
@@ -197,6 +267,19 @@ def _even_sample(items, max_items):
         return list(items)
     step = len(items) / max_items
     return [items[int(i * step)] for i in range(max_items)]
+
+
+def _evaluation_units(rows, predictions):
+    return [
+        {
+            "unit_id": str(row["id"]),
+            "doc_id": str(row["id"]),
+            "modality": "text",
+            "text": row["user"],
+            "triples": predictions[row["id"]],
+        }
+        for row in rows
+    ]
 
 
 def cmd_extract(args):
@@ -210,14 +293,59 @@ def cmd_extract(args):
         if len(units) > args.max_units:       # even sample over ALL documents (not just the first N units)
             step = len(units) / args.max_units
             units = [units[int(i * step)] for i in range(args.max_units)]
-    out, t0 = [], time.time()
+    progress_path = config.OUTPUT_DIR / "triples.progress.json"
+    if args.resume:
+        if not progress_path.exists():
+            raise SystemExit("No extraction checkpoint found to resume.")
+        saved = json.loads(progress_path.read_text(encoding="utf-8"))
+        if not isinstance(saved, list):
+            raise ValueError(f"Invalid extraction checkpoint format: {progress_path}")
+        current_units = {unit["unit_id"]: unit for unit in units}
+        out_by_id = {}
+        for item in saved:
+            unit_id = item.get("unit_id")
+            current = current_units.get(unit_id)
+            if current is None or item.get("text") != current.get("text"):
+                raise ValueError(
+                    f"Checkpoint unit {unit_id!r} does not match the current parsed corpus. "
+                    "Move the checkpoint aside before starting a new extraction."
+                )
+            out_by_id[unit_id] = item
+        print(f"Resuming from checkpoint: {len(out_by_id)}/{len(units)} units already complete.")
+    else:
+        if progress_path.exists():
+            raise SystemExit(
+                f"An extraction checkpoint already exists at {progress_path}. "
+                "Use `python main.py extract --resume` to continue it."
+            )
+        out_by_id = {}
+
+    def save_checkpoint():
+        config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        checkpoint = [out_by_id[unit["unit_id"]] for unit in units if unit["unit_id"] in out_by_id]
+        temporary_path = progress_path.with_name(progress_path.name + ".tmp")
+        temporary_path.write_text(json.dumps(checkpoint, ensure_ascii=False, indent=1), encoding="utf-8")
+        os.replace(temporary_path, progress_path)
+
+    t0 = time.time()
     for i, u in enumerate(units, 1):
+        if u["unit_id"] in out_by_id:
+            continue
+        print(f"  extracting {i}/{len(units)} (unit={u['unit_id']}) ...", flush=True)
+        unit_started = time.time()
         r = ext.extract(u["text"])
-        out.append(dict(u, **{k: v for k, v in r.items() if k != "text"}))
-        if i % 10 == 0 or i == len(units):
-            print(f"  {i}/{len(units)} units  ({time.time() - t0:.1f}s)")
+        out_by_id[u["unit_id"]] = dict(u, **{k: v for k, v in r.items() if k != "text"})
+        print(f"  finished in {time.time() - unit_started:.1f}s", flush=True)
+        if len(out_by_id) % 10 == 0 or len(out_by_id) == len(units):
+            save_checkpoint()
+            print(f"  {len(out_by_id)}/{len(units)} units  ({time.time() - t0:.1f}s)", flush=True)
+
+    out = [out_by_id[unit["unit_id"]] for unit in units]
     config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    config.TRIPLES_JSON.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    temporary_path = config.TRIPLES_JSON.with_name(config.TRIPLES_JSON.name + ".tmp")
+    temporary_path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    os.replace(temporary_path, config.TRIPLES_JSON)
+    progress_path.unlink(missing_ok=True)
     n = sum(len(u["triples"]) for u in out)
     print(f"{n} triples from {len(out)} units -> {config.TRIPLES_JSON}")
 
@@ -319,6 +447,29 @@ def _mock_warning():
               "  upload your own annotated sentences for real numbers.\n" + "!" * 70)
 
 
+def _print_final_metrics(metrics):
+    extraction = metrics["extraction"]["Proposed_pipeline"]
+    structural = metrics["structural"]
+    detail = structural["detail"]
+    print("\nFinal knowledge graph metrics:")
+    print(f"  Evaluation scope: {metrics['evaluation_scope']}")
+    print(f"  1. Precision: {extraction['precision']:.4f}")
+    print(f"  2. Recall: {extraction['recall']:.4f}")
+    print(f"  3. F1-score: {extraction['f1']:.4f}")
+    print(f"  4. Consistency score (C_sis): {extraction['c_sis']:.4f}")
+    print(f"  5. Isolated node ratio (I_s): {structural['I_s']:.4f}")
+    print(f"  6. Process coverage rate (C_s): {structural['C_s']:.4f}")
+    print(f"  7. Bidirectional relationship balance (B_s): {structural['B_s']:.4f}")
+    print(f"  8. Process node knowledge coverage (Z_s): {structural['Z_s']:.4f}")
+    print(f"  9. Longest process path length (L_max): {detail['L_max']}")
+    print(f" 10. Process loop rationality (R_s): {structural['R_s']:.4f}")
+    print(f" 11. Structural score (S1): {structural['S1']:.4f}")
+    print(f" 12. Semantic score (S2): {metrics['semantic']['S2']:.4f}")
+    print(f" 13. Final knowledge graph quality score (S_final): {metrics['S_final']:.4f}")
+    print(f"  Graph consistency check: {metrics['graph_consistency']['consistency']:.4f} "
+          f"({metrics['graph_consistency']['n_issues']} issues)")
+
+
 def cmd_evaluate(args):
     banner("16-17", "Structural + semantic evaluation (and extraction metrics)")
     _mock_warning()
@@ -326,7 +477,7 @@ def cmd_evaluate(args):
     from evaluation.graph_metrics import graph_consistency_assessment
     from evaluation.semantic_metrics import final_score, semantic_assessment
     from evaluation.structural_metrics import structural_assessment
-    from kg.neo4j_manager import LocalGraphStore, get_store
+    from kg.ontology_mapper import assemble
     from llm.extraction import get_client
     from llm.refinement import TwoStageExtractor
     from prompting.base_prompt import build_base_prompt
@@ -366,6 +517,7 @@ def cmd_evaluate(args):
         "held_out_test_ids": [row["id"] for row in test],
         "semantic_sampling_seed": 7,
         "semantic_full": bool(args.full_semantic),
+        "quality_graph_scope": "assembled from Proposed_pipeline predictions on the held-out sample",
     }
     metrics["evaluation_scope"] = ("full held-out set" if len(test) == len(held_out)
                                    else f"sampled {len(test)} of {len(held_out)} held-out examples")
@@ -375,15 +527,8 @@ def cmd_evaluate(args):
     for name, m in (("LLM-FewShot (P0)", base), ("Proposed (opt+RAG+2stage)", prop)):
         print(f"  {name:26s} {m['recall']:7.4f} {m['precision']:10.4f} {m['f1']:7.4f}")
 
-    store = get_store(verbose=False)
-    try:
-        graph = store.read_graph()
-    except Exception:  # noqa: BLE001
-        graph = LocalGraphStore().read_graph()
-    finally:
-        close = getattr(store, "close", None)
-        if close:
-            close()
+    evaluation_units = _evaluation_units(test, preds)
+    graph, _ = assemble(evaluation_units)
     S = structural_assessment(graph)
     metrics["structural"] = S
     consistency = graph_consistency_assessment(graph)
@@ -395,14 +540,15 @@ def cmd_evaluate(args):
           f"({consistency['n_issues']} issues across {consistency['n_nodes']} nodes / "
           f"{consistency['n_relationships']} relationships)")
 
-    units = json.loads(config.TRIPLES_JSON.read_text(encoding="utf-8"))
-    sem = semantic_assessment(units, get_client(2), full=args.full_semantic, verbose=True)
+    sem = semantic_assessment(evaluation_units, get_client(2), full=args.full_semantic, verbose=True)
     sem_out = {k: v for k, v in sem.items() if k != "samples"}
+    sem_out["input_scope"] = "Proposed_pipeline predictions on the held-out sample"
     metrics["semantic"] = dict(sem_out, samples=sem["samples"][:50])
     print(f"\nSemantic assessment (Eq. 29): judge={sem['judge']}, sampled {sem['n_sampled']}/{sem['n_records']}, "
           f"mean={sem['mean_score']:.4f}, S2={sem['S2']:.4f}")
     metrics["S_final"] = final_score(S["S1"], sem["S2"])
     print(f"\nS_Final = 0.4*S1 + 0.6*S2 = {metrics['S_final']:.4f}")
+    _print_final_metrics(metrics)
     config.METRICS_JSON.write_text(json.dumps(metrics, indent=2, ensure_ascii=False, default=float), encoding="utf-8")
     print(f"metrics written to {config.METRICS_JSON}")
 
@@ -439,7 +585,8 @@ def main():
     sub.add_parser("optimize-prompt").set_defaults(fn=cmd_optimize)
     sub.add_parser("train-lora", help="train the paper-configured stage-1 LoRA adapter").set_defaults(fn=cmd_train_lora)
     e = sub.add_parser("extract")
-    e.add_argument("--max-units", type=int, default=0, help="limit units (cheap smoke test with a real API)")
+    e.add_argument("--max-units", type=int, default=0, help="limit units (0 = all extractable units)")
+    e.add_argument("--resume", action="store_true", help="continue from outputs/triples.progress.json")
     e.set_defaults(fn=cmd_extract)
     demo = sub.add_parser("demo", help="run the bounded pipeline from one parsed document")
     demo.add_argument("--source", required=True, help="exact parsed source filename or document id")

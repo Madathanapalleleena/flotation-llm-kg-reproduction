@@ -1,0 +1,39 @@
+{
+  "parse": {
+    "sha256": "7b2addd332d22961d64ca5d955f7ef1d6f70801a2696f0dd2ad6a2f24a93fbc4",
+    "short_id": "7b2addd",
+    "tier": "flash",
+    "page_range": "1",
+    "status": "done",
+    "cache_hit": true,
+    "wait_parse_ids": [],
+    "created_parse_ids": [],
+    "reused_parse_ids": [],
+    "tip": "Cached. Use --force to re-parse."
+  },
+  "content": {
+    "sha256": "7b2addd332d22961d64ca5d955f7ef1d6f70801a2696f0dd2ad6a2f24a93fbc4",
+    "short_id": "7b2addd",
+    "tier": "flash",
+    "format": "markdown",
+    "content": "<!-- page 1 of 1 -->\n\n# MINERAL PROCESSING\n\n**Lead-Zinc ores**\n\nFlotation separation and recovery of lead and zinc concentrates from ores containing galena (PbS) and sphalerite (ZnS) is well established and generally achieved quite effectively. Silver often provides highly significant economic value, if not the greatest value, with the silver most often associated with the galena mineralization which is fortuitous since smelters pay more for silver in lead vs. zinc concentrates. The non-values include iron sulphides such as pyrite and pyrrhotite that, while are often floatable, can be controlled. Siderite, an iron carbonate mineral, is often also associated in at least some minor quantity.\n\nMarmatite ((Zn,Fe)S) is an iron-rich sphalerite which consequently results in lower zinc concentrate grades. Marmatite concentrates have a lower zinc level due to dilution from the iron minerals.\n\nSeparations are made possible by galena’s inherent natural hydrophobicity and due to the fact that sphalerite as a mineral is not easily collected by flotation reagents. The well-established two stage sequential flotation process is employed:\n\nAn important first step entails ensuring the sphalerite surface is not activated with dissolved metal ions, which then makes the sphalerite non-floatable. The established lead-zinc ore flotation processing scheme is to add zinc sulphate (ZnSO ) to the grind 4 to control metal ion activation (sphalerite depression). Often metabisulphide or other sulphidation chemicals are added with the zinc sulphate for iron sulphide mineral depression.\n\nLead flotation collectors and frother are conditioned before lead flotation which is conducted typically at near neutral to slightly elevated pH which can be increased in the cleaner circuit to ensure iron sulphide rejection. Sometimes cyanide, if can be used, is added to help depress iron sulphides. Because silver typically is mineralogically associated with galena, most of the silver values are carried with and report to the galena concentrate.\n\nSphalerite that is rejected into the lead flotation tails is then floated in a second flotation step after activation with copper sulphate. The copper ions replace zinc atoms on the sphalerite surface creating a pseudocopper mineral surface coverage on the sphalerite which is then collected using copper flotation type collectors. Because most of the iron sulphides also report to the lead flotation tails and so feeds the zinc flotation circuit, typically lime is used to raise pH for iron sulphide depression. The flotation collectors used in sphalerite flotation tend to be less powerful because sphalerite at this stage typically readily floats and using a more aggressive collector can float more non-sphalerite minerals.\n\nOptimum lead concentrate metallurgy and recoveries are usually achieved using a combination of a xanthate and dithiophosphates. If the galena surfaces are slightly oxidized (“tarnished”), including mercaptobenzothiazole (MBT) is often made part of the collector suite to maximize galena recoveries.\n\n## Disclaimer\n\nFrothers used in galena flotation tend to be of the weaker type, such as MIBC, because galena is readily floatable and have high flotation kinetics. However, because of the high float kinetics and high galena mineral density, the mineral froth carrying capacity may necessitate use of a slightly stronger frother or a combination with a stronger frother component for achieving optimum metallurgical results.\n\nNormal sphalerite flotation practice is to raise flotation pH to 10-12 for enhancing the rejection of iron sulphide minerals to the sphalerite flotation tails. Many operators prefer to use an alcohol type frother in sphalerite flotation to maximize sphalerite flotation selectivity. A lower molecular weight xanthate such as sodium isopropyl xanthate (SIPX) is used in combination with a less powerful dithiophosphate flotation collector, and in rare cases, a thionocarbamate flotation reagent.\n\nIn rare circumstances, mineralogy and metallurgical response considerations necessitate an initial bulk lead-zinc concentrate with the lead and zinc minerals subsequently separated in a selective flotation step. Under this scheme, a bulk galena and sphalerite flotation concentrate is produced at pH 6.5 (modified with H SO ) 2 4 with some copper sulphate addition to ensure full sphalerite activation. The bulk concentrate is subsequently conditioned with sodium hydroxide to achieve an approximate 11.5 pH and collector addition from which a lead concentrate is floated. The zinc concentrate is actually the tails from this bulk separation step. The flotation tailing is the zinc concentrate. If the silver is associated with the galena, the silver reports to the lead concentrate.\n\nWhile pyrite is fairly easy to depress with lime, pyrrhotite is more difficult to depress. An alternative to metabisulphide depression is to aerate the slurry which, if the pyrrhotite is reactive, can render this iron sulphide less floatable. In cases of greater iron sulphide depression challenges, the zinc concentrate can be cleaned by reverse flotation of the concentrate by first treating with SO to 2 reduce pH to 5-5.5 and then heating the pulp to 60-70 degrees C. The gangue is floated with the sphalerite reporting to the tails.\n\n## The following Danafloat™ collectors should be considered most relevant for Pb-Zn ore flotation:\n\n## Selective Pb Floatation:\n\nDanafloat™ 067 Danafloat™ 068 Danafloat™ 070 Danafloat™ 271 and 571 for tarnished or oxidized lead\n\n## Selective Zn Floatation:\n\nDanafloat™ 123 Danafloat™ 233 Danafloat™ 468 Danafloat™ 245 Danafloat™ 271 Danafloat™ 571\n\n© 2026 Orica Group. All rights reserved. All information contained in this document is provided for informational purposes only and is subject to change without notice. Since the Orica Group cannot anticipate or control the conditions under which this information and its products may be used, each user should review the information in the specific context of the intended application. To the maximum extent permitted by law, the Orica Group specifically disclaims all warranties express or implied in law, including accuracy, non infringement, and implied warranties of merchantability or fitness for a particular purpose. The Orica Group specifically disclaims, and will not be responsible for, any liability or damages resulting from the use or reliance upon the information in this document.\n\nThe word Orica and the Ring device are trademarks of Orica Group Companies.\n\n![Image block](doc:7b2addd/tier:flash/page:1/block:22)\n\n13 de abril de 2026\n\nGeneral\n\n![Image block](doc:7b2addd/tier:flash/page:1/block:25)\n\norica.com",
+    "request_scope": {
+      "page_range": "1",
+      "after": null,
+      "limit": 30000,
+      "locator": null,
+      "context": 0,
+      "image_format": null
+    },
+    "content_ranges": [
+      {
+        "page_range": "1",
+        "start": "doc:7b2addd/tier:flash/page:1",
+        "end": "doc:7b2addd/tier:flash/page:1/block:26"
+      }
+    ],
+    "truncated": false,
+    "next_request": null,
+    "asset": null
+  }
+}

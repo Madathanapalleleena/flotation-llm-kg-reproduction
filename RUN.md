@@ -8,7 +8,13 @@ cd multimodal-industrial-kg
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
-`sentence-transformers` pulls in PyTorch (~2 GB). The paper-aligned default is M3E-Base (`moka-ai/m3e-base`, 768 dimensions); the first build downloads the model. If it cannot load, the run fails instead of silently using different embeddings. `EMBEDDING_BACKEND=hash` is an explicit offline/test-only option, not a paper-equivalent embedding.
+The requirements include MinerU's full extras, which are large and may require platform-specific dependencies. MinerU v4
+uses the local flash tier for text; the parser starts its local MinerU service on demand and uses PyMuPDF for figures and
+tables. Other MinerU tiers require a configured local parse engine or remote service. The parser falls back to PyMuPDF
+if MinerU cannot parse a document. `sentence-transformers` also pulls in PyTorch (~2 GB).
+The paper-aligned default is M3E-Base (`moka-ai/m3e-base`, 768 dimensions); the first build downloads the model. If it
+cannot load, the run fails instead of silently using different embeddings. `EMBEDDING_BACKEND=hash` is an explicit
+offline/test-only option, not a paper-equivalent embedding.
 
 ## 2. Quick check with the bundled sample data (2 minutes, offline)
 ```bash
@@ -35,7 +41,7 @@ Run steps one by one:
 | `python main.py build-rag` | 5-7 normal RAG, fuzzy TF-IDF, entropy chunking, M3E, Chroma/HNSW |
 | `python main.py query "foam color changes from dark to lead gray"` | 8 fuzzy retrieval (plain vs fuzzy, top-3) |
 | `python main.py optimize-prompt` | 9-10 prompt + adaptive optimisation |
-| `python main.py extract [--max-units 20]` | 11-12 stage-1 triples + LLM refinement |
+| `python main.py extract [--max-units 20] [--resume]` | 11-12 stage-1 triples + LLM refinement; checkpoints every 10 units and can resume |
 | `python main.py build-kg` | 13-14 ontology mapping + Neo4j |
 | `python main.py evaluate [--full-semantic]` | 16-17 extraction / structural / semantic metrics |
 | `python main.py serve [--port 5000]` | 15 D3 visualisation |
@@ -49,8 +55,29 @@ The local JSON graph is atomically replaced and its previous version is retained
 
 The parser filters short, repeated page-furniture, and visibly corrupted prose fragments. Semantic assessment validates
 triples with the same ontology validator used by graph assembly and reports input, accepted, and rejected triple counts.
+The refinement stage also drops triples unless both entities and an ordered textual cue for their ontology relation
+occur in the source sentence. This is a conservative evidence filter, not a proof of factual correctness; review
+generated triples before treating the graph as authoritative.
+Ollama semantic judging uses `OLLAMA_JUDGE_MODEL` (defaults to `STAGE1_MODEL`) so reasoning-model output limits do not
+silently become zero scores; malformed judge responses stop evaluation with a diagnostic instead of being counted as
+valid zero scores. Full extraction saves resumable progress in `outputs/triples.progress.json`; use
+`python main.py extract --resume` after an interrupted run.
 After changing source documents or parser behavior, rerun `parse`, `build-rag`, `optimize-prompt`, `extract`, `build-kg`,
 and `evaluate` so downstream files and metrics reflect the new inputs.
+
+Parser counts are different units: `records` counts structured/table rows, `parser units` also includes text blocks,
+formulas and images, and extraction further splits text blocks into sentence-level units. Scanned PDF pages without
+embedded text are OCR-processed when Tesseract is installed and on `PATH`; otherwise the parser reports the affected
+source pages instead of silently implying they were read. PDF image units retain their image URL, caption, source and
+page, but captions are not computer-vision interpretations of the image pixels.
+
+Raster figures are split into separate panel files only when clear white gutters span the image; each panel has a
+unique `image_id` and shares its parent `figure_id`, caption, source page, and related text-unit IDs. Parsed documents
+also expose these image records separately as `image_records`, while the linked caption and body text remain separate
+text-bearing units. Re-run `python main.py parse` after parser updates, then rebuild RAG and extraction outputs.
+During graph assembly, caption-linked image panels become `Image` nodes with `HAS_IMG` edges even when triple
+extraction produced no triples for that caption. The viewer serves their thumbnails from the local parsed-images
+directory; these links represent image/caption provenance, not visual facts inferred from image pixels.
 
 ### Bounded end-to-end presentation demo
 
@@ -124,9 +151,24 @@ contradiction consistency, graph-structure metrics, graph-integrity checks, and 
 
 ## 3b. Frontend (yes, there is one)
 `python main.py serve` starts the Flask backend (`backend/api.py`) and the D3 page (`frontend/graph.html`) at
-http://127.0.0.1:5000. It shows a force-directed graph with nodes coloured by type, arrows for direction, image nodes as
-thumbnails, a clickable legend filter, search, zoom/drag, an edge-label toggle, a details panel and the S1/S2/S_Final scores.
-It reads from Neo4j if reachable, otherwise from `outputs/kg_local.json`. Neo4j's own browser is at http://localhost:7474.
+http://127.0.0.1:5000. The results dashboard includes:
+
+* **Overview:** graph/triple/image counts, held-out extraction comparison and KG quality scores.
+* **Graph:** readable corpus overview plus separate all-evidence, stored-KG and Stage-1 candidate views. Every parsed source document,
+  text/table/record evidence unit, and caption-linked image is represented; evidence units can be revealed on demand, while
+  image nodes use the extracted thumbnails.
+  The graph matches Fig. 12's type colors, directional arrows, legend filtering, source details, zoom/drag, fit-to-view,
+  and full-screen controls. Dashed orange links identify provisional candidates.
+* **Triplets:** final refined triples and Stage-1 candidates in separate, provenance-aware tables.
+* **Figures & images:** caption-linked parsed document figures with source and page.
+* **Evaluation:** baseline comparison, semantic score distribution, structural/semantic metrics and graph consistency.
+  S1 and S2 are computed from the proposed pipeline's predictions on the same held-out sample; the stored dashboard graph
+  is not substituted for that evaluation graph. Run `python main.py evaluate` to refresh metrics saved by an older version.
+* **Fuzzy RAG:** interactive top-three evidence retrieval from the built index.
+
+Stage-1 candidate triples are explicitly provisional and are not represented as accepted knowledge-graph facts.
+The stored KG is read from Neo4j when reachable, otherwise from `outputs/kg_local.json`. Neo4j's own browser is at
+http://localhost:7474.
 
 ## 4. Data
 
@@ -159,7 +201,7 @@ files in `data/raw/*` and `data/training/*` first.
 | Industry standards, regulations | `data/raw/pdf/` | Most standards are paywalled; use the ones you have licensed access to, or public safety regulations. |
 | Equipment manuals | `data/raw/pdf/` | Public product manuals / datasheets from flotation-machine vendors. |
 | Images and figures | automatic | The paper's images are the figures inside its PDFs (process diagrams, tables rendered as images, chemical structures, charts, equipment pictures, each with a "Fig. N" caption), so real PDFs supply them. Extra loose images: `data/raw/images/` + same-name `.txt` caption. Public froth photos: MDPI *Data* 2023, 8(4), 69 "Froth Images from Flotation Laboratory Test in Magotteaux Cell" (check its licence and file list). |
-| Tables and formulas | automatic | come with the PDFs; install MinerU (`pip install -U "mineru[all]"`) for the best table, formula and figure extraction on real documents. |
+| Tables and formulas | automatic | come with the PDFs; the full requirements install MinerU (`mineru[all]`) for enhanced table, formula and figure extraction on real documents. |
 | Semi-structured | `data/raw/html/` | Any `.html` article / manual with `<h1-3>`, `<p>`, `<table><caption>`, `<figure><img><figcaption>`, `<div class="formula">`. Journal HTML pages saved to disk work if they use these tags. |
 | Annotated sentences (~100) | `data/training/flotation_train.jsonl` | Must be created by you (draft with an LLM, correct by hand), same JSONL format as the sample. First 40 lines drive prompt optimisation, the rest is the held-out test. |
 | LLM / embeddings | `.env` / automatic | `DEEPSEEK_API_KEY`; `moka-ai/m3e-base` is downloaded from Hugging Face on first use. |

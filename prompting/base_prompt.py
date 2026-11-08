@@ -78,6 +78,8 @@ def build_base_prompt(kt: KnowledgeTree = None) -> PromptTemplate:
     principles = [
         "Only extract knowledge related to the flotation process; if the input statement is not related to the "
         "flotation process or does not contain enough content to form a triple, return {\"triples\": []}.",
+        "Use the pending text as the only evidence. Do not copy facts from examples or background knowledge, infer "
+        "unstated facts, or output a triple unless both entities and their stated relationship are supported by that text.",
         f"Ontology label is assigned according to the flotation knowledge tree model. Noun-phrase entities are extracted and "
         f"categorised into the following {len(kt.entity_types)} types: {ents}.",
         f"Create inter-entity relationships categorised into the following {len(kt.relation_types)} types: {rels}.",

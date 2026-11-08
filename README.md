@@ -43,6 +43,16 @@ Step by step (same order as the paper's flow):
 | 16–17 evaluation | `python main.py evaluate [--full-semantic]` | `evaluation/*.py` |
 | LoRA training | `python main.py train-lora` | `llm/lora/training.py` |
 
+The local results dashboard includes a readable full-corpus graph with every parsed source document and extracted
+figure; evidence units are available through a separate toggle so they do not overwhelm the overview. It also provides
+the stored KG, distinctly marked Stage-1 candidate triplets, extraction tables, a parsed figure gallery, baseline
+comparison, structural/semantic metrics, and fuzzy-RAG search. Stage-1 candidates are provisional and are not
+presented as accepted KG facts.
+
+Evaluation assembles a graph from the proposed pipeline's predictions on the held-out sample. Structural and semantic
+quality scores use that same sample, rather than mixing a previously saved graph or extraction run into the final score.
+Run `python main.py evaluate` to regenerate older saved metrics with the aligned evaluation scope.
+
 Formula tests: `python -m unittest tests.test_formulas -v` (reproduces the paper's S₁ = 0.9774 and S_Final = 0.9195 from its component values).
 
 ### Flotation Knowledge Tree
@@ -70,7 +80,7 @@ dataset is not distributed with it):
 | **~100 expert-annotated sentences** with gold triples (paper §IV-A) | `data/training/flotation_train.jsonl` | one JSON per line: `{"id":0,"system":"…","user":"<sentence>","assistant":"{\"triples\":[{\"subject\":…,\"subject_type\":…,\"relation\":…,\"object\":…,\"object_type\":…}]}"}` — drives prompt optimisation (first 40) and held-out evaluation (rest) |
 | API access | `.env` → `DEEPSEEK_API_KEY` | DeepSeek (or any OpenAI-compatible endpoint) |
 | Embedding model | auto-downloaded | `moka-ai/m3e-base` from Hugging Face |
-| MinerU (optional) | `pip install -U "mineru[all]"` | if absent, a PyMuPDF fallback with the same JSON schema is used |
+| MinerU PDF parser | installed by `pip install -r requirements.txt` (`mineru[all]`; heavy optional backend) | v4 uses its local flash JSON/Markdown output for text and PyMuPDF for figures/tables; absent or failed MinerU falls back to PyMuPDF |
 
 Paper corpus is Chinese. For Chinese text the tokenizer works per character, entropies land around 4–5 bits (paper:
 4.2–5.4), so set `H_MIN≈4.0` in `.env`; the default 2.6 is calibrated for short English sentences.
@@ -106,7 +116,7 @@ algorithm details open, so the project records those as assumptions rather than 
 * Eq. 8 gives the TF-IDF-to-Gaussian membership mapping, but not the TF-IDF variant, what constitutes a document, or the cut-off for `terms`. This project uses sentence documents, smoothed TF-IDF, and `μ ≥ 0.5`.
 * Eq. 9–10 define fuzzy entropy over token occurrences. A numerical context window of two tokens on either side is used because the paper does not define that window.
 * Eq. 11 defines `W_term` as average Eq. 8 membership for shared domain terms, and `B_context` as shared query terms divided by query terms. Fuzzy similarity is the cosine multiplied directly by `M_fuzzy`, without rescaling or clipping.
-* Eq. 12 defines the objective, but does not specify how representative queries are chosen. The project uses each indexed vector as a query against the completed index and evaluates all vectors. `λ` remains configurable because the paper gives no value.
+* Eq. 12 defines the objective, but does not specify how representative queries are chosen. The project uses each indexed vector as a representative query and evaluates it against its nearest non-self neighbor (leave-one-out); this is an index-internal proxy, not an external query benchmark. `λ` remains configurable because the paper gives no value.
 * `H_min` (base entropy threshold) and maximum prompt-optimization iterations are not specified by the paper.
 * Prompt updates follow the paper's F1/consistency/recall rules; the best prompt is replaced only when F1 improves, and stopping uses the current version's `F1 ≥ 0.90` and `C_sis ≥ 0.8` thresholds.
 * Eq. 27 leaves `T_mid` and `T_target` undefined. This project sets both to the midpoint of `[T_min, T_max]` and counts directed simple cycles in the ontology subgraph as process loops.

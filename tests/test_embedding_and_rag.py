@@ -1,13 +1,16 @@
+import tempfile
 import sys
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 import numpy as np
 
+import config
 from rag.embeddings import Embedder
 from rag.entropy_chunking import EntropyChunker
-from rag.retriever import Retriever, corpus_units
+from rag.retriever import Retriever, build_index, corpus_units
 from rag.term_weighting import TermWeighter
 
 
@@ -69,7 +72,75 @@ class EmbeddingAndRetrievalTests(unittest.TestCase):
             chunks = chunker.chunk("First sentence. Second sentence.")
 
         self.assertEqual(chunks, ["First sentence. Second sentence."])
-        self.assertEqual(entropy.call_count, 3)
+        self.assertEqual(entropy.call_count, 2)
+
+    def test_entropy_chunker_merges_high_entropy_segment_over_soft_character_limit(self):
+        first = "A" * 50 + "."
+        second = " B" * 5 + "."
+        chunker = EntropyChunker(TermWeighter(["a b"] * 3))
+        with patch.object(chunker, "H", return_value=10.0):
+            chunks = chunker.chunk(first + second)
+
+        self.assertEqual(chunks, [first + second])
+        self.assertGreater(len(first), config.SOFT_MAX_LEN)
+        self.assertLessEqual(len(chunks[0]), config.HARD_MAX_LEN)
+
+    def test_entropy_chunker_splits_unbroken_text_at_hard_character_limit(self):
+        text = "x" * (config.HARD_MAX_LEN * 2 + 5)
+        chunks = EntropyChunker(TermWeighter(["x"] * 3)).chunk(text)
+
+        self.assertEqual("".join(chunks), text)
+        self.assertTrue(all(len(chunk) <= config.HARD_MAX_LEN for chunk in chunks))
+
+    def test_eq12_build_objective_excludes_each_chunk_from_its_own_neighbors(self):
+        class FakeEmbedder:
+            name = "test"
+            dim = 2
+
+            def encode(self, texts):
+                return np.array([[1.0, 0.0], [0.0, 1.0]], dtype=np.float32)[:len(texts)]
+
+        class FakeStore:
+            kind = "test"
+
+            def add(self, ids, texts, embeddings, metas):
+                self.entries = [
+                    dict(id=entry_id, text=text, emb=embedding, meta=meta)
+                    for entry_id, text, embedding, meta in zip(ids, texts, embeddings, metas)
+                ]
+
+            def count(self):
+                return len(self.entries)
+
+            def query(self, embedding, n):
+                return self.entries[:n]
+
+            def index_size_kb(self):
+                return 4.0
+
+        fake_store = FakeStore()
+        compared_texts = []
+        docs = [
+            {"doc_id": "a", "units": [{"content": "first flotation text."}]},
+            {"doc_id": "b", "units": [{"content": "second flotation text."}]},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            chunks_path = Path(directory) / "chunks.json"
+            with patch("rag.retriever.EntropyChunker") as chunker_type, \
+                    patch("rag.retriever.Embedder", FakeEmbedder), \
+                    patch("rag.retriever.open_store", return_value=fake_store), \
+                    patch("rag.retriever.sim_fuzzy", side_effect=lambda _a, _b, query, candidate, _w: (
+                        compared_texts.append((query, candidate)) or 0.5
+                    )), \
+                    patch.object(config, "CHUNKS_JSON", chunks_path), \
+                    patch.object(config, "OUTPUT_DIR", Path(directory)):
+                chunker_type.return_value.chunk.side_effect = lambda text: [text]
+                stats = build_index("fuzzy", documents=docs, verbose=False)
+
+        self.assertEqual(len(compared_texts), 2)
+        self.assertTrue(all(query != candidate for query, candidate in compared_texts))
+        expected = 0.25 + config.LAMBDA_STORAGE * 4.0 / 2
+        self.assertAlmostEqual(stats["L_D"], round(expected, 5))
 
     def test_rag_corpus_units_preserve_page_and_document_provenance(self):
         units = corpus_units([{

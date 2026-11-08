@@ -1,0 +1,407 @@
+{
+ "nodes": [
+  {
+   "level": "root",
+   "kind": "Ontology",
+   "name": "Froth Flotation",
+   "id": "onto:FrothFlotation",
+   "type": "FlotationProcess"
+  },
+  {
+   "level": "root",
+   "kind": "Ontology",
+   "name": "Raw Ore",
+   "id": "onto:RawOre",
+   "type": "RawOreCategory"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Fast Roughing",
+   "id": "onto:FastRoughing",
+   "type": "FastRoughingCategory"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Roughing",
+   "id": "onto:Roughing",
+   "type": "RoughingCategory"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Scavenging",
+   "id": "onto:Scavenging",
+   "type": "ScavengingCategory"
+  },
+  {
+   "level": "stage",
+   "kind": "Ontology",
+   "name": "Cleaning",
+   "id": "onto:Cleaning",
+   "type": "CleaningCategory"
+  },
+  {
+   "level": "leaf",
+   "kind": "Ontology",
+   "name": "Concentrate",
+   "id": "onto:Concentrate",
+   "type": "ConcentrateCategory"
+  },
+  {
+   "level": "leaf",
+   "kind": "Ontology",
+   "name": "Tailing",
+   "id": "onto:Tailing",
+   "type": "TailingCategory"
+  },
+  {
+   "kind": "Entity",
+   "name": "bubble morphology",
+   "id": "ent:Parameter:bubble morphology",
+   "type": "Parameter"
+  },
+  {
+   "kind": "Entity",
+   "name": "bubble size and shape",
+   "id": "ent:Parameter:bubble size and shape",
+   "type": "Parameter"
+  },
+  {
+   "kind": "Entity",
+   "name": "volume of the cell",
+   "id": "ent:Parameter:volume of the cell",
+   "type": "Parameter"
+  },
+  {
+   "kind": "Entity",
+   "name": "labels",
+   "id": "ent:Parameter:labels",
+   "type": "Parameter"
+  },
+  {
+   "kind": "Entity",
+   "name": "mass of 1.800 g of mineral",
+   "id": "ent:RawOre:mass of 1.800 g of mineral",
+   "type": "RawOre"
+  },
+  {
+   "kind": "Entity",
+   "name": "recovery",
+   "id": "ent:Product:recovery",
+   "type": "Product"
+  },
+  {
+   "kind": "Entity",
+   "name": "mineral of interest",
+   "id": "ent:Product:mineral of interest",
+   "type": "Product"
+  },
+  {
+   "kind": "Entity",
+   "name": "behaviors",
+   "id": "ent:Product:behaviors",
+   "type": "Product"
+  },
+  {
+   "kind": "Entity",
+   "name": "method",
+   "id": "ent:Reagent:method",
+   "type": "Reagent"
+  },
+  {
+   "kind": "Entity",
+   "name": "compact variogram characterization",
+   "id": "ent:Reagent:compact variogram characterization",
+   "type": "Reagent"
+  },
+  {
+   "kind": "Entity",
+   "name": "frother",
+   "id": "ent:Reagent:frother",
+   "type": "Reagent"
+  },
+  {
+   "kind": "Entity",
+   "name": "depressant",
+   "id": "ent:Reagent:depressant",
+   "type": "Reagent"
+  },
+  {
+   "kind": "Entity",
+   "name": "scavenger circuit",
+   "id": "ent:ProcessStage:scavenger circuit",
+   "type": "ProcessStage"
+  }
+ ],
+ "edges": [
+  {
+   "source": "onto:RawOre",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_INPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FastRoughing",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Roughing",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Scavenging",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Cleaning",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_STAGE_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Concentrate",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Tailing",
+   "target": "onto:FrothFlotation",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:RawOre",
+   "type": "HAS_INPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FastRoughing",
+   "target": "onto:RawOre",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:FastRoughing",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:RawOre",
+   "target": "onto:FastRoughing",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Roughing",
+   "target": "onto:FastRoughing",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:Roughing",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FastRoughing",
+   "target": "onto:Roughing",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Scavenging",
+   "target": "onto:Roughing",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Tailing",
+   "target": "onto:Roughing",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:Scavenging",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Roughing",
+   "target": "onto:Scavenging",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Cleaning",
+   "target": "onto:Scavenging",
+   "type": "HAS_NEXT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Tailing",
+   "target": "onto:Scavenging",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:Cleaning",
+   "type": "HAS_STAGE_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Scavenging",
+   "target": "onto:Cleaning",
+   "type": "HAS_NEXT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Concentrate",
+   "target": "onto:Cleaning",
+   "type": "HAS_OUTPUT_UP",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:Concentrate",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Cleaning",
+   "target": "onto:Concentrate",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "onto:Tailing",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Roughing",
+   "target": "onto:Tailing",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:Scavenging",
+   "target": "onto:Tailing",
+   "type": "HAS_OUTPUT_DOWN",
+   "kind": "ontology"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "ent:Parameter:bubble morphology",
+   "type": "HAS_ENTITIES",
+   "kind": "onto_link"
+  },
+  {
+   "source": "ent:Parameter:bubble morphology",
+   "target": "ent:Parameter:bubble size and shape",
+   "type": "HAS_PROPERTY",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "and in studies of bubble morphology and algorithms for estimating bubble size and shape,"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "ent:Parameter:volume of the cell",
+   "type": "HAS_ENTITIES",
+   "kind": "onto_link"
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "ent:Parameter:labels",
+   "type": "HAS_ENTITIES",
+   "kind": "onto_link"
+  },
+  {
+   "source": "ent:Parameter:volume of the cell",
+   "target": "ent:RawOre:mass of 1.800 g of mineral",
+   "type": "KEEPS",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,"
+  },
+  {
+   "source": "onto:Concentrate",
+   "target": "ent:Product:recovery",
+   "type": "HAS_ENTITIES",
+   "kind": "onto_link"
+  },
+  {
+   "source": "ent:Product:recovery",
+   "target": "ent:Product:mineral of interest",
+   "type": "DECREASES",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "which may reduce the recovery of the mineral of interest."
+  },
+  {
+   "source": "ent:Parameter:labels",
+   "target": "ent:Product:behaviors",
+   "type": "CAUSES",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "due to the appreciable differences behind these labels."
+  },
+  {
+   "source": "onto:FrothFlotation",
+   "target": "ent:Reagent:method",
+   "type": "HAS_ENTITIES",
+   "kind": "onto_link"
+  },
+  {
+   "source": "ent:Reagent:method",
+   "target": "ent:Reagent:compact variogram characterization",
+   "type": "USES",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "a method based on compact variogram characterization [ 7 ,"
+  },
+  {
+   "source": "ent:ProcessStage:scavenger circuit",
+   "target": "ent:Reagent:frother",
+   "type": "USES",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia."
+  },
+  {
+   "source": "ent:ProcessStage:scavenger circuit",
+   "target": "ent:Reagent:depressant",
+   "type": "USES",
+   "modality": "text",
+   "kind": "triple",
+   "doc": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+   "text": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia."
+  },
+  {
+   "source": "onto:Scavenging",
+   "target": "ent:ProcessStage:scavenger circuit",
+   "type": "HAS_ENTITIES",
+   "kind": "onto_link"
+  }
+ ]
+}

@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import config
-from main import _even_sample, cmd_demo, select_demo_units
+from main import _even_sample, build_units, cmd_demo, select_demo_units
 
 
 class DemoSelectionTests(unittest.TestCase):
@@ -48,6 +48,35 @@ class DemoSelectionTests(unittest.TestCase):
         self.assertEqual(units[0]["text"], self.documents[0]["S_D"][0])
         self.assertEqual(units[1]["text"], self.documents[0]["S_D"][2])
 
+    def test_larger_demo_selection_includes_text_records_and_caption_images(self):
+        document = {
+            "doc_id": "balanced",
+            "source": "balanced.pdf",
+            "units": [
+                {"modality": "Text", "content": f"Flotation recovery changes with condition {index}."}
+                for index in range(10)
+            ] + [
+                {"modality": "TableRow", "content": f"Ore condition {index}."}
+                for index in range(2)
+            ] + [
+                {
+                    "modality": "Image",
+                    "content": f"Figure {index}. Froth flotation image.",
+                    "url": f"http://127.0.0.1:5000/images/figure-{index}.png",
+                }
+                for index in range(4)
+            ],
+        }
+
+        units = select_demo_units("balanced.pdf", max_units=10, documents=[document])
+        modalities = [unit["modality"] for unit in units]
+
+        self.assertEqual(len(units), 10)
+        self.assertEqual(modalities.count("text"), 7)
+        self.assertEqual(modalities.count("record"), 1)
+        self.assertEqual(modalities.count("caption"), 2)
+        self.assertTrue(all(unit.get("image_url") for unit in units if unit["modality"] == "caption"))
+
     def test_unknown_source_reports_available_sources(self):
         with self.assertRaisesRegex(ValueError, "report_a.pdf"):
             select_demo_units("missing.pdf", documents=self.documents)
@@ -65,6 +94,26 @@ class DemoSelectionTests(unittest.TestCase):
         items = [1, 2, 3]
 
         self.assertEqual(_even_sample(items, 0), items)
+
+    def test_sentences_split_from_one_parser_unit_get_unique_extraction_ids(self):
+        documents = [{
+            "doc_id": "report",
+            "source": "report.pdf",
+            "units": [{
+                "unit_id": "parser-unit-1",
+                "modality": "Text",
+                "content": (
+                    "Aeration rate increases froth depth during flotation. "
+                    "The cleaning stage follows the roughing stage in the process."
+                ),
+            }],
+        }]
+
+        units = build_units(documents)
+
+        self.assertEqual(len(units), 2)
+        self.assertEqual(len({unit["unit_id"] for unit in units}), 2)
+        self.assertTrue(all(unit["source_unit_id"] == "parser-unit-1" for unit in units))
 
     def test_demo_runs_optimization_two_stage_extraction_graph_and_evaluation(self):
         unit = {

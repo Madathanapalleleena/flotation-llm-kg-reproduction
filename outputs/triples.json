@@ -1,370 +1,657 @@
 [
  {
   "unit_id": "u00000",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
   "modality": "text",
-  "text": "Images from Flotation Laboratory",
+  "text": "1 Advanced Laboratory for Geostatistical Supercomputing (ALGES), Universidad de Chile, Av.",
+  "evidence": "1 Advanced Laboratory for Geostatistical Supercomputing (ALGES), Universidad de Chile, Av.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
   "image_url": null,
-  "context": "- • From all images of adequate quality,\n- In the database, images are sorted by numbers from 1 to 2250.\n- Flotation froth image classication using convolutional neural networks.",
-  "initial": [
-   {
-    "subject": "images",
-    "subject_type": "RawOre",
-    "relation": "from",
-    "object": "Flotation Laboratory",
-    "object_type": "RawOre"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "images",
-    "subject_type": "RawOre",
-    "relation": "from",
-    "object": "Flotation Laboratory",
-    "object_type": "RawOre"
-   }
-  ]
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00001",
+  "source_evidence": "1 Advanced Laboratory for Geostatistical Supercomputing (ALGES), Universidad de Chile, Av. Tupper 2069, Santiago 8370451, Chile",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] 2 Advanced Mining Technology Center (AMTC), Universidad de Chile, Av. Tupper 2007, Santiago 8370451,\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] 3 Department of Mining Engineering, Universidad de Chile, Av. Tupper 2069, Santiago 8370451, Chile \\\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] Chile, Av. Tupper 2069, Santiago 8370451, Chile",
+  "initial": [],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
  },
  {
-  "unit_id": "u00034",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "unit_id": "u00019",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
   "modality": "text",
-  "text": "This technique is the most frequently used for the treatment of copper sulde minerals.",
+  "text": "Academic Editor: Jamal Jokar Arsanjani",
+  "evidence": "Academic Editor: Jamal Jokar Arsanjani",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
   "image_url": null,
-  "context": "- A review of the fundamental studies of the copper activation mechanisms for selective otation of the sulde minerals,\n- Abstract: Froth otation is a widely used method for the concentration of sulde minerals.\n- This is dened as the presence of particles on the surface of the bubbles.",
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00007",
+  "source_evidence": "Academic Editor: Jamal Jokar Arsanjani",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] Citation: Yantén, C.; Kracht, W.; Diaz, G.; Lois-Morales, P.; Egaña, A. Froth Images from Flotation \n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] niversity, Da Nang 550000,Viet Nam. \\email: mahdighadiri@duytan.edu.vn\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] 1 Department of Research and Development, Bama Mining Company, Isfahan 81747-54754, Iran. 2 Institut",
   "initial": [
    {
-    "subject": "froth flotation",
-    "subject_type": "Process",
-    "relation": "is used for",
-    "object": "copper sulde minerals",
+    "subject": "Academic Editor",
+    "subject_type": "Person",
+    "relation": "is",
+    "object": "Jamal Jokar Arsanjani",
+    "object_type": "Person"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00038",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "the froth flotation process is considered one of the most critical operations in copper production.",
+  "evidence": "the froth flotation process is considered one of the most critical operations in copper production.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00011",
+  "source_evidence": "1. Introduction Froth flotation is an industrial process that seeks to separate ore minerals from not valuable ones. This process is carried out using a piece of equipment called a flotation cell. The separation is achieved by means of the difference in the natural or induced hydrophobicity of the minerals in the ore rock. This technique is based on the injection of air into the pulp in the form of bubbles, in a specific area named the collection zone. Here, the ore particles adhere to the bubbles [1] and ascend to the upper section of the flotation cell, to an area called the froth zone. Then, the conglomerate of bubbles is removed from the equipment, forming a phase called the concentrate, which is the main product of this process. This technique is the most frequently used for the treatment of copper sulfide minerals. Copper is one of the most extracted metals for industrial applications. Approximately 80% of the world’s copper from ore is produced by concentration/smelting/refining of sulfide ore [2]. Hence, the froth flotation process is considered one of the most critical operations in copper production. Quality control in flotation plants is mostly based on the observation of the surface froth, focusing on determined characteristics, such as color, stability [3], bubble size, and their distribution [4]. It is possible to directly observe these characteristics in the flotation tank to deduce the behavior of the mineral inside, and possibly the quality of the concentrate obtained. Accordingly, most of this work is routinely performed by the flotation tank’s operator just by naked eye observation, which makes this a subjective and nonreproducible process.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] otation process is considered one of the most critical operations in copper production. Quality cont\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] rmance of froth flotation alongside with the operational conditions in which this process is carried\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] 1. Introduction Froth flotation is an industrial process that seeks to separate ore minerals from no",
+  "initial": [
+   {
+    "subject": "froth flotation process",
+    "subject_type": "ProcessStage",
+    "relation": "is considered",
+    "object": "most critical operations",
+    "object_type": "ProcessStage"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00057",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "these databases were obtained from experiments conducted using only a water/frothing agent mixture.",
+  "evidence": "these databases were obtained from experiments conducted using only a water/frothing agent mixture.",
+  "page_number": 2,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00013",
+  "source_evidence": "The main reference for this work was an earlier study performed by Mesa et al. [7], in which two databases of froth images were created, on two different setups: (1) in a quasi-2D cell, where the bubbles looked flattened and, (2) in a laboratory column, where the images were taken from the top. In the work by Mesa et al., these databases were obtained from experiments conducted using only a water/frothing agent mixture. Thus, the previous research aimed to classify the froth quality according to the type of frothing agent, without considering variables such as water quality, pH, air injection, and mineralogy, which also influences froth stability. Furthermore, these experiments are barely comparable to industrial froths, which are operationally complex and have a mineral load (Figure 1). The current study includes a set of different minerals, as well as experiments with variations in water quality, pH, pulp temperature, air injection rate, and reagent dosage in order to create different types of froths; thus, simulating the performance of a froth flotation plant.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] l., these databases were obtained from experiments conducted using only a water/frothing agent mixtu\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] frothing agent mixture. Thus, the previous research aimed to classify the froth quality according to\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] quality according to the type of frothing agent, without considering variables such as water quality",
+  "initial": [
+   {
+    "subject": "pending text",
+    "subject_type": "pending text",
+    "relation": "is related to",
+    "object": "flotation process",
+    "object_type": "pending text"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00076",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "and information about the visual properties,",
+  "evidence": "and information about the visual properties,",
+  "page_number": 2,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00016",
+  "source_evidence": "The resultant database, including all the tests performed, contains 2250 images, divided into 45 categories of 50 images each. The database also includes a spreadsheet file named ImagesCatalog.xlsx, which contains the flotation operational conditions under which each category was obtained, and information about the visual properties, which are seen in the images corresponding to each category, including the perceived quality of the froth.",
+  "related_figure_ids": [
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p2:figure-001"
+  ],
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 4] ds on the visual properties detected in the froth. Thus, depending on the visual characterization of\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 9] data provided in this paper can have multiple uses in research targeting visual properties in minera\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] This database can be widely used in research targeting visual properties in mineral flotation froth;",
+  "initial": [
+   {
+    "subject": "visual properties",
+    "subject_type": "Parameter",
+    "relation": "has_property",
+    "object": "froth",
     "object_type": "Product"
    }
   ],
-  "triples": [
-   {
-    "subject": "froth flotation",
-    "subject_type": "Process",
-    "relation": "is used for",
-    "object": "copper sulde minerals",
-    "object_type": "Product"
-   }
-  ]
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
  },
  {
-  "unit_id": "u00069",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "unit_id": "u00095",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
   "modality": "text",
-  "text": "and in studies of bubble morphology and algorithms for estimating bubble size and shape,",
+  "text": "The options are big, medium and small.",
+  "evidence": "The options are big, medium and small.",
+  "page_number": 3,
+  "row_number": null,
+  "section": "",
   "image_url": null,
-  "context": "- Effect of Frothers on Foamability, Foam Stability, and Bubble Size.\n- Figure A2. Characterization and comparison of bubble sizes.\n- given the differences both in size and in mode of operation.",
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00021",
+  "source_evidence": "• Bubble size: This is the range of sizes observed in the images of each category. This item does not contain information about the actual size of the bubbles; instead, it is an estimation of the size. The options are big, medium and small. Samples of these sizes are shown in Figure A2.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] r words, it is a characterization of the homogeneity of the sizes. The options are (1) homogeneous, \n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] • Bubble size: This is the range of sizes observed in the images of each category. This item does no\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3]  Samples of these sizes are shown in Figure A2.",
   "initial": [
    {
-    "subject": "bubble morphology",
+    "subject": "bubble size",
     "subject_type": "Parameter",
-    "relation": "has_property",
-    "object": "bubble size and shape",
-    "object_type": "Parameter"
+    "relation": "keeps",
+    "object": "homogeneity",
+    "object_type": "has_property"
+   },
+   {
+    "subject": "bubble size",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "bubble size",
+    "object_type": "has_property"
    }
   ],
-  "triples": [
-   {
-    "subject": "bubble morphology",
-    "subject_type": "Parameter",
-    "relation": "has_property",
-    "object": "bubble size and shape",
-    "object_type": "Parameter"
-   }
-  ]
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
  },
  {
-  "unit_id": "u00104",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "unit_id": "u00114",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
   "modality": "text",
-  "text": "On the other hand,",
+  "text": "or it reveals problems with the chemical conditions inside the equipment.",
+  "evidence": "or it reveals problems with the chemical conditions inside the equipment.",
+  "page_number": 3,
+  "row_number": null,
+  "section": "",
   "image_url": null,
-  "context": "- The second sheet contains information on the visual characteristics of the bubbles,\n- It may appear on the sides of the froth or between the bubbles.\n- Cause = Scaling on the sensor; Action = Clean the flow meter.",
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00024",
+  "source_evidence": "• Froth load: This is defined as the presence of particles on the surface of the bubbles. It can be noticed by the translucency of the bubbles. If it is possible to see through the bubbles, it means that the froth has no particles attached to it [10]. This is usually a sign of underdosing of the collector, or it reveals problems with the chemical conditions inside the equipment. Figure A5 shows the difference between loaded and unloaded froth.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] s problems with the chemical conditions inside the equipment. Figure A5 shows the difference between\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] correct operation of the equipment and proper management of the chemical conditions. On the other ha\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] to it [10]. This is usually a sign of underdosing of the collector, or it reveals problems with the ",
   "initial": [
    {
-    "subject": "scaling",
-    "subject_type": "Cause",
-    "relation": "causes",
-    "object": "sensor",
+    "subject": "chemical conditions",
+    "subject_type": "Parameter",
+    "relation": "reveals",
+    "object": "problems",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00134",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "but they are not categorical to determine if the quality of the froth is adequate or inadequeate.",
+  "evidence": "but they are not categorical to determine if the quality of the froth is adequate or inadequeate.",
+  "page_number": 3,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00028",
+  "source_evidence": "In other cases, there might be signs suggesting operational problems, but they are not categorical to determine if the quality of the froth is adequate or inadequeate. For example, a shallow unstable froth is likely formed because the bubble structure is not strong enough, a sign of lack of frother [11]. Additionally, large-sized bubbles, or heterogeneous bubbles depending on their sizes, are a sign of problems with air distribution within the equipment. Moreover, different sizes may imply different rising velocities, leading to bubble collisions and coalescence, a phenomenon that is unfavorable [12]. Thus, since in some cases it is not entirely clear whether a froth is of adequate quality or not, these ambiguous-looking images were classified as indeterminate quality.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] re not categorical to determine if the quality of the froth is adequate or inadequeate. For example,\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 4]  characterization of the froth at a given time, the froth quality can be expressed as adequate, inad\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8] on it was decided that only the images characterized with adequate or inadequate froth quality were ",
+  "initial": [],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00153",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "List of attributes of the images in each category,",
+  "evidence": "List of attributes of the images in each category,",
+  "page_number": 4,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00032",
+  "source_evidence": "Table 1. List of attributes of the images in each category, according to their class and type of information provided.",
+  "related_figure_ids": [
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p4:figure-001"
+  ],
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 4] Finally, since the attributes possessed by the 50 images belonging to a category are the same, the s\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 4] asis. The list of attributes that characterize each category is shown in Table 1, which has the same\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8] In each category, the initial number of images ranged between 60 and 80. Then, the 50 best images we",
+  "initial": [],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00172",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "such as a pH meter and a flow sensor.",
+  "evidence": "such as a pH meter and a flow sensor.",
+  "page_number": 5,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00043",
+  "source_evidence": "In this work, the Magotteaux flotation cell was used; this equipment can operate up to 5 L of pulp and has the advantage of being uncovered at the top. This arrangement allows obtaining photographs directly from the froth zone. It also permits to have control of the air flow and the revolutions of the rotor. This process was constantly monitored with external instruments, such as a pH meter and a flow sensor.",
+  "context": "- [maintenance_bulletin.html] rifts; Cause = Scaling on the sensor; Action = Clean the flow meter.\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 5] flow sensor.\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 6] 4. pH adjustment: During the conditioning stages, a pH meter was installed inside the cell. Lime was",
+  "initial": [
+   {
+    "subject": "pH meter",
+    "subject_type": "Equipment",
+    "relation": "uses",
+    "object": "cell",
     "object_type": "Equipment"
    },
    {
-    "subject": "clean the flow meter",
-    "subject_type": "Action",
-    "relation": "Action",
-    "object": "flow meter",
+    "subject": "flow sensor",
+    "subject_type": "Equipment",
+    "relation": "uses",
+    "object": "cell",
     "object_type": "Equipment"
    }
   ],
-  "triples": [
-   {
-    "subject": "scaling",
-    "subject_type": "Cause",
-    "relation": "causes",
-    "object": "sensor",
-    "object_type": "Equipment"
-   },
-   {
-    "subject": "clean the flow meter",
-    "subject_type": "Action",
-    "relation": "Action",
-    "object": "flow meter",
-    "object_type": "Equipment"
-   }
-  ]
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
  },
  {
-  "unit_id": "u00139",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
+  "unit_id": "u00191",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
   "modality": "text",
-  "text": "To generalize the denition of froth quality to different situations,",
+  "text": "A precision scale was used for this purpose.",
+  "evidence": "A precision scale was used for this purpose.",
+  "page_number": 6,
+  "row_number": null,
+  "section": "",
   "image_url": null,
-  "context": "- In these experiments, the aim is to predict the froth quality of the different images analyzed,\n- the froth quality is a function of different visual characteristics perceived in the froth image,\n- the previous research aimed to classify the froth quality according to the type of frothing agent,",
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00049",
+  "source_evidence": "2. Agent preparation: The dosage of collector and frother were prepared according to the test. A precision scale was used for this purpose.",
+  "context": "- [Runge.vp - how-to-analyse-flotation-test-results.pdf, page 4] de at a particular recovery at full scale.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 3] eter 21 . The precision of the measurements was tested using a Crison standard redox solution of 250\n- [Design-criteria-and-recent-developments-large-capacity-Wemco-flotation-cells.pdf, page 1]  pulpcirculation capacity.",
+  "initial": [
+   {
+    "subject": "precision scale",
+    "subject_type": "Equipment",
+    "relation": "used_for",
+    "object": "purpose",
+    "object_type": "Pending text"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00210",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "The work was performed with different mineral samples extracted from a variety of ore deposits.",
+  "evidence": "The work was performed with different mineral samples extracted from a variety of ore deposits.",
+  "page_number": 6,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00055",
+  "source_evidence": "• Mineralogy: The work was performed with different mineral samples extracted from a variety of ore deposits. All samples were previously milled, achieving 100% under 200 (−75 um). Each test was performed with a different sample or a blend of two or more samples. The compositions of each individual sample were as follows: – Sample 1: Mineral obtained from a sulfide copper deposit. It contained chalcopyrite, albite, plagioclase, quartz, calcite, muscovite, chlorite, epidote, and a variety of clays, with traces of other minerals. The predominant colors were gray and yellow. – Sample 2: Mineral obtained from a sulfide copper deposit; it also contained organic material. The specific composition was unknown. The predominant color was black. – Sample 3: Mineral obtained from the superficial area of a sulfide copper deposit, meaning that the sample was mainly composed of oxidized minerals. The specific composition was unknown. The predominant colors were yellow and orange. – Sample 4: Confirmedonly by a specific clay, kaolinite. Judging by the natural size of the particles that met the required size, this sample did not need grinding. The predominant color was white.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 6] • Mineralogy: The work was performed with different mineral samples extracted from a variety of ore \n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 6] om a variety of ore deposits. All samples were previously milled, achieving 100% under 200 (−75 um).\n- [Microsoft Word - EMC Lab Float Procedure Update 4 Generic Jan12.docx - FLOTATION.pdf, page 10] ore according to how fast mineral and gangue float and how quickly the recovery-time curve forms a p",
+  "initial": [
+   {
+    "subject": "mineral samples",
+    "subject_type": "RawOre",
+    "relation": "extracted",
+    "object": "ore deposits",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00229",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "The main collector used was xanthate and it was applied in two dosages:",
+  "evidence": "The main collector used was xanthate and it was applied in two dosages:",
+  "page_number": 6,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00056",
+  "source_evidence": "• Agent dosage: Two different reagents were used. The main collector used was xanthate and it was applied in two dosages: 5 mg per kilogram of mineral (low dosage) and 25 mg per kilogram of mineral (normal dosage) [15]. The frother was Aerofroth 76E, and was applied in the same dosage as the collector, meaning 5 mg per kilogram of mineral at a low dosage, and 25 mg per kilogram of mineral at a normal dosage [16]. In some cases within the first conditioning stage, and before adding the frother and the collector, a layer of froth appeared. These cases were also included in the database.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 6] • Agent dosage: Two different reagents were used. The main collector used was xanthate and it was ap\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] . Xanthate collectors are one of the most broadly used collectors for sulphide minerals flotation, e\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 6] es gradually from pH 3 to 8 with butyl xanthate as collector but In the presence of copper sulphate,",
+  "initial": [
+   {
+    "subject": "main collector",
+    "subject_type": "Reagent",
+    "relation": "used",
+    "object": "xanthate",
+    "object_type": "Reagent"
+   },
+   {
+    "subject": "dosage",
+    "subject_type": "Parameter",
+    "relation": "applied",
+    "object": "xanthate",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00248",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "The latter was made from distilled water mixed with a combination of salts and minerals to mimic",
+  "evidence": "The latter was made from distilled water mixed with a combination of salts and minerals to mimic",
+  "page_number": 7,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00060",
+  "source_evidence": "• Water: Two different sources of water were used in the study: (1) drinking water and (2) simulated seawater. The latter was made from distilled water mixed with a combination of salts and minerals to mimic seawater [18]. Water was added to the mineral in order to form the pulp phase.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 7] er and (2) simulated seawater. The latter was made from distilled water mixed with a combination of \n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 7] th a combination of salts and minerals to mimic seawater [18]. Water was added to the mineral in ord\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] tives that are used in the flotation of complex minerals in combination with xanthates or used indiv",
+  "initial": [
+   {
+    "subject": "seawater",
+    "subject_type": "RawOre",
+    "relation": "mimics",
+    "object": "seawater",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00268",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "in order to learn and practice with the equipment.",
+  "evidence": "in order to learn and practice with the equipment.",
+  "page_number": 7,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00066",
+  "source_evidence": "There were two operational variables that were additionally controlled during all the tests: pH and temperature. The control of the pH was carried out by adding lime to the pulp while it was checked using a pH meter. Lime was added until the pulp reached a pH between 9 and 10, which is the standard pH value for copper froth flotation [19]. Meanwhile, temperature control was evaluated using a thermometer inside the cell. The temperature was maintained lower than 40 ◦C/104 ◦F in order to prevent the oxidation of the mineral inside the equipment, which may reduce the recovery of the mineral of interest. This was achieved by controlling the revolutions of the motor, the main heat source of the process. Importantly, a number of categories were obtained before this protocol was established; thus, information about the working conditions was missing in some cases. These preliminary tests were performed at the beginning of the study, in order to learn and practice with the equipment. These cases were included since they had particular froth characteristics that were absent in the remaining images.",
+  "related_figure_ids": [
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p7:figure-001"
+  ],
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 7] iminary tests were performed at the beginning of the study, in order to learn and practice with the \n- [Design-criteria-and-recent-developments-large-capacity-Wemco-flotation-cells.pdf, page 8] Then, in order to improve the grade of the concentrate, the entire\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] correct operation of the equipment and proper management of the chemical conditions. On the other ha",
+  "initial": [
+   {
+    "subject": "equipment",
+    "subject_type": "Equipment",
+    "relation": "keeps",
+    "object": "constant",
+    "object_type": "Parameter"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00287",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "However, this size was considered excessively large to solve the algorithms.",
+  "evidence": "However, this size was considered excessively large to solve the algorithms.",
+  "page_number": 8,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00073",
+  "source_evidence": "In each category, the initial number of images ranged between 60 and 80. Then, the 50 best images were selected on each category in order to create a balanced database. The main flaws that caused an image to be discarded were excess of illumination, blurred images, failure at positioning the background, and excess of movement when obtaining the image. Each of the images obtained had dimensions of 4288 × 2848 pixels, and an approximate size of 3.4 megabytes. However, this size was considered excessively large to solve the algorithms. To correct this, images were reduced using an resize algorithm included in Python, which considered keeping the proportion between axes. Each of the final images had a dimension of 1180 × 784 pixels, with a size of 95 kilobytes.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8]  was considered excessively large to solve the algorithms. To correct this, images were reduced usin\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8] 4288 × 2848 pixels, and an approximate size of 3.4 megabytes. However, this size was considered exce\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] he mineral treated, and in studies of bubble morphology and algorithms for estimating bubble size an",
+  "initial": [],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00306",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Importantly, potentially be obtained when using this method in an industrial flotation cell,",
+  "evidence": "Importantly, potentially be obtained when using this method in an industrial flotation cell,",
+  "page_number": 8,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00077",
+  "source_evidence": "Importantly, the results obtained with the Magotteaux cell are not directly scalable with the results that could potentially be obtained when using this method in an industrial flotation cell, given the differences both in size and in mode of operation. However, with the correct methodology for capturing the images, and the correct characterization process, the results obtained in an industrial tank could be as good as those obtained in the Magotteaux cell.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8] able with the results that could potentially be obtained when using this method in an industrial flo\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8] in an industrial flotation cell, given the differences both in size and in mode of operation. Howeve\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1]  to emulate the conditions seen in an industrial flotation cell. The database contains 2250 images, ",
+  "initial": [
+   {
+    "subject": "industrial flotation cell",
+    "subject_type": "Equipment",
+    "relation": "keeps",
+    "object": "feed flow rate",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "industrial flotation cell",
+    "subject_type": "Equipment",
+    "relation": "keeps",
+    "object": "pulp concentration",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "industrial flotation cell",
+    "subject_type": "Equipment",
+    "relation": "keeps",
+    "object": "aeration rate",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "industrial flotation cell",
+    "subject_type": "Equipment",
+    "relation": "keeps",
+    "object": "froth depth",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "industrial flotation cell",
+    "subject_type": "Equipment",
+    "relation": "keeps",
+    "object": "foam colour",
+    "object_type": "Parameter"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00325",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "This document also contains the experimental conditions that generate each category and the visual",
+  "evidence": "This document also contains the experimental conditions that generate each category and the visual",
+  "page_number": 9,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00080",
+  "source_evidence": "In the database, images are sorted by numbers from 1 to 2250. The spreadsheet file ImagesCatalog.xlsx, presented with the image dataset, points out the 50 images assigned to each category. This document also contains the experimental conditions that generate each category and the visual characteristics observed, including the perceived quality of the froth.",
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 9] s assigned to each category. This document also contains the experimental conditions that generate e\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] conditions under which each category was obtained, and information about the visual properties, whic\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 9] ions that generate each category and the visual characteristics observed, including the perceived qu",
+  "initial": [
+   {
+    "subject": "raw ore",
+    "subject_type": "raw ore",
+    "relation": "has_property",
+    "object": "visual characteristics",
+    "object_type": "parameter"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00344",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Differences in froth stability.",
+  "evidence": "Differences in froth stability.",
+  "page_number": 10,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00091",
+  "source_evidence": "Figure A4. Differences in froth stability. The (left) image shows a case with a stable froth and the (right image) shows a case with an unstable froth.",
+  "related_figure_ids": [
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p10:figure-001",
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p10:figure-002",
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p10:figure-003"
+  ],
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] • Stability: This is the apparent movement that can be detected in the froth. A froth that shows sti\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 3] froth. On the other hand, a froth that shows surface undulations and height differences is considere\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 1] f the surface froth, focusing on determined characteristics, such as color, stability [3], bubble si",
+  "initial": [
+   {
+    "subject": "froth stability",
+    "subject_type": "Product",
+    "relation": "has_property",
+    "object": "surface undulations and height differences",
+    "object_type": "Description"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00363",
+  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2",
+  "source": "Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_path": "data/raw/pdf/Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "previously defined froth quality.",
+  "evidence": "previously defined froth quality.",
+  "page_number": 11,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:unit-00098",
+  "source_evidence": "• From all images of inadequate quality, 450 images were selected for training and 200 images for test. This selection in each case was random and without repetition. In this manner, each case was defined with a total of 900 training images and a total of 400 test images. In each case, the set of training images were used to adjust the parameters of each model, while the set of test images were used to evaluate the prediction obtained in comparison with the previously defined froth quality. This comparison was made using the accuracy rate, i.e., considering the proportion of images in the test set in which the prediction was correct for each classification method.",
+  "related_figure_ids": [
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p11:figure-001",
+   "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069_2:p11:figure-002"
+  ],
+  "context": "- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 9] ing the perceived quality of the froth.\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 2] luding the perceived quality of the froth.\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 8]  froth quality were classified, due to the appreciable differences behind these labels.",
   "initial": [
    {
     "subject": "froth quality",
     "subject_type": "Product",
-    "relation": "is_a",
-    "object": "visual characteristics",
+    "relation": "keeps",
+    "object": "perceived quality",
     "object_type": "Parameter"
    }
   ],
-  "triples": [
-   {
-    "subject": "froth quality",
-    "subject_type": "Product",
-    "relation": "is_a",
-    "object": "visual characteristics",
-    "object_type": "Parameter"
-   }
-  ]
- },
- {
-  "unit_id": "u00173",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,",
-  "image_url": null,
-  "context": "- which is a normalization of the ow by the area of the cell,\n- The latter is related to the interpretation of the operation of the otation cell relative to the appearance observed in the froth.\n- a layer of froth was formed on the top of the cell,",
-  "initial": [
-   {
-    "subject": "volume of the cell",
-    "subject_type": "Parameter",
-    "relation": "keeps",
-    "object": "mass of 1.800 g of mineral",
-    "object_type": "RawOre"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "volume of the cell",
-    "subject_type": "Parameter",
-    "relation": "keeps",
-    "object": "mass of 1.800 g of mineral",
-    "object_type": "RawOre"
-   }
-  ]
- },
- {
-  "unit_id": "u00208",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "The predominant colors were yellow and orange. – Sample 4: Conrmedonly by a specic clay,",
-  "image_url": null,
-  "context": "- The predominant colors were gray and yellow. – Sample 2:\n- The specic composition was unknown. The predominant color was black. – Sample 3:\n- sample daa were de-clusered using he procedure explained by Clayon and Journel, 998,",
-  "initial": [
-   {
-    "subject": "predominant colors",
-    "subject_type": "Product",
-    "relation": "are",
-    "object": "yellow and orange",
-    "object_type": "RawOre"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "predominant colors",
-    "subject_type": "Product",
-    "relation": "are",
-    "object": "yellow and orange",
-    "object_type": "RawOre"
-   }
-  ]
- },
- {
-  "unit_id": "u00243",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "which may reduce the recovery of the mineral of interest.",
-  "image_url": null,
-  "context": "- To achieve the cp condition, considering the volume of the cell, a mass of 1.800 g of mineral,\n- Conicts of Interest: The authors declare no conict of interest.\n- which is a normalization of the ow by the area of the cell,",
-  "initial": [
-   {
-    "subject": "recovery",
-    "subject_type": "Product",
-    "relation": "decreases",
-    "object": "mineral of interest",
-    "object_type": "Product"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "recovery",
-    "subject_type": "Product",
-    "relation": "decreases",
-    "object": "mineral of interest",
-    "object_type": "Product"
-   }
-  ]
- },
- {
-  "unit_id": "u00278",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "due to the appreciable differences behind these labels.",
-  "image_url": null,
-  "context": "- The latter is related to the interpretation of the operation of the otation cell relative to the appearance observed in the froth.\n- which caused the camera to lose the focus. • The ash incorporated in the camera was the lightning source.\n- It is possible to directly observe these characteristics in the ota- tion tank to deduce the behavior of the mineral inside,",
-  "initial": [
-   {
-    "subject": "labels",
-    "subject_type": "Parameter",
-    "relation": "causes",
-    "object": "behaviors",
-    "object_type": "Product"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "labels",
-    "subject_type": "Parameter",
-    "relation": "causes",
-    "object": "behaviors",
-    "object_type": "Product"
-   }
-  ]
- },
- {
-  "unit_id": "u00312",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "a method based on compact variogram characterization [ 7 ,",
-  "image_url": null,
-  "context": "- With the compact variogram method,\n- a comparison method based on the calculation of a compact variographic map combined with K-nearest neighbors classier [ 21 ],\n- and a method based on the use of convolutional neural networks [ 22 ].",
-  "initial": [
-   {
-    "subject": "method",
-    "subject_type": "Reagent",
-    "relation": "uses",
-    "object": "compact variogram characterization",
-    "object_type": "Reagent"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "method",
-    "subject_type": "Reagent",
-    "relation": "uses",
-    "object": "compact variogram characterization",
-    "object_type": "Reagent"
-   }
-  ]
- },
- {
-  "unit_id": "u00347",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "[ CrossRef ] 4.",
-  "image_url": null,
-  "context": "- 4.\n- = 4; = 4; = 4.\n- Figure 4:",
-  "initial": [
-   {
-    "subject": "4",
-    "subject_type": "Number",
-    "relation": "equals",
-    "object": "4",
-    "object_type": "Number"
-   },
-   {
-    "subject": "4",
-    "subject_type": "Number",
-    "relation": "equals",
-    "object": "4",
-    "object_type": "Number"
-   },
-   {
-    "subject": "4",
-    "subject_type": "Number",
-    "relation": "equals",
-    "object": "4",
-    "object_type": "Number"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "4",
-    "subject_type": "Number",
-    "relation": "equals",
-    "object": "4",
-    "object_type": "Number"
-   },
-   {
-    "subject": "4",
-    "subject_type": "Number",
-    "relation": "equals",
-    "object": "4",
-    "object_type": "Number"
-   },
-   {
-    "subject": "4",
-    "subject_type": "Number",
-    "relation": "equals",
-    "object": "4",
-    "object_type": "Number"
-   }
-  ]
- },
- {
-  "unit_id": "u00382",
-  "doc_id": "Froth_Images_from_Flotation_Laboratory_Test_in_Magotteaux_Cell_data_08_00069",
-  "modality": "text",
-  "text": "frother and depressant addition on the copper recovery and concentrate grade of the nchanga underground scavenger circuit of Konkola copper mine-Zambia.",
-  "image_url": null,
-  "context": "- n terms of copper and gold recovery\n- that were processed, the dosage of frother and collector, the air ow, the type of water,\n- and poor performance in terms of copper and gold recovery.",
-  "initial": [
-   {
-    "subject": "frother",
-    "subject_type": "Reagent",
-    "relation": "uses",
-    "object": "depressant",
-    "object_type": "Reagent"
-   },
-   {
-    "subject": "scavenger circuit",
-    "subject_type": "ProcessStage",
-    "relation": "uses",
-    "object": "frother",
-    "object_type": "Reagent"
-   }
-  ],
-  "triples": [
-   {
-    "subject": "scavenger circuit",
-    "subject_type": "ProcessStage",
-    "relation": "uses",
-    "object": "frother",
-    "object_type": "Reagent"
-   },
-   {
-    "subject": "scavenger circuit",
-    "subject_type": "ProcessStage",
-    "relation": "uses",
-    "object": "depressant",
-    "object_type": "Reagent"
-   }
-  ]
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
  }
 ]

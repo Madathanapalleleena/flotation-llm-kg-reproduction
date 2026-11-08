@@ -1,12 +1,27 @@
 import json
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
-from evaluation.semantic_metrics import semantic_assessment
-from parser.mineru_parser import _pdf_text_rejection, _repeated_furniture
+import config
+from evaluation.semantic_metrics import llm_score, semantic_assessment
+from parser.mineru_parser import _clean, _pdf_text_rejection, _repeated_furniture
 
 
 class ParserTextQualityTests(unittest.TestCase):
+    def test_strips_inline_html_markup_and_decodes_entities(self):
+        self.assertEqual(_clean("Collector<strong> type</strong> &amp; pulp pH"), "Collector type & pulp pH")
+
+    def test_rejects_author_byline_and_page_url(self):
+        self.assertEqual(
+            _pdf_text_rejection(
+                "Abdolrahim Foroutan<strong><sup>1</sup></strong>, "
+                "Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>, "
+                "Yaser Kianinia & Mahdi Ghadiri"
+            ),
+            "author byline",
+        )
+        self.assertEqual(_pdf_text_rejection("www.nature.com/scientificreports"), "page URL")
+
     def test_rejects_short_pdf_fragment(self):
         self.assertEqual(_pdf_text_rejection("Page 73"), "short fragment")
 
@@ -43,6 +58,54 @@ class ParserTextQualityTests(unittest.TestCase):
 
 
 class SemanticMetricValidationTests(unittest.TestCase):
+    def test_ollama_semantic_assessment_uses_configured_judge_model(self):
+        client = Mock()
+        client.kind = "ollama"
+        client.chat.return_value = '{"score": 0.8, "reason": "supported"}'
+        units = [{
+            "unit_id": "u1",
+            "text": "Aeration rate increases froth depth.",
+            "triples": [{
+                "subject": "aeration rate",
+                "subject_type": "Parameter",
+                "relation": "increases",
+                "object": "froth depth",
+                "object_type": "Parameter",
+            }],
+        }]
+
+        with patch.object(config, "LLM_BACKEND", "ollama"), \
+                patch.object(config, "OLLAMA_JUDGE_MODEL", "qwen2.5:1.5b"), \
+                patch("llm.extraction.OllamaLLM", return_value=client) as ollama:
+            result = semantic_assessment(units, full=True)
+
+        ollama.assert_called_once_with("qwen2.5:1.5b")
+        self.assertEqual(result["judge"], "ollama")
+        self.assertEqual(result["S2"], 0.8)
+
+    def test_extracts_score_json_after_reasoning_and_surrounding_text(self):
+        client = Mock()
+        client.chat.return_value = (
+            '<think>Checking whether the relation is supported.</think>'
+            'Result: {"score": 0.75, "reason": "supported"}'
+        )
+
+        self.assertEqual(llm_score(client, "source", [{"subject": "a"}]), (0.75, "supported"))
+
+    def test_invalid_judge_output_is_reported_instead_of_counted_as_zero(self):
+        client = Mock()
+        client.chat.return_value = "I cannot provide a score."
+
+        with self.assertRaisesRegex(ValueError, "no JSON score object"):
+            llm_score(client, "source", [{"subject": "a"}])
+
+    def test_empty_validated_triples_are_judged_for_missing_information(self):
+        client = Mock()
+        client.chat.return_value = '{"score": 0.1, "reason": "missing facts"}'
+
+        self.assertEqual(llm_score(client, "source", []), (0.1, "missing facts"))
+        client.chat.assert_called_once()
+
     def test_judge_receives_only_triples_accepted_by_graph_validator(self):
         client = Mock()
         client.kind = "test"

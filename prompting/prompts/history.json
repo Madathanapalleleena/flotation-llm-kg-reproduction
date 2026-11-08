@@ -1,12 +1,28 @@
-[
-  {
-    "iteration": 0,
-    "version": 0,
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1": 1.0,
-    "c_sis": 1.0,
-    "n_rules": 0,
-    "n_examples": 1
-  }
-]
+{
+  "run_id": "20261028_091957",
+  "artifact_dir": "optimization_runs\\run_20261028_091957",
+  "max_updates": 3,
+  "selected_version": 1,
+  "history": [
+    {
+      "iteration": 0,
+      "version": 0,
+      "precision": 0.8167,
+      "recall": 0.7917,
+      "f1": 0.8,
+      "c_sis": 0.9833,
+      "n_rules": 0,
+      "n_examples": 1
+    },
+    {
+      "iteration": 1,
+      "version": 1,
+      "precision": 0.9167,
+      "recall": 0.8917,
+      "f1": 0.9,
+      "c_sis": 0.9841,
+      "n_rules": 1,
+      "n_examples": 2
+    }
+  ]
+}

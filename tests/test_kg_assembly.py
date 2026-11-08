@@ -33,6 +33,59 @@ class KGAssembly(unittest.TestCase):
         self.assertTrue(img["source"].startswith("ent:Parameter:pulp concentration"))
         self.assertEqual(st["mapped"], 1)
 
+    def test_caption_links_every_panel_of_a_split_figure(self):
+        urls = [
+            "http://127.0.0.1:5000/images/figure_panel_1.png",
+            "http://127.0.0.1:5000/images/figure_panel_2.png",
+        ]
+        unit = dict(
+            unit_id="figure-caption",
+            doc_id="d",
+            modality="caption",
+            text="Figure 1. Flotation cell structure.",
+            caption="Figure 1. Flotation cell structure.",
+            image_url=urls[0],
+            image_urls=urls,
+            image_ids=["figure:panel-01", "figure:panel-02"],
+            figure_id="figure",
+            caption_id="figure:caption",
+            related_text_ids=["d:text-001"],
+            triples=self.triples,
+        )
+
+        graph, _ = assemble([unit])
+        image_nodes = [node for node in graph["nodes"] if node["kind"] == "Image"]
+        image_edges = [edge for edge in graph["edges"] if edge["type"] == "HAS_IMG"]
+
+        self.assertEqual({node["url"] for node in image_nodes}, set(urls))
+        self.assertEqual(len(image_edges), 2)
+        self.assertTrue(all(node["figure_id"] == "figure" for node in image_nodes))
+        self.assertTrue(all(node["caption_id"] == "figure:caption" for node in image_nodes))
+
+    def test_caption_images_are_retained_without_extracted_triples(self):
+        image_url = "http://127.0.0.1:5000/images/flotation-cell.png"
+        unit = dict(
+            unit_id="caption-without-triples",
+            doc_id="d",
+            modality="caption",
+            text="Figure 1. Flotation cell overview.",
+            caption="Figure 1. Flotation cell overview.",
+            image_url=image_url,
+            image_id="figure-1",
+            triples=[],
+        )
+
+        graph, stats = assemble([unit])
+        image_nodes = [node for node in graph["nodes"] if node["kind"] == "Image"]
+        image_edges = [edge for edge in graph["edges"] if edge["type"] == "HAS_IMG"]
+
+        self.assertEqual(len(image_nodes), 1)
+        self.assertEqual(image_nodes[0]["url"], image_url)
+        self.assertEqual(len(image_edges), 1)
+        self.assertEqual(image_edges[0]["target"], image_nodes[0]["id"])
+        self.assertEqual(image_edges[0]["source"], "onto:FlotationCell")
+        self.assertEqual(stats["mapped"], 0)
+
     def test_ontology_has_literal_stage_equipment_type_path(self):
         kt = KnowledgeTree()
         edges = set(kt.edges)

@@ -1,0 +1,865 @@
+[
+ {
+  "unit_id": "u00000",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,",
+  "evidence": "Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] Abdolrahim Foroutan<strong><sup>1</sup></strong> ,\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2, flotation process.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] <sup>1</sup>Department of Research and Development, Bama Mining Company, Isfahan 81747-54754,",
+  "initial": [
+   {
+    "subject": "Majid Abbas Zadeh HajiAbadi",
+    "subject_type": "Person",
+    "relation": "has_property",
+    "object": "ore",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "scavenging",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "xanthate",
+    "object_type": "Reagent"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00001",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore",
+  "evidence": "3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 7] Effect of pH and collector type on the distribution and grade of zinc in the lead concentrate.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] The influence of pH and collector type on the distribution of zinc in the lead concentrate is shown\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 7] E ffect of pH and collector type on the distribution and grade of zinc in the lead concentrate.",
+  "initial": [
+   {
+    "subject": "collector type",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "pulp pH",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "pulp pH",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "collector type",
+    "object_type": "Parameter"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "collector type",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "pulp pH",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "pulp pH",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "collector type",
+    "object_type": "Parameter"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00002",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2, flotation process.",
+  "evidence": "Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2, flotation process.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] Figure 1. The schematic process flow diagram of actual flotation plant.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] Also, the process<sup>5</sup>.\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 6] 3. Conditioning stages: Two stages were required to prepare the mineral for the flotation process.",
+  "initial": [
+   {
+    "subject": "Yaser Kianinia",
+    "subject_type": "Person",
+    "relation": "is",
+    "object": "flotation process",
+    "object_type": "Person"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00003",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from",
+  "evidence": "the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 3] The pH of pulp (5–11.5) and collector type in the flotation cell were changed according to the\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] the aim of this study is to find the optimum pH and collector type and dosage for the galena and\n- [Lead_Zinc_Ores_EN_v2026 - lead_zinc_ores.pdf, page 1] a bulk galena and sphalerite flotation concentrate is produced at pH 6.5 (modified with H SO ) 2 4",
+  "initial": [
+   {
+    "subject": "pH",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "galena and sphalerite flotation",
+    "object_type": "Product"
+   },
+   {
+    "subject": "collector type",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "galena and sphalerite flotation",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "pH",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "galena and sphalerite flotation",
+    "object_type": "Product"
+   },
+   {
+    "subject": "collector type",
+    "subject_type": "Parameter",
+    "relation": "affects",
+    "object": "galena and sphalerite flotation",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00004",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used",
+  "evidence": "a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] Therefore, sphalerite flotation from a complex lead–zinc ore.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] In the current study, for lead flotation andAero 3477 and amyl xanthate for zinc flotation.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] Also, Aero 3418 collector showed suitable behaviour against iron and zinc at lower pH values.",
+  "initial": [
+   {
+    "subject": "ethyl xanthate",
+    "subject_type": "Reagent",
+    "relation": "uses",
+    "object": "Aero 3418 collector",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00005",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "In the current study, for lead flotation andAero 3477 and amyl xanthate for zinc flotation.",
+  "evidence": "In the current study, for lead flotation andAero 3477 and amyl xanthate for zinc flotation.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 8] potassium ethyl xanthate in the lead flotation stage. In the zinc flotation stage,\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 3] of lead and zinc flotation circuits<sup>23, 24</sup>.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 3] e elemental composition of the flotation feed, the lead and zinc concentrate,",
+  "initial": [
+   {
+    "subject": "lead flotation",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "potassium ethyl xanthate",
+    "object_type": "Reagent"
+   },
+   {
+    "subject": "zinc flotation",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "amyl xanthate",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "lead flotation",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "potassium ethyl xanthate",
+    "object_type": "Reagent"
+   },
+   {
+    "subject": "zinc flotation",
+    "subject_type": "ProcessStage",
+    "relation": "uses",
+    "object": "amyl xanthate",
+    "object_type": "Reagent"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00006",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused",
+  "evidence": "iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 8] A huge reduction of iron and zinc grade and distribution at pH 8 in the lead concentrate was\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] the distribution of zinc and iron in the lead concentrate increases with decreasing pH.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality.",
+  "initial": [
+   {
+    "subject": "iron recovery",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "lead concentrate",
+    "object_type": "Product"
+   },
+   {
+    "subject": "zinc recovery",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "lead concentrate",
+    "object_type": "Product"
+   },
+   {
+    "subject": "zinc grade",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "zinc concentrate",
+    "object_type": "Product"
+   },
+   {
+    "subject": "iron grade",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "iron concentrate",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "iron recovery",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "lead concentrate",
+    "object_type": "Product"
+   },
+   {
+    "subject": "zinc recovery",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "lead concentrate",
+    "object_type": "Product"
+   },
+   {
+    "subject": "zinc grade",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "zinc concentrate",
+    "object_type": "Product"
+   },
+   {
+    "subject": "iron grade",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "iron concentrate",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00007",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also,",
+  "evidence": "It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also,",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] The pH value of 8 is the optimum pH for the lead flotation because the lead grade is in its maximum\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] the lead grade approached the highest value at pH 8 and decreased at higher pH values for both\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 7] E ffect of pH and collector type on the iron distribution and grade in the lead concentrate.",
+  "initial": [
+   {
+    "subject": "Aero 3418",
+    "subject_type": "Reagent",
+    "relation": "uses",
+    "object": "pH 8",
+    "object_type": "Parameter"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "lead grade",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "pH 8",
+    "object_type": "Parameter"
+   },
+   {
+    "subject": "pH 8",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "lead grade",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00008",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate.",
+  "evidence": "zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] was performed to study the recovery and grade of zinc in the zinc concentrate.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] Zinc and iron distribution and grade in the lead concentrate.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] it was observed that the zinc distribution in the lead concentrate and its grade has a downward",
+  "initial": [
+   {
+    "subject": "zinc recovery",
+    "subject_type": "Product",
+    "relation": "reduction",
+    "object": "lead grade concentrate",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "zinc recovery",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "grade",
+    "object_type": "Product"
+   },
+   {
+    "subject": "lead grade",
+    "subject_type": "Product",
+    "relation": "decreases",
+    "object": "grade",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00009",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6",
+  "evidence": "the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] It can be observed that the maximum grade and recovery for zinc were obtained at pH 6 for both\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 8] the grade and recovery of zinc were more acceptable at pH 6 compared with other pH values.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] Zinc grade and recovery reduced in the pH",
+  "initial": [
+   {
+    "subject": "pH 6",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "grade and recovery",
+    "object_type": "Product"
+   },
+   {
+    "subject": "pH 6",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "grade and recovery",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "pH 6",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "grade and recovery",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00010",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Furthermore, in the presence ofAero 3477 as collector.",
+  "evidence": "Furthermore, in the presence ofAero 3477 as collector.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] from 6 to 11.5 in the presence of Aero 3477 in the pulp.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] Also, Aero 3418 collector showed suitable behaviour against iron and zinc at lower pH values.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also,",
+  "initial": [
+   {
+    "subject": "Aero 3477",
+    "subject_type": "Reagent",
+    "relation": "uses",
+    "object": "Aero 3418",
+    "object_type": "Reagent"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00011",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "For both collectors at pH 5, Zinc recovery was increased around 2–3%;",
+  "evidence": "For both collectors at pH 5, Zinc recovery was increased around 2–3%;",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] For both collectors, trend, when the pH was increased from 5 to 8.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] In spite of higher lead recovery at pH 5 (Fig. 4), zinc in zinc concentrate.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] It can be observed that the maximum grade and recovery for zinc were obtained at pH 6 for both",
+  "initial": [
+   {
+    "subject": "pH 5",
+    "subject_type": "Parameter",
+    "relation": "increases",
+    "object": "Zinc recovery",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "pH 5",
+    "subject_type": "Parameter",
+    "relation": "increases",
+    "object": "Zinc recovery",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00012",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality.",
+  "evidence": "however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] the distribution of zinc and iron in the lead concentrate increases with decreasing pH.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 8] The distribution of zinc and iron increases at acidic pH (below 7) in the lead concentrate.",
+  "initial": [
+   {
+    "subject": "iron recovery",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "quality",
+    "object_type": "Product"
+   },
+   {
+    "subject": "pH",
+    "subject_type": "Parameter",
+    "relation": "decreases",
+    "object": "quality",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "iron recovery",
+    "subject_type": "Product",
+    "relation": "increases",
+    "object": "quality",
+    "object_type": "Product"
+   },
+   {
+    "subject": "pH",
+    "subject_type": "Parameter",
+    "relation": "decreases",
+    "object": "quality",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00013",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits,",
+  "evidence": "Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits,",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00002",
+  "source_evidence": "Abdolrahim Foroutan<strong><sup>1</sup></strong> , Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2,3</sup></strong><sup>\\</sup> Collector type and pulp pH play an important role in the lead–zinc ore flotation process. In the current study, the effect of pulp pH and the collector type parameters on the galena and sphalerite flotation from a complex lead–zinc–iron ore was investigated.The ethyl xanthate andAero 3418 collectors were used for lead flotation andAero 3477 and amyl xanthate for zinc flotation. It was found that maximum lead grade could be achieved by usingAero 3418 as collector at pH 8.Also, iron and zinc recoveries and grades were increased in the lead concentrate at lower pH which caused zinc recovery reduction in the zinc concentrate and decrease the lead grade concentrate. Furthermore, the results showed that the maximum zinc grade and recovery of 42.9% and 76.7% were achieved at pH 6 in the presence ofAero 3477 as collector. For both collectors at pH 5, Zinc recovery was increased around 2–3%; however, the iron recovery was also increased at this pH which reduced the zinc concentrate quality. Finally, pH 8 and pH 6 were selected as optimum pH values for lead and zinc flotation circuits, respectively.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 6] The pH values of 6 and 8 were selected as optimum pH for the lead and zinc flotation respectively.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 5] After lead flotation at optimum pH 8, the flotation of zinc at a different pH (5–11.5),\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 9] Figure 10. Flotation kinetic of lead, zinc, and iron at pH of 6 and 8 in the lead flotation stage.",
+  "initial": [
+   {
+    "subject": "pH 8",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "lead flotation",
+    "object_type": "ProcessStage"
+   },
+   {
+    "subject": "pH 6",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "zinc flotation",
+    "object_type": "ProcessStage"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "pH 8",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "lead flotation",
+    "object_type": "ProcessStage"
+   },
+   {
+    "subject": "pH 6",
+    "subject_type": "Parameter",
+    "relation": "keeps",
+    "object": "zinc flotation",
+    "object_type": "ProcessStage"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00014",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "The Gushfil Lead–Zinc mine is located in the Irankuh Mining District,",
+  "evidence": "The Gushfil Lead–Zinc mine is located in the Irankuh Mining District,",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00003",
+  "source_evidence": "The Gushfil Lead–Zinc mine is located in the Irankuh Mining District, 20 km South West of Esfahan city in Iran.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 2] e lead–zinc ore was supplied by Gushfil mine, Iran.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] Zinc and iron distribution and grade in the lead concentrate.",
+  "initial": [
+   {
+    "subject": "Gushfil Lead–Zinc mine",
+    "subject_type": "RawOre",
+    "relation": "is located in",
+    "object": "Irankuh Mining District",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00015",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "20 km South West of Esfahan city in Iran.",
+  "evidence": "20 km South West of Esfahan city in Iran.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00003",
+  "source_evidence": "The Gushfil Lead–Zinc mine is located in the Irankuh Mining District, 20 km South West of Esfahan city in Iran.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] Iran. <sup>2</sup>Institute of Research and Development, Duy Tan University, Da Nang 550000,\n- [Froth Images from Flotation Laboratory Test in Magotteaux Cell - data-08-00069-2.pdf, page 5] at a distance of 25 cm approximately from the froth zone, and mounted on a tripod.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between",
+  "initial": [
+   {
+    "subject": "RawOre",
+    "subject_type": "RawOre",
+    "relation": "keeps",
+    "object": "grade",
+    "object_type": "Product"
+   },
+   {
+    "subject": "RawOre",
+    "subject_type": "RawOre",
+    "relation": "keeps",
+    "object": "particle size",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "RawOre",
+    "subject_type": "RawOre",
+    "relation": "keeps",
+    "object": "grade",
+    "object_type": "Product"
+   },
+   {
+    "subject": "RawOre",
+    "subject_type": "RawOre",
+    "relation": "keeps",
+    "object": "particle size",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00016",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between",
+  "evidence": "The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00004",
+  "source_evidence": "The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between Sanandaj and Sirjan cities<sup>1</sup>. It has been proposed that the IMD is an epigenetic Pb, Zn, and Ba Mississippi Valley-Type (MVT) according to isotopic investigations<sup>2</sup>. Later, Hoseini-Dinani and Aftabi<sup>3</sup> proposed an MVT-type genetic model based on the soil and host rock geochemical halos of Zn, Pb, Ag, Ba, Hg and Sb. Carbonate host rocks and Early Cretaceous clastic detrital form the main part of The Gushfil deposit. The major sulphide mineralization occurs in the hanging-wall of the Gushfil-Baghabrisham fault. In sulphide ore facies, there are different types of textures including massive, vein-veinlet, semi-massive, colloform, framboidal, and laminated<sup>4</sup>.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] The Gushfil Lead–Zinc mine is located in the Irankuh Mining District,\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] <sup>1</sup>Department of Research and Development, Bama Mining Company, Isfahan 81747-54754,\n- [Design-criteria-and-recent-developments-large-capacity-Wemco-flotation-cells.pdf, page 1] JOURNAL OF THE SOUTH AFRICAN INSTITUTE OF MINING AND METALLURGY",
+  "initial": [
+   {
+    "subject": "Irankuh Mining District",
+    "subject_type": "RawOre",
+    "relation": "is_part_of",
+    "object": "Malayer-Esfahan Metallogenic Belt",
+    "object_type": "Geological_Belt"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00017",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "Sanandaj and Sirjan cities<sup>1</sup>.",
+  "evidence": "Sanandaj and Sirjan cities<sup>1</sup>.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00004",
+  "source_evidence": "The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between Sanandaj and Sirjan cities<sup>1</sup>. It has been proposed that the IMD is an epigenetic Pb, Zn, and Ba Mississippi Valley-Type (MVT) according to isotopic investigations<sup>2</sup>. Later, Hoseini-Dinani and Aftabi<sup>3</sup> proposed an MVT-type genetic model based on the soil and host rock geochemical halos of Zn, Pb, Ag, Ba, Hg and Sb. Carbonate host rocks and Early Cretaceous clastic detrital form the main part of The Gushfil deposit. The major sulphide mineralization occurs in the hanging-wall of the Gushfil-Baghabrisham fault. In sulphide ore facies, there are different types of textures including massive, vein-veinlet, semi-massive, colloform, framboidal, and laminated<sup>4</sup>.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] <sup>1</sup>Department of Research and Development, Bama Mining Company, Isfahan 81747-54754,\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] Majid Abbas Zadeh HajiAbadi<strong><sup>1</sup></strong>,\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] Yaser Kianinia<strong><sup>1</sup></strong> & Mahdi Ghadiri<strong><sup>2, flotation process.",
+  "initial": [],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00018",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "It has been proposed that the IMD is an epigenetic Pb, Zn,",
+  "evidence": "It has been proposed that the IMD is an epigenetic Pb, Zn,",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00004",
+  "source_evidence": "The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between Sanandaj and Sirjan cities<sup>1</sup>. It has been proposed that the IMD is an epigenetic Pb, Zn, and Ba Mississippi Valley-Type (MVT) according to isotopic investigations<sup>2</sup>. Later, Hoseini-Dinani and Aftabi<sup>3</sup> proposed an MVT-type genetic model based on the soil and host rock geochemical halos of Zn, Pb, Ag, Ba, Hg and Sb. Carbonate host rocks and Early Cretaceous clastic detrital form the main part of The Gushfil deposit. The major sulphide mineralization occurs in the hanging-wall of the Gushfil-Baghabrisham fault. In sulphide ore facies, there are different types of textures including massive, vein-veinlet, semi-massive, colloform, framboidal, and laminated<sup>4</sup>.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 9] row: = Zn in the Pb concentrate; pH 6 = 0.55;\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 7] 40 70 Zn distribution in Pb concentrate (Ethyl xanthate) Zn distribution in Pb concentrate\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 9] Pb recovery in Pb concentrate at pH=6 Pb recovery in Pb concentrate at pH=8 90 90 Zn distribution in",
+  "initial": [
+   {
+    "subject": "IMD",
+    "subject_type": "Reagent",
+    "relation": "has_property",
+    "object": "epigenetic Pb, Zn",
+    "object_type": "Product"
+   }
+  ],
+  "triples": [
+   {
+    "subject": "IMD",
+    "subject_type": "Reagent",
+    "relation": "has_property",
+    "object": "epigenetic Pb, Zn",
+    "object_type": "Product"
+   }
+  ],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ },
+ {
+  "unit_id": "u00019",
+  "doc_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759",
+  "source": "Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_path": "data/raw/pdf/Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf",
+  "source_modality": "pdf",
+  "modality": "text",
+  "text": "and Ba Mississippi Valley-Type (MVT) according to isotopic investigations<sup>2</sup>.",
+  "evidence": "and Ba Mississippi Valley-Type (MVT) according to isotopic investigations<sup>2</sup>.",
+  "page_number": 1,
+  "row_number": null,
+  "section": "",
+  "image_url": null,
+  "source_unit_id": "Critical_importance_of_pH_and_collector_type_on_the_flotation_of_sphalerite_and_galena_from_a_low_grade_lead_zinc_ore_41598_2021_Article_82759:unit-00004",
+  "source_evidence": "The Irankuh Mining District (IMD) is a part of the Malayer-Esfahan Metallogenic Belt between Sanandaj and Sirjan cities<sup>1</sup>. It has been proposed that the IMD is an epigenetic Pb, Zn, and Ba Mississippi Valley-Type (MVT) according to isotopic investigations<sup>2</sup>. Later, Hoseini-Dinani and Aftabi<sup>3</sup> proposed an MVT-type genetic model based on the soil and host rock geochemical halos of Zn, Pb, Ag, Ba, Hg and Sb. Carbonate host rocks and Early Cretaceous clastic detrital form the main part of The Gushfil deposit. The major sulphide mineralization occurs in the hanging-wall of the Gushfil-Baghabrisham fault. In sulphide ore facies, there are different types of textures including massive, vein-veinlet, semi-massive, colloform, framboidal, and laminated<sup>4</sup>.",
+  "context": "- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] <sup>1</sup>Department of Research and Development, Bama Mining Company, Isfahan 81747-54754,\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 1] Later, rock geochemical halos of Zn, Pb, Ag, Ba, Hg and Sb.\n- [Critical importance of pH and collector type on the flotation of sphalerite and galena from a low-grade lead–zinc ore - 41598_2021_Article_82759.pdf, page 4] the ore mineralogy and petrogenesis<sup>16</sup>.",
+  "initial": [
+   {
+    "subject": "Ba Mississippi Valley-Type (MVT)",
+    "subject_type": "RawOre",
+    "relation": "is",
+    "object": "ore mineralogy and petrogenesis",
+    "object_type": "RawOre"
+   }
+  ],
+  "triples": [],
+  "stage1_backend": "ollama",
+  "stage1_model": "qwen2.5:1.5b",
+  "stage2_backend": "ollama",
+  "stage2_model": "qwen2.5:1.5b"
+ }
+]

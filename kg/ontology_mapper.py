@@ -73,8 +73,6 @@ class KGAssembler:
         self.stats["units"] += 1
         triples, rejected = self.validator.validate(unit.get("triples", []), check_conflicts=True)
         self.stats["rejected"] += len(rejected)
-        if not triples:
-            return
         provenance = json.dumps({
             "source": unit.get("source"),
             "source_path": unit.get("source_path"),
@@ -84,42 +82,80 @@ class KGAssembler:
             "duplicate_row_numbers": unit.get("duplicate_row_numbers", []),
             "section": unit.get("section"),
             "unit_id": unit.get("unit_id"),
+            "image_id": unit.get("image_id"),
+            "image_ids": unit.get("image_ids", []),
+            "image_urls": unit.get("image_urls", []),
+            "figure_id": unit.get("figure_id"),
+            "caption_id": unit.get("caption_id"),
+            "panel_index": unit.get("panel_index"),
+            "panel_count": unit.get("panel_count"),
+            "related_text_ids": unit.get("related_text_ids", []),
             "evidence": unit.get("evidence", unit.get("text", "")),
         }, ensure_ascii=False, sort_keys=True)
-        for t in triples:                                                    # E_triples
-            s, o = self._entity(t["subject"], t["subject_type"]), self._entity(t["object"], t["object_type"])
-            self._edge(s, t["relation"].upper(), o, kind="triple", text=unit["text"], doc=unit["doc_id"],
-                       modality=unit["modality"], source_file=unit.get("source", unit["doc_id"]),
-                       page_number=unit.get("page_number"), row_number=unit.get("row_number"),
-                       duplicate_page_numbers=unit.get("duplicate_page_numbers", []),
-                       duplicate_row_numbers=unit.get("duplicate_row_numbers", []),
-                       section=unit.get("section", ""), unit_id=unit.get("unit_id"),
-                       evidence=[unit.get("evidence", unit["text"])],
-                       source_evidence=unit.get("source_evidence", unit.get("evidence", unit["text"])),
-                       provenance=[provenance])
-        self.stats["triples"] += len(triples)
         rep = representative_node(triples)                                   # Eq. (18)
-        rid = ent_id(rep["name"], rep["type"])
-        b = self.map_to_ontology(rep, triples, unit["text"])                 # M(v*)
-        self._edge(b, "HAS_ENTITIES", rid, kind="onto_link", provenance=[provenance])  # Eq. (20)
-        mapped_entities = set()
-        for triple in triples:
-            for role in ("subject", "object"):
-                name, entity_type = triple[role], triple[f"{role}_type"]
-                entity_id = ent_id(name, entity_type)
-                if entity_id in mapped_entities:
-                    continue
-                mapped_entities.add(entity_id)
-                concept_id = self.kt.map_entity(name, entity_type)
-                self._edge(f"onto:{concept_id}", "HAS_ENTITIES", entity_id, kind="ontology_entity_link",
+        if triples:
+            for t in triples:                                                 # E_triples
+                s = self._entity(t["subject"], t["subject_type"])
+                o = self._entity(t["object"], t["object_type"])
+                self._edge(s, t["relation"].upper(), o, kind="triple", text=unit["text"], doc=unit["doc_id"],
+                           modality=unit["modality"], source_file=unit.get("source", unit["doc_id"]),
+                           page_number=unit.get("page_number"), row_number=unit.get("row_number"),
+                           duplicate_page_numbers=unit.get("duplicate_page_numbers", []),
+                           duplicate_row_numbers=unit.get("duplicate_row_numbers", []),
+                           section=unit.get("section", ""), unit_id=unit.get("unit_id"),
+                           evidence=[unit.get("evidence", unit["text"])],
+                           source_evidence=unit.get("source_evidence", unit.get("evidence", unit["text"])),
                            provenance=[provenance])
-        self.stats["mapped"] += 1
+            self.stats["triples"] += len(triples)
+            rid = ent_id(rep["name"], rep["type"])
+            b = self.map_to_ontology(rep, triples, unit["text"])             # M(v*)
+            self._edge(b, "HAS_ENTITIES", rid, kind="onto_link", provenance=[provenance])  # Eq. (20)
+            mapped_entities = set()
+            for triple in triples:
+                for role in ("subject", "object"):
+                    name, entity_type = triple[role], triple[f"{role}_type"]
+                    entity_id = ent_id(name, entity_type)
+                    if entity_id in mapped_entities:
+                        continue
+                    mapped_entities.add(entity_id)
+                    concept_id = self.kt.map_entity(name, entity_type)
+                    self._edge(f"onto:{concept_id}", "HAS_ENTITIES", entity_id, kind="ontology_entity_link",
+                               provenance=[provenance])
+            self.stats["mapped"] += 1
+
         if unit["modality"] == "caption" and unit.get("image_url"):          # Eq. (21)
-            u = unit["image_url"]
-            iid = f"img:{u}"
-            self.nodes.setdefault(iid, dict(id=iid, name=unit["text"][:60], kind="Image", type="Image", url=u))
-            for _, typ, _ in img_edges(rep, u):
-                self._edge(rid, typ, iid, kind="image_link", provenance=[provenance])
+            image_urls = unit.get("image_urls") or [unit["image_url"]]
+            image_ids = unit.get("image_ids") or [unit.get("image_id")]
+            if rep:
+                image_source = ent_id(rep["name"], rep["type"])
+            else:
+                caption = unit.get("caption", unit["text"])
+                concept_id, hits = self.kt.match_node(caption)
+                image_source = f"onto:{concept_id if hits else 'FrothFlotation'}"
+            for index, url in enumerate(image_urls):
+                image_id = image_ids[index] if index < len(image_ids) else None
+                iid = f"img:{url}"
+                self.nodes.setdefault(iid, dict(
+                    id=iid,
+                    name=unit.get("caption", unit["text"])[:60],
+                    kind="Image",
+                    type="Image",
+                    url=url,
+                    image_id=image_id,
+                    figure_id=unit.get("figure_id"),
+                    caption_id=unit.get("caption_id"),
+                    panel_index=index + 1 if len(image_urls) > 1 else unit.get("panel_index"),
+                    panel_count=len(image_urls) if len(image_urls) > 1 else unit.get("panel_count"),
+                    source=unit.get("source"),
+                    source_path=unit.get("source_path"),
+                    page_number=unit.get("page_number"),
+                    related_text_ids=unit.get("related_text_ids", []),
+                ))
+                for _, typ, _ in img_edges(image_source, url):
+                    self._edge(image_source, typ, iid, kind="image_link", text=unit["text"], doc=unit["doc_id"],
+                               source_file=unit.get("source", unit["doc_id"]),
+                               page_number=unit.get("page_number"), unit_id=unit.get("unit_id"),
+                               evidence=[unit.get("evidence", unit["text"])], provenance=[provenance])
 
     def graph(self):
         return dict(nodes=list(self.nodes.values()), edges=self.edges)

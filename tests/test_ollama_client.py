@@ -3,7 +3,8 @@ from unittest.mock import Mock, patch
 
 import config
 from llm.extraction import OllamaLLM, get_client
-from llm.refinement import TwoStageExtractor
+from llm.refinement import TwoStageExtractor, source_grounded_triples
+from kg.triple_validator import TripleValidator
 from prompting.base_prompt import build_base_prompt
 
 
@@ -20,6 +21,41 @@ class FixedStageClient:
 
 
 class OllamaClientTests(unittest.TestCase):
+    def test_source_grounding_rejects_unsupported_entity_or_relation(self):
+        source = "Aeration rate increases froth depth."
+        triples = [
+            {"subject": "aeration rate", "relation": "increases", "object": "froth depth"},
+            {"subject": "aeration rate", "relation": "increases", "object": "recovery"},
+            {"subject": "aeration rate", "relation": "uses", "object": "froth depth"},
+        ]
+
+        self.assertEqual(source_grounded_triples(triples, source), triples[:1])
+
+    def test_source_grounding_requires_relation_between_subject_and_object(self):
+        source = "Collector type and pulp pH play an important role in the flotation process."
+        triples = [
+            {"subject": "collector type", "relation": "affects", "object": "pulp pH"},
+            {"subject": "pulp pH", "relation": "affects", "object": "flotation process"},
+        ]
+
+        self.assertEqual(source_grounded_triples(triples, source), triples[1:])
+
+    def test_used_relation_alias_is_normalized_and_kept_when_source_supported(self):
+        source = "This process is carried out using a piece of equipment called a flotation cell."
+        triples = [{
+            "subject": "This process",
+            "subject_type": "ProcessStage",
+            "relation": "using",
+            "object": "flotation cell",
+            "object_type": "Equipment",
+        }]
+
+        validated, rejected = TripleValidator().validate(triples)
+
+        self.assertEqual(rejected, [])
+        self.assertEqual(validated[0]["relation"], "uses")
+        self.assertEqual(source_grounded_triples(validated, source), validated)
+
     def test_ollama_models_are_selected_independently_for_each_stage(self):
         with patch("llm.extraction.config.LLM_BACKEND", "ollama"), \
                 patch("llm.extraction.config.STAGE1_MODEL", "initial-model"), \
